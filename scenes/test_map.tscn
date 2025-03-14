@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ff1fgfjqlbfv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iwxtu"]
+size = Vector3(181.246, 1, 45.6742)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ulkd"]
+size = Vector3(6.2558, 1, 2.28723)
+
+[node name="TEST_MAP" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.9717, -2.12105, -8.35566)
+shape = SubResource("BoxShape3D_iwxtu")
+debug_color = Color(4.52429e-06, 0.617035, 0.588726, 0.42)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98325, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(0.718126, 0.695913, 0, -0.695913, 0.718126, 0, 0, 0, 1, -0.210887, -1.64968, -10.2606)
+shape = SubResource("BoxShape3D_6ulkd")
+debug_color = Color(4.52429e-06, 0.617035, 0.588726, 0.42)
