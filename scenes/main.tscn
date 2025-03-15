@@ -16,6 +16,7 @@ script = ExtResource("1_o5qli")
 [node name="level" type="Node3D" parent="."]
 
 [node name="room" parent="level" instance=ExtResource("3_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266924, -0.401656, 0.395855)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="level"]
 environment = SubResource("Environment_sugp2")
