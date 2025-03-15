@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://qq0yrcbwr46v"]
+
+[ext_resource type="Script" uid="uid://wkyxy4lll17a" path="res://scripts/explosion.gd" id="1_17npe"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nfeox"]
+radius = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_aw4cw"]
+radius = 5.0
+height = 10.0
+radial_segments = 8
+rings = 4
+
+[node name="explosion" type="Area3D"]
+script = ExtResource("1_17npe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_nfeox")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_aw4cw")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
