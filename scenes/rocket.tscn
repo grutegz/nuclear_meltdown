@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://xxoobiojh6wo" path="res://scripts/pipe.gd" id="1_3341w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dkv7l"]
-size = Vector3(1.67818, 0.5, 0.5)
+size = Vector3(1.528, 0.5, 0.5)
 
 [sub_resource type="SphereMesh" id="SphereMesh_8p0di"]
 radius = 0.25
@@ -17,7 +17,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 script = ExtResource("1_3341w")
 
 [node name="col" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.28239e-09, 0, -0.0750923)
 shape = SubResource("BoxShape3D_dkv7l")
 
 [node name="model" type="MeshInstance3D" parent="."]
