@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://dg7h8b1rfiwwd"]
+
+[ext_resource type="Script" uid="uid://btohrlhmsb7lt" path="res://scripts/room.gd" id="1_36trf"]
+[ext_resource type="Texture2D" uid="uid://db4xk6txdg8rk" path="res://assets/textures/floor1.png" id="2_ffxv4"]
+[ext_resource type="Texture2D" uid="uid://b1l2lmtjs4vqp" path="res://assets/textures/bricks1.png" id="3_85yof"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_36trf"]
+points = PackedVector3Array(10, 0, 40.03, 10, 0, -40, -10, 0, 40, -10, 0, -40)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_85yof"]
+size = Vector2(20, 80)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_14vil"]
+albedo_texture = ExtResource("2_ffxv4")
+uv1_scale = Vector3(20, 80, 20)
+texture_filter = 0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_85yof"]
+points = PackedVector3Array(10, 0, 10, -10, 0, 10, 10, 0, -10, -10, 0, -10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_14vil"]
+size = Vector2(20, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jxe34"]
+albedo_texture = ExtResource("3_85yof")
+uv1_scale = Vector3(20, 20, 20)
+texture_filter = 0
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_14vil"]
+points = PackedVector3Array(40, 0, -10, -40, 0, 10, 40, 0, 10, -40, 0, -10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jxe34"]
+size = Vector2(80, 20)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_85yof"]
+albedo_texture = ExtResource("3_85yof")
+uv1_scale = Vector3(80, 20, 1)
+texture_filter = 0
+
+[node name="room" type="StaticBody3D"]
+script = ExtResource("1_36trf")
+
+[node name="floor" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
+shape = SubResource("ConvexPolygonShape3D_36trf")
+
+[node name="floor" type="MeshInstance3D" parent="floor"]
+mesh = SubResource("PlaneMesh_85yof")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_14vil")
+
+[node name="wall1" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 10, -10)
+shape = SubResource("ConvexPolygonShape3D_85yof")
+
+[node name="wall" type="MeshInstance3D" parent="wall1"]
+mesh = SubResource("PlaneMesh_14vil")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_jxe34")
+
+[node name="wall2" type="CollisionShape3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 10, 70)
+shape = SubResource("ConvexPolygonShape3D_85yof")
+
+[node name="wall" type="MeshInstance3D" parent="wall2"]
+mesh = SubResource("PlaneMesh_14vil")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_jxe34")
+
+[node name="wall3" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -10, 10, 30)
+shape = SubResource("ConvexPolygonShape3D_14vil")
+
+[node name="wall" type="MeshInstance3D" parent="wall3"]
+mesh = SubResource("PlaneMesh_jxe34")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_85yof")
+
+[node name="wall4" type="CollisionShape3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 10, 10, 30)
+shape = SubResource("ConvexPolygonShape3D_14vil")
+
+[node name="wall" type="MeshInstance3D" parent="wall4"]
+mesh = SubResource("PlaneMesh_jxe34")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_85yof")
