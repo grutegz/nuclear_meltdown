@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://70b8isrnqujy"]
+
+[ext_resource type="Texture2D" uid="uid://cw24h1h78e55w" path="res://assets/textures/grid.png" id="1_px0ng"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u5tju"]
+size = Vector3(2, 0.5, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ynf2s"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_px0ng")
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_mjngs"]
+material = SubResource("StandardMaterial3D_ynf2s")
+size = Vector3(2, 0.5, 2)
+
+[node name="grid_patform" type="StaticBody3D"]
+
+[node name="col" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_u5tju")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_mjngs")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkkiqwxsmkxyv"]
+[gd_scene load_steps=6 format=3 uid="uid://bkkiqwxsmkxyv"]
 
 [ext_resource type="Script" uid="uid://v1bhjwq7utog" path="res://scripts/gun_model.gd" id="1_og67c"]
 [ext_resource type="PackedScene" uid="uid://dal27a581atnv" path="res://assets/models/RL.gltf" id="1_x77fm"]
 [ext_resource type="World3D" uid="uid://7nb82w2qbhgx" path="res://assets/model.tres" id="2_gp1hk"]
 [ext_resource type="PackedScene" uid="uid://drag38gu4hm51" path="res://assets/models/SG.gltf" id="4_qd4js"]
+[ext_resource type="PackedScene" uid="uid://w1ctnehq0jgi" path="res://assets/models/RG.gltf" id="5_6b133"]
 
 [node name="gun" type="SubViewportContainer"]
 anchors_preset = 6
@@ -25,7 +26,7 @@ handle_input_locally = false
 render_target_update_mode = 4
 
 [node name="cam" type="Camera3D" parent="SubViewport"]
-fov = 34.7
+fov = 35.0
 
 [node name="cur" type="Node3D" parent="SubViewport/cam"]
 
@@ -36,5 +37,6 @@ transform = Transform3D(-1, -7.6194e-09, 8.70901e-08, 0, 0.996195, 0.0871557, -8
 transform = Transform3D(-0.994852, 0.0119917, -0.100622, -0.00820099, 0.980188, 0.197898, 0.101002, 0.197705, -0.975044, 0.435007, -0.535946, -1.61711)
 visible = false
 
-[node name="RG" type="Node3D" parent="SubViewport/cam/cur"]
+[node name="RG" parent="SubViewport/cam/cur" instance=ExtResource("5_6b133")]
+transform = Transform3D(-0.990149, 0.0263833, -0.13751, -0.0130842, 0.960355, 0.278472, 0.139406, 0.277528, -0.95055, 0.442883, -0.443099, -0.514383)
 visible = false

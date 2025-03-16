@@ -69,14 +69,18 @@ func shoot(type):
 	match type:
 		weapon.RL:
 			var rocket = preload("res://scenes/rocket.tscn").instantiate()
-			rocket.global_transform = $cam/p.global_transform
 			add_sibling(rocket)
+			rocket.global_transform = $cam/p.global_transform
 		weapon.SG:
 			for _i in range(pellets):
 				var pellet = preload("res://scenes/pellet.tscn").instantiate()
-				pellet.global_transform = $cam/p.global_transform
 				add_sibling(pellet)
+				pellet.global_transform = $cam/p.global_transform
 				pellet.global_rotation += pellet_offset(0.2)
+		weapon.RG:
+			var rail = preload("res://scenes/rail.tscn").instantiate()
+			add_sibling(rail)
+			rail.global_transform = $cam/p.global_transform
 	$recharge.start(recharge[type])
 	canFire=false
 func _on_steps_timeout() -> void:

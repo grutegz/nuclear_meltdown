@@ -72,6 +72,7 @@ transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, 
 shape = SubResource("ConvexPolygonShape3D_14vil")
 
 [node name="wall" type="MeshInstance3D" parent="wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, -8.35189e-23, 0, -8.35188e-23, 1, -0.06, 0, 0)
 mesh = SubResource("PlaneMesh_jxe34")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_85yof")

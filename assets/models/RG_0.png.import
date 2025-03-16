@@ -2,21 +2,23 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw24h1h78e55w"
-path.s3tc="res://.godot/imported/grid.png-76362706b7cff8d966c77743dd03cd1f.s3tc.ctex"
+uid="uid://c0nwnrkjm6y6b"
+path="res://.godot/imported/RG_0.png-1b1534b7fb6822f7d4f9ee951fd21775.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
+}
+generator_parameters={
+"md5": "adf5eda1f55d9375b4109ce22f9dcce4"
 }
 
 [deps]
 
-source_file="res://assets/textures/grid.png"
-dest_files=["res://.godot/imported/grid.png-76362706b7cff8d966c77743dd03cd1f.s3tc.ctex"]
+source_file="res://assets/models/RG_0.png"
+dest_files=["res://.godot/imported/RG_0.png-1b1534b7fb6822f7d4f9ee951fd21775.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
