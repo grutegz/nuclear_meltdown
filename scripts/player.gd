@@ -13,6 +13,7 @@ var stepPer = 7
 var offsetx = 0.0
 var offsety = 0.0
 var esc = true
+var horVel = Vector3.ZERO
 
 func _ready() -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -24,13 +25,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed("a"):dir -= transform.basis.x
 	if Input.is_action_pressed("d"):dir += transform.basis.x
 	
-	var horVel = velocity
+	horVel = velocity
 	horVel.y = 0
 	horVel = horVel.lerp(dir.normalized() * speed, acceleration * delta)
 	velocity.x = horVel.x
 	velocity.z = horVel.z
-
-
+	
 	if horVel.length()>0.5 and $steps.is_stopped(): _on_steps_timeout()
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
