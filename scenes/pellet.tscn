@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cr3khj54si5sd"]
 
-[ext_resource type="Script" uid="uid://b4pnah4e7up0j" path="res://scripts/pellet.gd" id="1_euuo5"]
+[ext_resource type="Script" path="res://scripts/pellet.gd" id="1_euuo5"]
 
 [node name="pellet" type="RayCast3D"]
 target_position = Vector3(0, 0, -50)
