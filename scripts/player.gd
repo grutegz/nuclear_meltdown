@@ -19,7 +19,6 @@ var pellets = 5
 
 var offsetx = 0.0
 var offsety = 0.0
-var esc = true
 var horVel = Vector3.ZERO
 
 func _ready() -> void:
@@ -54,12 +53,9 @@ func _physics_process(delta: float) -> void:
 	offsety = 0.0
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("esc"):
-		esc = not esc
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if esc else Input.MOUSE_MODE_VISIBLE)
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
-	if event is InputEventMouseMotion and esc:
+	if event is InputEventMouseMotion:
 		offsetx = event.relative.x
 		offsety = event.relative.y
 	if event.is_action_pressed("next"):

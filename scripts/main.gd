@@ -4,9 +4,10 @@ extends Node
 
 var esc_menu = preload("res://scenes/esc_menu.tscn")
 var esc_menu_instance = null 
-
+var esc = true
 func _input(event) -> void:
-	if event.is_action_pressed("toggle_esc_menu") && !esc_menu_instance:
+	if Input.is_action_just_pressed("esc") and !esc_menu_instance:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if esc else Input.MOUSE_MODE_VISIBLE)
 		open_esc_menu()
 
 func open_esc_menu() -> void:
@@ -19,7 +20,7 @@ func open_esc_menu() -> void:
 	esc_menu_instance.connect("close_requested", close_esc_menu)
 	
 	get_tree().paused = true # паузим игру
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED) 
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 
 func close_esc_menu() -> void:
 	if esc_menu_instance:

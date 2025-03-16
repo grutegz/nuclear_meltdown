@@ -4,16 +4,10 @@ extends Control
 # который надо обработать в вызвавшей сцене
 signal close_requested
 
-var esc = true # твой эскейп который мышку возвращает
-
 func _input(event) -> void:
-	if event.is_action_pressed("toggle_esc_menu"):
+	if Input.is_action_just_pressed("esc"):
 		emit_signal("close_requested")
 		get_viewport().set_input_as_handled() # обязательный костыль чтобы две сцены одновременно нажатие клавиши не обработали
-	
-	if Input.is_action_just_pressed("esc"):
-		esc = not esc
-		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED if esc else Input.MOUSE_MODE_VISIBLE)
 
 func _on_settings_pressed() -> void:
 	var settings = preload("res://scenes/settings.tscn")
