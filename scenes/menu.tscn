@@ -66,3 +66,4 @@ text = "Exit"
 
 [connection signal="pressed" from="VBoxContainer/start_game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="VBoxContainer/exit" to="." method="_on_exit_pressed"]
