@@ -1,3 +1,62 @@
 [gd_scene load_steps=0 format=3 uid="uid://dfiq87x3kjssf"]
 
-[node name="Settings" type="Node2D"]
+[ext_resource type="Script" uid="uid://beibtdv1mqdi0" path="res://scripts/settings.gd" id="1_5p8wc"]
+
+[node name="settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5p8wc")
+
+[node name="background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="fullscreen" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 323.0
+offset_top = 228.0
+offset_right = 391.0
+offset_bottom = 278.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Toggle fullscreen"
+
+[node name="screen_resolution" type="OptionButton" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 292.0
+offset_right = 455.0
+offset_bottom = 323.0
+
+[node name="mouse_sensitivity" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 336.0
+offset_right = 551.0
+offset_bottom = 356.0
+
+[node name="fov" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 361.0
+offset_right = 551.0
+offset_bottom = 381.0
+
+[node name="go_back" type="Button" parent="."]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 390.0
+offset_right = 383.0
+offset_bottom = 425.0
+text = "Go back"
+
+[connection signal="pressed" from="go_back" to="." method="_on_go_back_pressed"]
