@@ -29,6 +29,11 @@ wait_time = 0.4
 one_shot = true
 autostart = true
 
+[node name="recharge" type="Timer" parent="."]
+wait_time = 0.06
+one_shot = true
+autostart = true
+
 [node name="col" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_3vyb7")
 debug_color = Color(0.669389, 0.310221, 1, 0.42)
@@ -65,3 +70,4 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [connection signal="timeout" from="steps" to="." method="_on_steps_timeout"]
+[connection signal="timeout" from="recharge" to="." method="_on_recharge_timeout"]
