@@ -30,7 +30,6 @@ func _physics_process(delta: float) -> void:
 	velocity.x = horVel.x
 	velocity.z = horVel.z
 
-
 	if horVel.length()>0.5 and $steps.is_stopped(): _on_steps_timeout()
 	
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
