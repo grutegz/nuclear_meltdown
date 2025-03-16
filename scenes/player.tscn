@@ -8,6 +8,7 @@
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tuyoq"]
 playback_mode = 1
+random_pitch = 1.2
 random_volume_offset_db = 1.0
 streams_count = 3
 stream_0/stream = ExtResource("4_qlg0r")
@@ -25,6 +26,11 @@ stream = SubResource("AudioStreamRandomizer_tuyoq")
 
 [node name="steps" type="Timer" parent="."]
 wait_time = 0.4
+one_shot = true
+autostart = true
+
+[node name="recharge" type="Timer" parent="."]
+wait_time = 0.06
 one_shot = true
 autostart = true
 
@@ -49,4 +55,19 @@ grow_vertical = 2
 [node name="gun" parent="UI" instance=ExtResource("2_g2els")]
 layout_mode = 1
 
+[node name="cdot" type="ColorRect" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -2.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="timeout" from="steps" to="." method="_on_steps_timeout"]
+[connection signal="timeout" from="recharge" to="." method="_on_recharge_timeout"]
