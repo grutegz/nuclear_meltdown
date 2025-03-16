@@ -9,10 +9,13 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body: Node3D) -> void:
 	var explosion = preload("res://scenes/explosion.tscn").instantiate()
-	explosion.global_position=global_position
 	get_parent().add_child(explosion)
+	explosion.global_position=global_position
 	queue_free()
 
 
 func _on_timer_timeout() -> void:
+	var explosion = preload("res://scenes/explosion.tscn").instantiate()
+	get_parent().add_child(explosion)
+	explosion.global_position=global_position
 	queue_free()

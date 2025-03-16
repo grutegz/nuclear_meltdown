@@ -14,12 +14,12 @@ rings = 4
 [node name="explosion" type="Area3D"]
 script = ExtResource("1_17npe")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="col" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_nfeox")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="explosion" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_aw4cw")
-skeleton = NodePath("../CollisionShape3D")
+skeleton = NodePath("../col")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
