@@ -1,0 +1,57 @@
+[gd_scene load_steps=8 format=3 uid="uid://cqxe51pqxmloh"]
+
+[ext_resource type="Script" uid="uid://c2fx2buh54mcg" path="res://scripts/soldier_sg.gd" id="1_kemh1"]
+[ext_resource type="PackedScene" uid="uid://babooo30kcutm" path="res://assets/models/SOLDIER_SG.gltf" id="2_thsgi"]
+[ext_resource type="PackedScene" uid="uid://drag38gu4hm51" path="res://assets/models/SG.gltf" id="3_sl5o7"]
+[ext_resource type="Texture2D" uid="uid://cyaxviyw8rx6m" path="res://assets/head1.png" id="3_tutx7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sl5o7"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tutx7"]
+radius = 3.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sl5o7"]
+radius = 20.0
+
+[node name="SOLDIER_SG" type="CharacterBody3D"]
+script = ExtResource("1_kemh1")
+
+[node name="col" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04176, 0)
+shape = SubResource("CapsuleShape3D_sl5o7")
+
+[node name="model" parent="." instance=ExtResource("2_thsgi")]
+
+[node name="cuboid2" parent="model/Node" index="1"]
+transform = Transform3D(0.771552, 0, -0.637293, 0, 1, 0, 0.637293, 0, 0.771552, 0, 1.1875, 0)
+
+[node name="SG" parent="model/Node/bone" index="3" instance=ExtResource("3_sl5o7")]
+transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -0.988252, -0.320117, 0.362324)
+
+[node name="p" type="Node3D" parent="model/Node/bone" index="4"]
+
+[node name="head" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58992, 0)
+pixel_size = 0.06
+billboard = 2
+texture_filter = 0
+texture = ExtResource("3_tutx7")
+
+[node name="dist" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dist"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_tutx7")
+
+[node name="vis" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="vis"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_sl5o7")
+
+[connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]
+[connection signal="body_exited" from="dist" to="." method="_on_dist_body_exited"]
+[connection signal="body_entered" from="vis" to="." method="_on_vis_body_entered"]
+[connection signal="body_exited" from="vis" to="." method="_on_vis_body_exited"]
+
+[editable path="model"]

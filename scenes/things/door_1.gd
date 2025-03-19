@@ -2,8 +2,8 @@ extends StaticBody3D
 
 var open = true
 
-const OPEN_R = Vector3(-1, 2, 0)
-const OPEN_L = Vector3(5, 2, 0)
+const OPEN_R = Vector3(5, 2, 0)
+const OPEN_L = Vector3(-1, 2, 0)
 const SPEED = 5.0
 
 @onready var door_r: Node3D = $colr

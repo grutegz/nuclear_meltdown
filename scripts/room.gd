@@ -34,7 +34,6 @@ func get_wall_verts(sz3d: Vector3, ps: Vector3, dir: Vector3) -> Array:
 	var p4 = ps + Vector3(0, sz3d.y, 0)
 	var p5 = ps + Vector3(sz3d.x, sz3d.y, 0)
 	var p6 = ps + Vector3(0, sz3d.y, sz3d.z)
-	var p7 = ps + sz3d
 
 	match dir:
 		Vector3.DOWN:  return [p0, p2, p3, p0, p3, p1]
@@ -60,7 +59,7 @@ func create_mesh_instance(verts: Array, sz: Vector2, dir: Vector3, texture: Stri
 	var surf_tool = SurfaceTool.new()
 	
 	surf_tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var uvs = get_uvs(sz, dir)
+	var uvs = get_uvs(dir)
 	
 	for i in range(6):
 		surf_tool.set_uv(uvs[i])
@@ -72,7 +71,7 @@ func create_mesh_instance(verts: Array, sz: Vector2, dir: Vector3, texture: Stri
 	var material = StandardMaterial3D.new()
 	var texture_path = "res://assets/textures/" + texture + ".png"
 	material.albedo_texture = load(texture_path)
-	material.uv1_scale = Vector3(sz.x, sz.y, 0)
+	material.uv1_scale = Vector3(sz.x*0.5, sz.y*0.5, 0)
 	material.texture_filter = material.TEXTURE_FILTER_NEAREST
 	
 	mesh_inst.mesh = wall_mesh
@@ -80,7 +79,7 @@ func create_mesh_instance(verts: Array, sz: Vector2, dir: Vector3, texture: Stri
 	mesh_inst.position = ps
 	
 	return mesh_inst
-func get_uvs(sz: Vector2, dir: Vector3) -> Array:
+func get_uvs(dir: Vector3) -> Array:
 	match dir:
 		Vector3.UP, Vector3.DOWN:
 			return [

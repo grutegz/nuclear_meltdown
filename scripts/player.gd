@@ -85,7 +85,6 @@ func shoot(type):
 	canFire=false
 func _on_steps_timeout() -> void:
 	if is_on_floor() and velocity.length() > 0.1:
-		print(velocity.length())
 		$steps.start(stepPer / max(velocity.length(), 5))
 		$aud.play()
 func pellet_offset(radius: float) -> Vector3:
