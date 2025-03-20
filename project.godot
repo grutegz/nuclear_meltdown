@@ -15,6 +15,12 @@ run/main_scene="uid://bgs4eel51yoi5"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
+window/stretch/scale_mode="integer"
+
 [input]
 
 esc={
