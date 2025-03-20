@@ -7,6 +7,9 @@ func _ready():
 	create_wall(Vector2(40, 20), Vector3(0, 0, 0), Vector3.RIGHT, "bricks1")
 	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.UP, "floor1")
 
+func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2):
+	pass
+
 func create_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String):
 	var sz3d = get_size_3d(sz, dir)
 	var verts = get_wall_verts(sz3d, ps, dir)

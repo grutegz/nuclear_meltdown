@@ -35,6 +35,11 @@ func calc_offset(delta):
 func calc_change(delta):
 	pass
 
+func shoot(delta):
+	pass
+
+
+
 func update_gun(n):
 	$SubViewport/cam/cur/RG.visible = false; $SubViewport/cam/cur/SG.visible = false; $SubViewport/cam/cur/RL.visible = false
 	$SubViewport/cam/cur.get_node(guns[n]).visible=true

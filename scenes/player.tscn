@@ -26,6 +26,8 @@ script = ExtResource("1_3vyb7")
 
 [node name="harm" type="Node" parent="."]
 
+[node name="mov" type="Node" parent="."]
+
 [node name="aud" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_tuyoq")
 

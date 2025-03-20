@@ -1,41 +1,92 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqxe51pqxmloh"]
+[gd_scene load_steps=18 format=3 uid="uid://cqxe51pqxmloh"]
 
 [ext_resource type="Script" uid="uid://c2fx2buh54mcg" path="res://scripts/soldier_sg.gd" id="1_kemh1"]
 [ext_resource type="PackedScene" uid="uid://babooo30kcutm" path="res://assets/models/SOLDIER_SG.gltf" id="2_thsgi"]
 [ext_resource type="PackedScene" uid="uid://drag38gu4hm51" path="res://assets/models/SG.gltf" id="3_sl5o7"]
 [ext_resource type="Texture2D" uid="uid://cyaxviyw8rx6m" path="res://assets/head1.png" id="3_tutx7"]
+[ext_resource type="Shader" uid="uid://htttmctrdqj2" path="res://assets/shaders/wobble.gdshader" id="5_sl5o7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sl5o7"]
+height = 2.42591
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tutx7"]
-radius = 3.0
+radius = 6.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sl5o7"]
-radius = 20.0
+radius = 15.0
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3htgs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fndgi"]
+render_priority = 0
+shader = ExtResource("5_sl5o7")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 4.0
+shader_parameter/albedo_texture = SubResource("CurveXYZTexture_3htgs")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_tutx7"]
+top_radius = 0.3
+bottom_radius = 0.2
+height = 0.2
+radial_segments = 5
+rings = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_sl5o7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3htgs"]
+render_priority = 0
+shader = ExtResource("5_sl5o7")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 2.0
+shader_parameter/albedo_texture = SubResource("CurveXYZTexture_sl5o7")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_fndgi"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xu4"]
+render_priority = 0
+shader = ExtResource("5_sl5o7")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = SubResource("CurveXYZTexture_fndgi")
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_dcm2y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wrdxe"]
+render_priority = 0
+shader = ExtResource("5_sl5o7")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 3.0
+shader_parameter/albedo_texture = SubResource("CurveXYZTexture_dcm2y")
 
 [node name="SOLDIER_SG" type="CharacterBody3D"]
 script = ExtResource("1_kemh1")
 
 [node name="col" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.04176, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.839512, 0)
 shape = SubResource("CapsuleShape3D_sl5o7")
 
 [node name="model" parent="." instance=ExtResource("2_thsgi")]
 
-[node name="cuboid2" parent="model/Node" index="1"]
-transform = Transform3D(0.771552, 0, -0.637293, 0, 1, 0, 0.637293, 0, 0.771552, 0, 1.1875, 0)
-
-[node name="SG" parent="model/Node/bone" index="3" instance=ExtResource("3_sl5o7")]
-transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -0.988252, -0.320117, 0.362324)
-
-[node name="p" type="Node3D" parent="model/Node/bone" index="4"]
-
-[node name="head" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58992, 0)
+[node name="head" type="Sprite3D" parent="model/Node/body" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21492, 0)
 pixel_size = 0.06
 billboard = 2
 texture_filter = 0
 texture = ExtResource("3_tutx7")
+
+[node name="SG" parent="model/Node/body/hand" index="3" instance=ExtResource("3_sl5o7")]
+transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -1.00264, -0.268079, 0.375469)
+
+[node name="p" type="Node3D" parent="model/Node/body/hand" index="4"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -1.87769, -0.530189, 0.360591)
 
 [node name="dist" type="Area3D" parent="."]
 
@@ -48,6 +99,26 @@ shape = SubResource("SphereShape3D_tutx7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="vis"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_sl5o7")
+
+[node name="wheel4" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 1.50996e-07, 1.77636e-15, -5.16436e-08, -0.34202, -0.939693, -1.4189e-07, -0.939693, 0.34202, 0.5, 0.056, -0.5)
+material_override = SubResource("ShaderMaterial_fndgi")
+mesh = SubResource("CylinderMesh_tutx7")
+
+[node name="wheel2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 1.69573e-07, -2.99004e-08, 2.99004e-08, -0.34202, -0.939693, -1.69573e-07, 0.939693, -0.34202, -0.5, 0.056, 0.5)
+material_override = SubResource("ShaderMaterial_3htgs")
+mesh = SubResource("CylinderMesh_tutx7")
+
+[node name="wheel1" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 0, -2.99004e-08, -0.34202, -0.939693, -8.21505e-08, -0.939693, 0.34202, -0.5, 0.056, -0.5)
+material_override = SubResource("ShaderMaterial_k2xu4")
+mesh = SubResource("CylinderMesh_tutx7")
+
+[node name="wheel3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 1.69573e-07, -2.99004e-08, 2.99004e-08, -0.34202, -0.939693, -1.69573e-07, 0.939693, -0.34202, 0.5, 0.056, 0.5)
+material_override = SubResource("ShaderMaterial_wrdxe")
+mesh = SubResource("CylinderMesh_tutx7")
 
 [connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]
 [connection signal="body_exited" from="dist" to="." method="_on_dist_body_exited"]

@@ -1,7 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://by48wwrk73dd0"]
+[gd_scene load_steps=5 format=3 uid="uid://by48wwrk73dd0"]
 
 [ext_resource type="Script" uid="uid://4t68fl51pds2" path="res://scripts/rail.gd" id="1_qb0h2"]
+[ext_resource type="Shader" uid="uid://bdc2wwm027i6d" path="res://assets/shaders/explode_shape.gdshader" id="2_2ag6t"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s8q6x"]
+render_priority = 0
+shader = ExtResource("2_2ag6t")
+shader_parameter/color = Vector4(1, 0.5, 0.2, 1)
+shader_parameter/intensity = 0.1
+shader_parameter/speed = 0.0
+shader_parameter/alpha = 0.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qb0h2"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 100.0
+radial_segments = 4
+rings = 8
 
 [node name="rail" type="RayCast3D"]
 target_position = Vector3(0, 0, -200)
 script = ExtResource("1_qb0h2")
+
+[node name="rail" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -50)
+material_override = SubResource("ShaderMaterial_s8q6x")
+mesh = SubResource("CylinderMesh_qb0h2")

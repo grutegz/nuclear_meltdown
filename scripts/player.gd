@@ -14,35 +14,36 @@ signal updateModel(model)
 @export var acceleration = 10
 
 var stepPer = 7
-
 var pellets = 5
 
 var offsetx = 0.0
 var offsety = 0.0
 var horVel = Vector3.ZERO
 
+var vel = [Vector3(5,5,10)]
+const velS = 0x2a
+var mergedVels = Vector3.ZERO
+
 func _ready() -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
 func _physics_process(delta: float) -> void:
 	var dir = Vector3.ZERO
-	if Input.is_action_pressed("w"):dir -= transform.basis.z
-	if Input.is_action_pressed("s"):dir += transform.basis.z
-	if Input.is_action_pressed("a"):dir -= transform.basis.x
-	if Input.is_action_pressed("d"):dir += transform.basis.x
+	if Input.is_action_pressed("w"): dir -= transform.basis.z
+	if Input.is_action_pressed("s"): dir += transform.basis.z
+	if Input.is_action_pressed("a"): dir -= transform.basis.x
+	if Input.is_action_pressed("d"): dir += transform.basis.x
+
+	var target_hor_vel = dir.normalized() * speed
+	horVel = horVel.lerp(target_hor_vel, acceleration * delta)
+	apply_vels(delta)
+	velocity.x = horVel.x + mergedVels.x
+	velocity.z = horVel.z + mergedVels.z
+	velocity.y += -gravity * delta + mergedVels.y
 	
-	horVel = velocity
-	horVel.y = 0
-	horVel = horVel.lerp(dir.normalized() * speed, acceleration * delta)
-	velocity.x = horVel.x
-	velocity.z = horVel.z
-  
-	if horVel.length()>0.5 and $steps.is_stopped(): _on_steps_timeout()
-	
+	if horVel.length() > 0.5 and $steps.is_stopped():
+		_on_steps_timeout()
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
 		velocity.y = jump_force
-	velocity.y -= gravity * delta
-
 	move_and_slide()
 
 	$cam.rotate_x(-offsety * delta * sens)
@@ -51,7 +52,11 @@ func _physics_process(delta: float) -> void:
 
 	offsetx = 0.0
 	offsety = 0.0
-
+func apply_vels(delta):
+	mergedVels=Vector3.ZERO
+	for i in range(len(vel)):
+		vel[i]=(vel[i]*velS*delta)
+		mergedVels+=vel[i]
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
