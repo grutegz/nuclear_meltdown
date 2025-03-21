@@ -29,12 +29,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09644, 6.37535, 12.2112)
 
 [node name="SOLDIER_SG" parent="." instance=ExtResource("4_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.3095, 1, 25.9592)
-
-[node name="SOLDIER_SG2" parent="." instance=ExtResource("4_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7191, 1, 18.9115)
-
-[node name="SOLDIER_SG3" parent="." instance=ExtResource("4_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.9208, 5.61546, 25.9592)
-
-[node name="SOLDIER_SG4" parent="." instance=ExtResource("4_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5842, 1, 18.9115)

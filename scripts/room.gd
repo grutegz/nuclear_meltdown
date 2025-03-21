@@ -9,7 +9,8 @@ func _ready():
 	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.RIGHT, "bricks1")
 	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.UP, "floor1")
 	create_wall(Vector2(40, 40), Vector3(0, 20, 0), Vector3.DOWN, "floor1")
-
+	#var maze = generate_maze(MAZE_SIZE)
+	#print_maze(maze)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2):
 	var door_ps = get_size_3d(dps, dir)
 	var door_sized_ps = door_ps
@@ -118,3 +119,56 @@ func get_uvs(dir: Vector3) -> Array:
 		_:
 			push_error("Invalid direction")
 			return []
+
+
+# АЛГОРИТМЫ
+
+var MAZE_SIZE = 20
+
+const WALL = 1
+const PATH = 0
+
+func generate_maze(size):
+	var maze = []
+	
+	for i in range(size):
+		maze.append([])
+		for j in range(size):
+			maze[i].append(WALL)
+	
+	var start_x = randi() % size
+	var start_y = randi() % size
+	maze[start_x][start_y] = PATH
+	var cells = []
+	cells.append(Vector2(start_x, start_y))
+	while cells.size() > 0:
+		var index = randi() % cells.size()
+		var cell = cells[index]
+		var directions = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
+		directions.shuffle()
+		
+		var found = false
+		for dir in directions:
+			var new_x = cell.x + dir.x * 2
+			var new_y = cell.y + dir.y * 2
+			
+			if new_x >= 0 && new_x < size && new_y >= 0 && new_y < size:
+				if maze[new_x][new_y] == WALL:
+					maze[new_x][new_y] = PATH
+					maze[cell.x + dir.x][cell.y + dir.y] = PATH
+					cells.append(Vector2(new_x, new_y))
+					found = true
+					break
+		if !found:
+			cells.pop_at(index)
+	
+	return maze
+func print_maze(maze):
+	for row in maze:
+		var line = ""
+		for cell in row:
+			if cell == WALL:
+				line += "#"
+			else:
+				line += " "
+		print(line)	

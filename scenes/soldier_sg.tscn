@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://cqxe51pqxmloh"]
+[gd_scene load_steps=15 format=3 uid="uid://cqxe51pqxmloh"]
 
 [ext_resource type="Script" uid="uid://c2fx2buh54mcg" path="res://scripts/soldier_sg.gd" id="1_kemh1"]
 [ext_resource type="PackedScene" uid="uid://babooo30kcutm" path="res://assets/models/SOLDIER_SG.gltf" id="2_thsgi"]
 [ext_resource type="PackedScene" uid="uid://drag38gu4hm51" path="res://assets/models/SG.gltf" id="3_sl5o7"]
 [ext_resource type="Texture2D" uid="uid://cyaxviyw8rx6m" path="res://assets/head1.png" id="3_tutx7"]
 [ext_resource type="Shader" uid="uid://htttmctrdqj2" path="res://assets/shaders/wobble.gdshader" id="5_sl5o7"]
+[ext_resource type="Texture2D" uid="uid://bbtnny7ngp4c2" path="res://assets/wheel.tres" id="6_3htgs"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sl5o7"]
 height = 2.42591
@@ -15,8 +16,6 @@ radius = 6.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_sl5o7"]
 radius = 20.0
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3htgs"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fndgi"]
 render_priority = 0
 shader = ExtResource("5_sl5o7")
@@ -24,7 +23,7 @@ shader_parameter/amount = 0.0
 shader_parameter/period = 0.04
 shader_parameter/duration = 0.1
 shader_parameter/seed1 = 4.0
-shader_parameter/albedo_texture = SubResource("CurveXYZTexture_3htgs")
+shader_parameter/albedo_texture = ExtResource("6_3htgs")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_tutx7"]
 top_radius = 0.3
@@ -33,8 +32,6 @@ height = 0.2
 radial_segments = 5
 rings = 1
 
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_sl5o7"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3htgs"]
 render_priority = 0
 shader = ExtResource("5_sl5o7")
@@ -42,9 +39,7 @@ shader_parameter/amount = 0.0
 shader_parameter/period = 0.04
 shader_parameter/duration = 0.1
 shader_parameter/seed1 = 2.0
-shader_parameter/albedo_texture = SubResource("CurveXYZTexture_sl5o7")
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_fndgi"]
+shader_parameter/albedo_texture = ExtResource("6_3htgs")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k2xu4"]
 render_priority = 0
@@ -53,9 +48,7 @@ shader_parameter/amount = 0.0
 shader_parameter/period = 0.04
 shader_parameter/duration = 0.1
 shader_parameter/seed1 = 1.0
-shader_parameter/albedo_texture = SubResource("CurveXYZTexture_fndgi")
-
-[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_dcm2y"]
+shader_parameter/albedo_texture = ExtResource("6_3htgs")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wrdxe"]
 render_priority = 0
@@ -64,7 +57,7 @@ shader_parameter/amount = 0.0
 shader_parameter/period = 0.04
 shader_parameter/duration = 0.1
 shader_parameter/seed1 = 3.0
-shader_parameter/albedo_texture = SubResource("CurveXYZTexture_dcm2y")
+shader_parameter/albedo_texture = ExtResource("6_3htgs")
 
 [node name="SOLDIER_SG" type="CharacterBody3D"]
 script = ExtResource("1_kemh1")

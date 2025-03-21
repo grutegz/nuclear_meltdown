@@ -1,6 +1,6 @@
 extends StaticBody3D
 
-var open = true
+var open = false
 
 const OPEN_R = Vector3(5, 2, 0)
 const OPEN_L = Vector3(-1, 2, 0)
@@ -21,3 +21,11 @@ func _process(delta: float) -> void:
 
 	door_r.position = door_r.position.lerp(target_r, 1 - exp(-SPEED * delta))
 	door_l.position = door_l.position.lerp(target_l, 1 - exp(-SPEED * delta))
+
+
+func _on_area_3d_body_exited(body: Node3D) -> void:
+	if body.has_node("player"): open = false
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.has_node("player"): open = true

@@ -1,16 +1,16 @@
 extends CharacterBody3D
 
 enum weapon {RL, SG, RG}
-var recharge = [0.6,0.4,1.2]
+var recharge = [0.8,0.4,1.2]
 var canFire = true
 
 var curWeapon = 0
 signal updateModel(model)
 
-@export var sens = 0.5
+@export var sens = 0.3
 @export var speed = 30
 @export var jump_force = 25
-@export var gravity = 10
+@export var gravity = 5
 @export var acceleration = 10
 
 var stepPer = 7
@@ -80,6 +80,7 @@ func shoot(type):
 			add_sibling(rocket)
 			rocket.global_transform = $cam/p.global_transform
 		weapon.SG:
+			#vel.append(transform.basis.z*10)
 			for _i in range(pellets):
 				var pellet = preload("res://scenes/pellet.tscn").instantiate()
 				add_sibling(pellet)

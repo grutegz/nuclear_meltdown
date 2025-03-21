@@ -62,3 +62,6 @@ shape = SubResource("BoxShape3D_u058l")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
