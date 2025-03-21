@@ -1,16 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgs4eel51yoi5"]
+[gd_scene load_steps=6 format=3 uid="uid://bgs4eel51yoi5"]
 
 [ext_resource type="Script" uid="uid://fc4vkik4k7je" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b4euxrvykbjjp" path="res://scenes/player.tscn" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dg7h8b1rfiwwd" path="res://scenes/room.tscn" id="3_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://byxwg2h2a0j1m" path="res://scenes/things/door1.tscn" id="3_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cqxe51pqxmloh" path="res://scenes/soldier_sg.tscn" id="4_tbgi4"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
 background_mode = 1
-background_color = Color(1, 1, 1, 1)
+background_color = Color(0.766011, 0.803025, 0.990918, 1)
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.65
+fog_enabled = true
+fog_light_color = Color(0.120375, 0.0226431, 0.207511, 1)
 
 [node name="main" type="Node"]
 script = ExtResource("1_o5qli")
@@ -20,14 +21,20 @@ script = ExtResource("1_o5qli")
 [node name="room" parent="level" instance=ExtResource("3_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266924, -0.401656, 0.395855)
 
-[node name="door1" parent="level" instance=ExtResource("3_tefeu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5027, 0, 0.508899)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="level"]
 environment = SubResource("Environment_sugp2")
 
 [node name="player" parent="." instance=ExtResource("3_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09644, 1.35102, 12.2112)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09644, 6.37535, 12.2112)
 
 [node name="SOLDIER_SG" parent="." instance=ExtResource("4_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.3095, 1, 25.9592)
+
+[node name="SOLDIER_SG2" parent="." instance=ExtResource("4_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.7191, 1, 18.9115)
+
+[node name="SOLDIER_SG3" parent="." instance=ExtResource("4_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.9208, 5.61546, 25.9592)
+
+[node name="SOLDIER_SG4" parent="." instance=ExtResource("4_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.5842, 1, 18.9115)

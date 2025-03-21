@@ -1,16 +1,32 @@
 extends StaticBody3D
 
+@onready var door = preload("res://scenes/things/door1.tscn").instantiate()
+
 func _ready():
-	create_wall(Vector2(40, 20), Vector3(0, 0, 0), Vector3.BACK, "bricks1")
-	create_wall(Vector2(40, 20), Vector3(0, 0, 20), Vector3.FORWARD, "bricks1")
-	create_wall(Vector2(40, 20), Vector3(20, 0, 0), Vector3.LEFT, "bricks1")
-	create_wall(Vector2(40, 20), Vector3(0, 0, 0), Vector3.RIGHT, "bricks1")
+	create_door_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.BACK, "bricks1", Vector2(20,4))
+	create_wall(Vector2(40, 40), Vector3(0, 0, 20), Vector3.FORWARD, "bricks1")
+	create_wall(Vector2(40, 40), Vector3(20, 0, 0), Vector3.LEFT, "bricks1")
+	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.RIGHT, "bricks1")
 	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.UP, "floor1")
+	create_wall(Vector2(40, 40), Vector3(0, 20, 0), Vector3.DOWN, "floor1")
 
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2):
-	pass
+	var door_ps = get_size_3d(dps, dir)
+	var door_sized_ps = door_ps
+	print(door_ps)
+	match dir:
+		Vector3.DOWN, Vector3.UP: return
+		Vector3.FORWARD, Vector3.BACK: door_sized_ps+=Vector3(4, 4, 0)
+		Vector3.RIGHT, Vector3.LEFT: door_sized_ps+=Vector3(4, 4, 0)
+	create_wall(Vector2(dps.x,dps.y+4),ps,dir,texture)
+	create_wall(Vector2(sz.x-dps.x,dps.y),ps+door_ps/2-Vector3(0,door_ps.y,0)/2,dir,texture)
+	create_wall(Vector2(dps.x+4,sz.y-dps.y-4),ps+Vector3(0,door_sized_ps.y,0)/2,dir,texture)
+	create_wall(Vector2(sz.x-dps.x-4,sz.y),ps+door_sized_ps/2-Vector3(0,door_sized_ps.y,0)/2,dir,texture)
+	add_child(door)
+	door.position = door_ps + dir*0.1
 
 func create_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String):
+	if sz==Vector2.ZERO:return
 	var sz3d = get_size_3d(sz, dir)
 	var verts = get_wall_verts(sz3d, ps, dir)
 	

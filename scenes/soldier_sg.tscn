@@ -13,7 +13,7 @@ height = 2.42591
 radius = 6.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sl5o7"]
-radius = 15.0
+radius = 20.0
 
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3htgs"]
 
@@ -119,6 +119,10 @@ mesh = SubResource("CylinderMesh_tutx7")
 transform = Transform3D(1, 1.69573e-07, -2.99004e-08, 2.99004e-08, -0.34202, -0.939693, -1.69573e-07, 0.939693, -0.34202, 0.5, 0.056, 0.5)
 material_override = SubResource("ShaderMaterial_wrdxe")
 mesh = SubResource("CylinderMesh_tutx7")
+
+[node name="mov" type="Node" parent="."]
+
+[node name="harm" type="Node" parent="."]
 
 [connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]
 [connection signal="body_exited" from="dist" to="." method="_on_dist_body_exited"]

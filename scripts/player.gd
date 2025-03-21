@@ -8,8 +8,8 @@ var curWeapon = 0
 signal updateModel(model)
 
 @export var sens = 0.5
-@export var speed = 20
-@export var jump_force = 5
+@export var speed = 30
+@export var jump_force = 25
 @export var gravity = 10
 @export var acceleration = 10
 
@@ -19,9 +19,9 @@ var pellets = 5
 var offsetx = 0.0
 var offsety = 0.0
 var horVel = Vector3.ZERO
-
+var harm = 100
 var vel = []
-const velS = 0x2a
+const damp = 2.5
 var mergedVels = Vector3.ZERO
 
 func _ready() -> void:
@@ -36,14 +36,14 @@ func _physics_process(delta: float) -> void:
 	var target_hor_vel = dir.normalized() * speed
 	horVel = horVel.lerp(target_hor_vel, acceleration * delta)
 	apply_vels(delta)
-	velocity.x = horVel.x + mergedVels.x
-	velocity.z = horVel.z + mergedVels.z
-	velocity.y += -gravity * delta + mergedVels.y
+	
+	velocity = mergedVels + Vector3(horVel.x,0,horVel.z)
+	velocity.y -=gravity*delta*50
 	
 	if horVel.length() > 0.5 and $steps.is_stopped():
 		_on_steps_timeout()
 	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y = jump_force
+		vel.append(Vector3(0,jump_force,0))
 	move_and_slide()
 
 	$cam.rotate_x(-offsety * delta * sens)
@@ -52,11 +52,14 @@ func _physics_process(delta: float) -> void:
 
 	offsetx = 0.0
 	offsety = 0.0
+	$UI/harm.value=harm
 func apply_vels(delta):
-	mergedVels=Vector3.ZERO
-	for i in range(len(vel)):
-		vel[i]=(vel[i]*velS*delta)
-		mergedVels+=vel[i]
+	mergedVels = Vector3.ZERO
+	for i in range(len(vel) - 1, -1, -1):
+		vel[i] = vel[i] * exp(-damp * delta)  
+		mergedVels += vel[i]
+		if vel[i].length() < 0.01:
+			vel.pop_at(i)
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)

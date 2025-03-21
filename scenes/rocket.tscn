@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://xxoobiojh6wo" path="res://scripts/rocket.gd" id="1_3341w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dkv7l"]
-size = Vector3(2.33553, 0.5, 0.5)
+size = Vector3(2.98794, 0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3341w"]
 albedo_color = Color(0.25098, 0.780392, 0.494118, 1)
@@ -20,7 +20,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 script = ExtResource("1_3341w")
 
 [node name="col" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.30087e-08, 0, -0.68169)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.20806e-08, 0, 0.461284)
 shape = SubResource("BoxShape3D_dkv7l")
 
 [node name="model" type="MeshInstance3D" parent="."]
