@@ -20,7 +20,7 @@ var offsetx = 0.0
 var offsety = 0.0
 var horVel = Vector3.ZERO
 
-var vel = [Vector3(5,5,10)]
+var vel = []
 const velS = 0x2a
 var mergedVels = Vector3.ZERO
 
