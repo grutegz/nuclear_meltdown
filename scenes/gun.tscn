@@ -11,12 +11,13 @@
 render_priority = 0
 shader = ExtResource("4_6b133")
 shader_parameter/color = Vector4(1, 0.5, 0, 1)
-shader_parameter/intensity = 0.282
-shader_parameter/speed = 0.0
-shader_parameter/alpha = 0.0
+shader_parameter/intensity = 0.102
+shader_parameter/speed = 10.0
+shader_parameter/alpha = 0.039
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6b133"]
-height = 2.429
+bottom_radius = 0.1
+height = 1.52
 radial_segments = 6
 
 [node name="gun" type="SubViewportContainer"]
@@ -51,7 +52,8 @@ transform = Transform3D(-0.994852, 0.0119917, -0.100622, -0.00820099, 0.980188, 
 visible = false
 
 [node name="explode" type="MeshInstance3D" parent="SubViewport/cam/cur/SG"]
-transform = Transform3D(0.771454, 0.0156007, -0.636094, 0.610212, 0.265103, 0.746566, 0.180278, -0.964094, 0.194996, 0.0835762, 0.281825, 1.82629)
+transform = Transform3D(0.784753, 0.0165594, -0.619587, 0.617813, 0.0592439, 0.784089, 0.0496916, -0.998106, 0.0362623, -0.0186708, 0.200588, 1.62049)
+visible = false
 material_override = SubResource("ShaderMaterial_haq8l")
 mesh = SubResource("CylinderMesh_6b133")
 

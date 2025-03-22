@@ -1,0 +1,154 @@
+[gd_scene load_steps=16 format=3 uid="uid://d30fkydqtp21"]
+
+[ext_resource type="Script" uid="uid://chbiwcrjywdqa" path="res://scripts/soldier_pl.gd" id="1_p35ww"]
+[ext_resource type="PackedScene" uid="uid://qyadylddqjfx" path="res://assets/models/SOLDIER_PL.gltf" id="2_hsx80"]
+[ext_resource type="Texture2D" uid="uid://c606d8d0ik4ok" path="res://assets/head3.png" id="3_hde5j"]
+[ext_resource type="Shader" uid="uid://htttmctrdqj2" path="res://assets/shaders/wobble.gdshader" id="4_axdov"]
+[ext_resource type="Texture2D" uid="uid://bbtnny7ngp4c2" path="res://assets/wheel.tres" id="5_irqk4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_axdov"]
+size = Vector3(1, 1.65601, 1.3)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gsty4"]
+render_priority = 0
+shader = ExtResource("4_axdov")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = ExtResource("5_irqk4")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hsx80"]
+top_radius = 0.1
+bottom_radius = 0.2
+height = 0.2
+radial_segments = 6
+rings = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f87vo"]
+render_priority = 0
+shader = ExtResource("4_axdov")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = ExtResource("5_irqk4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3w1y"]
+render_priority = 0
+shader = ExtResource("4_axdov")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = ExtResource("5_irqk4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ox8xf"]
+render_priority = 0
+shader = ExtResource("4_axdov")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = ExtResource("5_irqk4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hkc32"]
+render_priority = 0
+shader = ExtResource("4_axdov")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = ExtResource("5_irqk4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8vmlf"]
+render_priority = 0
+shader = ExtResource("4_axdov")
+shader_parameter/amount = 0.0
+shader_parameter/period = 0.04
+shader_parameter/duration = 0.1
+shader_parameter/seed1 = 1.0
+shader_parameter/albedo_texture = ExtResource("5_irqk4")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_axdov"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_irqk4"]
+radius = 20.0
+
+[node name="SOLDIER_PL" type="CharacterBody3D"]
+script = ExtResource("1_p35ww")
+
+[node name="col" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.658808, 0)
+shape = SubResource("BoxShape3D_axdov")
+
+[node name="model" parent="." instance=ExtResource("2_hsx80")]
+
+[node name="cuboid2" parent="model/Node/left" index="0"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0.625, -0.3125)
+
+[node name="head" type="Sprite3D" parent="model/Node/left" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62126, 0)
+pixel_size = 0.06
+billboard = 2
+texture_filter = 0
+texture = ExtResource("3_hde5j")
+
+[node name="cuboid4" parent="model/Node/right" index="0"]
+transform = Transform3D(4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0, 3.82137e-15, 8.74228e-08, -1, 0, 0.625, 0.3125)
+
+[node name="head" type="Sprite3D" parent="model/Node/right" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62126, -0.00930029)
+pixel_size = 0.06
+billboard = 2
+texture_filter = 0
+texture = ExtResource("3_hde5j")
+
+[node name="wheel1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0.4, 0, 0.8)
+material_override = SubResource("ShaderMaterial_gsty4")
+mesh = SubResource("CylinderMesh_hsx80")
+
+[node name="wheel2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, -0.4, 0, 0.8)
+material_override = SubResource("ShaderMaterial_f87vo")
+mesh = SubResource("CylinderMesh_hsx80")
+
+[node name="wheel3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 0, 0.8)
+material_override = SubResource("ShaderMaterial_e3w1y")
+mesh = SubResource("CylinderMesh_hsx80")
+
+[node name="wheel4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, -0.984808, 0, 0.984808, -0.173648, 0.4, 0, -0.8)
+material_override = SubResource("ShaderMaterial_ox8xf")
+mesh = SubResource("CylinderMesh_hsx80")
+
+[node name="wheel5" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, -0.984808, 0, 0.984808, -0.173648, -0.4, 0, -0.8)
+material_override = SubResource("ShaderMaterial_hkc32")
+mesh = SubResource("CylinderMesh_hsx80")
+
+[node name="wheel6" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, -0.984808, 0, 0.984808, -0.173648, 0, 0, -0.8)
+material_override = SubResource("ShaderMaterial_8vmlf")
+mesh = SubResource("CylinderMesh_hsx80")
+
+[node name="dist" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="dist"]
+shape = SubResource("SphereShape3D_axdov")
+
+[node name="vis" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="vis"]
+shape = SubResource("SphereShape3D_irqk4")
+
+[node name="mov" type="Node" parent="."]
+
+[connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]
+[connection signal="body_exited" from="dist" to="." method="_on_dist_body_exited"]
+[connection signal="body_entered" from="vis" to="." method="_on_vis_body_entered"]
+[connection signal="body_exited" from="vis" to="." method="_on_vis_body_exited"]
+
+[editable path="model"]
