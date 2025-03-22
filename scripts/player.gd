@@ -10,7 +10,7 @@ signal updateModel(model)
 @export var sens = 0.3
 @export var speed = 30
 @export var jump_force = 25
-@export var gravity = 5
+@export var gravity = 10
 @export var acceleration = 10
 
 var stepPer = 7

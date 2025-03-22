@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cp8ktrvupbabs"]
+
+[ext_resource type="Script" uid="uid://pksig6isuey3" path="res://scripts/sentry_rg.gd" id="1_hrggu"]
+[ext_resource type="PackedScene" uid="uid://cpd2rgwmv7vyk" path="res://assets/models/SENTRY_RG.gltf" id="1_o3gc8"]
+[ext_resource type="Texture2D" uid="uid://clsic8ca12r6u" path="res://assets/head2.png" id="3_ghowm"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dbqvv"]
+height = 1.53772
+radius = 0.729004
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hrggu"]
+radius = 50.0
+
+[node name="SENTRY_RG" type="CharacterBody3D"]
+script = ExtResource("1_hrggu")
+
+[node name="col" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00739825, 0.806636, -0.00983214)
+shape = SubResource("CylinderShape3D_dbqvv")
+
+[node name="model" parent="." instance=ExtResource("1_o3gc8")]
+
+[node name="head" type="Sprite3D" parent="model/Node/bone" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.0625, -0.384481)
+pixel_size = 0.06
+billboard = 2
+texture_filter = 0
+texture = ExtResource("3_ghowm")
+
+[node name="vis" type="Area3D" parent="."]
+
+[node name="col" type="CollisionShape3D" parent="vis"]
+shape = SubResource("SphereShape3D_hrggu")
+
+[connection signal="body_entered" from="vis" to="." method="_on_vis_body_entered"]
+[connection signal="body_exited" from="vis" to="." method="_on_vis_body_exited"]
+
+[editable path="model"]
