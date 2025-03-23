@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cqxe51pqxmloh"]
+[gd_scene load_steps=17 format=3 uid="uid://cqxe51pqxmloh"]
 
 [ext_resource type="Script" uid="uid://c2fx2buh54mcg" path="res://scripts/soldier_sg.gd" id="1_kemh1"]
 [ext_resource type="PackedScene" uid="uid://babooo30kcutm" path="res://assets/models/SOLDIER_SG.gltf" id="2_thsgi"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://cyaxviyw8rx6m" path="res://assets/head1.png" id="3_tutx7"]
 [ext_resource type="Shader" uid="uid://htttmctrdqj2" path="res://assets/shaders/wobble.gdshader" id="5_sl5o7"]
 [ext_resource type="Texture2D" uid="uid://bbtnny7ngp4c2" path="res://assets/wheel.tres" id="6_3htgs"]
+[ext_resource type="PackedScene" uid="uid://7417g4dadt4v" path="res://scenes/things/soldier_dies.tscn" id="7_fndgi"]
+[ext_resource type="AudioStream" uid="uid://xc46c36xbp5h" path="res://assets/sfx/shotgun1.ogg" id="8_k2xu4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sl5o7"]
 height = 2.42591
@@ -62,6 +64,9 @@ shader_parameter/albedo_texture = ExtResource("6_3htgs")
 [node name="SOLDIER_SG" type="CharacterBody3D"]
 script = ExtResource("1_kemh1")
 
+[node name="rech" type="Timer" parent="."]
+wait_time = 0.8
+
 [node name="col" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.839512, 0)
 shape = SubResource("CapsuleShape3D_sl5o7")
@@ -79,7 +84,7 @@ texture = ExtResource("3_tutx7")
 transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -1.00264, -0.268079, 0.375469)
 
 [node name="p" type="Node3D" parent="model/Node/body/hand" index="4"]
-transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -1.87769, -0.530189, 0.360591)
+transform = Transform3D(-4.18283e-08, -0.290351, 0.95692, -1.26917e-08, 0.95692, 0.290351, -1, 0, -4.37114e-08, -1.65478, -0.534461, 0.366831)
 
 [node name="dist" type="Area3D" parent="."]
 
@@ -117,6 +122,12 @@ mesh = SubResource("CylinderMesh_tutx7")
 
 [node name="harm" type="Node" parent="."]
 
+[node name="soldierDies" parent="." instance=ExtResource("7_fndgi")]
+
+[node name="sg" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_k2xu4")
+
+[connection signal="timeout" from="rech" to="." method="_on_rech_timeout"]
 [connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]
 [connection signal="body_exited" from="dist" to="." method="_on_dist_body_exited"]
 [connection signal="body_entered" from="vis" to="." method="_on_vis_body_entered"]

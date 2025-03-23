@@ -1,6 +1,8 @@
 extends Area3D
 
 var streight = 60
+func _ready() -> void:
+	$aud.play()
 func _on_timer_timeout() -> void:
 	queue_free()
 func _process(delta: float) -> void:

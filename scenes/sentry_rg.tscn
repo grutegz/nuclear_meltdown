@@ -14,6 +14,9 @@ radius = 50.0
 [node name="SENTRY_RG" type="CharacterBody3D"]
 script = ExtResource("1_hrggu")
 
+[node name="aud" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(0.843391, -0.5373, -8.74228e-08, -0.5373, -0.843391, -8.21415e-16, -7.37316e-08, 4.69722e-08, -1, -0.125, 1.3125, 0)
+
 [node name="col" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00739825, 0.806636, -0.00983214)
 shape = SubResource("CylinderShape3D_dbqvv")
@@ -34,6 +37,8 @@ texture = ExtResource("3_ghowm")
 
 [node name="col" type="CollisionShape3D" parent="vis"]
 shape = SubResource("SphereShape3D_hrggu")
+
+[node name="harm" type="Node" parent="."]
 
 [connection signal="body_entered" from="vis" to="." method="_on_vis_body_entered"]
 [connection signal="body_exited" from="vis" to="." method="_on_vis_body_exited"]

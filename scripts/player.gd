@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 enum weapon {RL, SG, RG}
-var recharge = [0.8,0.4,1.2]
+var recharge = [0.8,0.6,1.2]
 var canFire = true
 
 var curWeapon = 0
@@ -63,6 +63,8 @@ func apply_vels(delta):
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
+	if Input.is_action_just_pressed("act"):
+		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term1"): $cam/ray.get_collider().get_node("aud").play() 
 	if event is InputEventMouseMotion:
 		offsetx = event.relative.x
 		offsety = event.relative.y
@@ -79,17 +81,22 @@ func shoot(type):
 			var rocket = preload("res://scenes/rocket.tscn").instantiate()
 			add_sibling(rocket)
 			rocket.global_transform = $cam/p.global_transform
+			$rl.play()
 		weapon.SG:
 			#vel.append(transform.basis.z*10)
+			
 			for _i in range(pellets):
 				var pellet = preload("res://scenes/pellet.tscn").instantiate()
-				add_sibling(pellet)
+				add_child(pellet)
 				pellet.global_transform = $cam/p.global_transform
 				pellet.global_rotation += pellet_offset(0.2)
+			$sg.play()
 		weapon.RG:
 			var rail = preload("res://scenes/rail.tscn").instantiate()
 			add_sibling(rail)
 			rail.global_transform = $cam/p.global_transform
+			$rg.play()
+			
 	$recharge.start(recharge[type])
 	canFire=false
 func _on_steps_timeout() -> void:
@@ -101,3 +108,4 @@ func pellet_offset(radius: float) -> Vector3:
 	return Vector3(point.x, point.y, 0)
 func _on_recharge_timeout() -> void:
 	canFire=true
+	$rech.play()

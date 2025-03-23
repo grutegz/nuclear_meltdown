@@ -13,7 +13,7 @@ var turn_speed = 8.0
 @export var speed = 7
 @export var acceleration = 3
 
-var harm = 70
+var harm = 50
 var horVel = Vector3.ZERO
 var vel = []
 const damp = 2.0

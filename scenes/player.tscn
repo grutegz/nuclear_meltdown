@@ -1,10 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4euxrvykbjjp"]
+[gd_scene load_steps=12 format=3 uid="uid://b4euxrvykbjjp"]
 
 [ext_resource type="Script" uid="uid://hjwp3lx31pak" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="AudioStream" uid="uid://cytdvthtxrsis" path="res://assets/sfx/step2.ogg" id="2_dqkch"]
 [ext_resource type="PackedScene" uid="uid://bkkiqwxsmkxyv" path="res://scenes/gun.tscn" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://bucrhgu4q4n2b" path="res://assets/sfx/hitsound.ogg" id="2_smehm"]
 [ext_resource type="AudioStream" uid="uid://b8kis1ix3yv63" path="res://assets/sfx/step1.ogg" id="3_qlg0r"]
 [ext_resource type="AudioStream" uid="uid://y8dl11riyr3c" path="res://assets/sfx/step3.ogg" id="4_qlg0r"]
+[ext_resource type="AudioStream" uid="uid://xc46c36xbp5h" path="res://assets/sfx/shotgun1.ogg" id="5_fjrip"]
+[ext_resource type="AudioStream" uid="uid://ocnsurl830ym" path="res://assets/sfx/rocketlauncher1.ogg" id="6_smehm"]
+[ext_resource type="AudioStream" uid="uid://df4olg6plfnmh" path="res://assets/sfx/railgun1.ogg" id="8_ur7pv"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tuyoq"]
 playback_mode = 1
@@ -28,8 +32,24 @@ script = ExtResource("1_3vyb7")
 
 [node name="mov" type="Node" parent="."]
 
+[node name="rech" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_smehm")
+
 [node name="aud" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_tuyoq")
+
+[node name="sg" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_fjrip")
+pitch_scale = 1.2
+
+[node name="rl" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_smehm")
+pitch_scale = 1.2
+
+[node name="rg" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_ur7pv")
+volume_db = 3.556
+pitch_scale = 1.2
 
 [node name="steps" type="Timer" parent="."]
 wait_time = 0.4
@@ -48,12 +68,13 @@ debug_color = Color(0.669389, 0.310221, 1, 0.42)
 
 [node name="cam" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-fov = 95.0
+fov = 90.0
 
 [node name="p" type="Node3D" parent="cam"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.891127)
 
 [node name="ray" type="RayCast3D" parent="cam"]
+visible = false
 target_position = Vector3(0, 0, -4)
 
 [node name="UI" type="Control" parent="."]

@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dlb31jeltodiw"]
+
+[node name="LAB" type="StaticBody3D"]
+
+[node name="col" type="CollisionShape3D" parent="."]

@@ -1,7 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://qq0yrcbwr46v"]
+[gd_scene load_steps=12 format=3 uid="uid://qq0yrcbwr46v"]
 
 [ext_resource type="Script" uid="uid://wkyxy4lll17a" path="res://scripts/explosion.gd" id="1_17npe"]
 [ext_resource type="Shader" uid="uid://bdc2wwm027i6d" path="res://assets/shaders/explode_shape.gdshader" id="2_nfeox"]
+[ext_resource type="AudioStream" uid="uid://bx757aa770621" path="res://assets/sfx/explosion1.ogg" id="3_hbmxj"]
+[ext_resource type="AudioStream" uid="uid://bc00rp7fv7ic4" path="res://assets/sfx/explosion2.ogg" id="4_xfoey"]
+[ext_resource type="AudioStream" uid="uid://5jmq5ug8fthm" path="res://assets/sfx/explosion3.ogg" id="5_v8gpv"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nfeox"]
 radius = 5.0
@@ -34,6 +37,14 @@ height = 5.0
 radial_segments = 6
 rings = 5
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_cun36"]
+playback_mode = 1
+random_pitch = 1.2
+streams_count = 3
+stream_0/stream = ExtResource("3_hbmxj")
+stream_1/stream = ExtResource("4_xfoey")
+stream_2/stream = ExtResource("5_v8gpv")
+
 [node name="explosion" type="Area3D"]
 script = ExtResource("1_17npe")
 
@@ -54,6 +65,9 @@ skeleton = NodePath("../col")
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="aud" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_cun36")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

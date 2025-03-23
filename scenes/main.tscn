@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgs4eel51yoi5"]
+[gd_scene load_steps=6 format=3 uid="uid://bgs4eel51yoi5"]
 
 [ext_resource type="Script" uid="uid://fc4vkik4k7je" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://b4euxrvykbjjp" path="res://scenes/player.tscn" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dg7h8b1rfiwwd" path="res://scenes/room.tscn" id="3_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://cqxe51pqxmloh" path="res://scenes/soldier_sg.tscn" id="4_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://cp8ktrvupbabs" path="res://scenes/sentry_rg.tscn" id="5_tbgi4"]
-[ext_resource type="PackedScene" uid="uid://d30fkydqtp21" path="res://scenes/soldier_pl.tscn" id="6_tefeu"]
 
 [sub_resource type="Environment" id="Environment_sugp2"]
 background_mode = 1
@@ -27,13 +25,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266924, -0.401656, 0.39585
 environment = SubResource("Environment_sugp2")
 
 [node name="player" parent="." instance=ExtResource("3_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09644, 3.25329, 12.2112)
-
-[node name="SENTRY_RG" parent="." instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.772, -0.495748, 27.8469)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1821, 5.37329, 5.20102)
 
 [node name="SOLDIER_SG" parent="." instance=ExtResource("4_tbgi4")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 19.9601, 0, 27.9684)
 
-[node name="SOLDIER_PL" parent="." instance=ExtResource("6_tefeu")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 24.1939, 0, 27.7267)
+[node name="SOLDIER_SG2" parent="." instance=ExtResource("4_tbgi4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 19.9601, 0, 64.2565)
+
+[node name="SOLDIER_SG3" parent="." instance=ExtResource("4_tbgi4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 30.6796, 0, 27.9684)

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjq50jt64jriw"]
+
+[ext_resource type="Script" uid="uid://cwlarybyuwejc" path="res://scripts/fields.gd" id="1_jaeev"]
+
+[node name="start" type="StaticBody3D"]
+script = ExtResource("1_jaeev")

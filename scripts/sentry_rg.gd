@@ -8,6 +8,8 @@ var curState = State.IDLE
 @onready var head = $model/Node/bone
 var target
 var turn_speed = 8.0
+var dead = false
+var harm = 50
 func _process(delta: float) -> void:
 	frame.rotate_y(5 * delta)
 
@@ -27,11 +29,11 @@ func rotate_towards_target(delta: float) -> void:
 	head.rotation.z = lerp_angle(head.rotation.z, dir.y, turn_speed * delta)
 
 func _on_vis_body_entered(body: Node3D) -> void:
-	if body.has_node("player"):
+	if body.has_node("player") and !dead:
 		target = body
 		curState = State.FOCUS
 
 func _on_vis_body_exited(body: Node3D) -> void:
-	if body.has_node("player"):
+	if body.has_node("player") and !dead:
 		target = null
 		curState = State.IDLE

@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://7417g4dadt4v"]
+
+[ext_resource type="AudioStream" uid="uid://rk1jdgjwdmjl" path="res://assets/sfx/soldierDies1.ogg" id="1_cjtt0"]
+[ext_resource type="AudioStream" uid="uid://cave6il32uc7m" path="res://assets/sfx/soldierDies2.ogg" id="2_ecvkn"]
+[ext_resource type="AudioStream" uid="uid://rti0ryx8t8tu" path="res://assets/sfx/soldierDies3.ogg" id="3_emdr6"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_m274d"]
+playback_mode = 1
+random_pitch = 1.3
+streams_count = 3
+stream_0/stream = ExtResource("1_cjtt0")
+stream_1/stream = ExtResource("2_ecvkn")
+stream_2/stream = ExtResource("3_emdr6")
+
+[node name="soldierDies" type="AudioStreamPlayer3D"]
+stream = SubResource("AudioStreamRandomizer_m274d")
