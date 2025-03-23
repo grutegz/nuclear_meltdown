@@ -51,7 +51,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 fov = 95.0
 
 [node name="p" type="Node3D" parent="cam"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.33986)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.891127)
+
+[node name="ray" type="RayCast3D" parent="cam"]
+target_position = Vector3(0, 0, -4)
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3

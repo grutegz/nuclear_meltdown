@@ -20,6 +20,9 @@ shape = SubResource("CylinderShape3D_dbqvv")
 
 [node name="model" parent="." instance=ExtResource("1_o3gc8")]
 
+[node name="base" parent="model/Node" index="0"]
+transform = Transform3D(0.843391, -0.5373, -8.74228e-08, -0.5373, -0.843391, 0, -7.37316e-08, 4.69722e-08, -1, -0.125, 1.3125, 0)
+
 [node name="head" type="Sprite3D" parent="model/Node/bone" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.375, 0.0625, -0.384481)
 pixel_size = 0.06

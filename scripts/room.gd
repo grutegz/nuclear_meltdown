@@ -2,19 +2,18 @@ extends StaticBody3D
 
 @onready var door = preload("res://scenes/things/door1.tscn").instantiate()
 
+enum shape {I,Z,L,O}
+var cellS :int = 40
+var wallS :int = 20
+
+
 func _ready():
-	create_door_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.BACK, "bricks1", Vector2(20,4))
-	create_wall(Vector2(40, 40), Vector3(0, 0, 20), Vector3.FORWARD, "bricks1")
-	create_wall(Vector2(40, 40), Vector3(20, 0, 0), Vector3.LEFT, "bricks1")
-	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.RIGHT, "bricks1")
-	create_wall(Vector2(40, 40), Vector3(0, 0, 0), Vector3.UP, "floor1")
-	create_wall(Vector2(40, 40), Vector3(0, 20, 0), Vector3.DOWN, "floor1")
+	create_room(Vector3(0,0,0),"floor2","bricks1",1)
 	#var maze = generate_maze(MAZE_SIZE)
 	#print_maze(maze)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2):
 	var door_ps = get_size_3d(dps, dir)
 	var door_sized_ps = door_ps
-	print(door_ps)
 	match dir:
 		Vector3.DOWN, Vector3.UP: return
 		Vector3.FORWARD, Vector3.BACK: door_sized_ps+=Vector3(4, 4, 0)
@@ -26,6 +25,51 @@ func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, d
 	add_child(door)
 	door.position = door_ps + dir*0.1
 
+func create_room(ps,floor, wall, shp):
+	match shp:
+		shape.I:
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y,ps.z+cellS*2), Vector3.FORWARD, wall)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_wall(Vector2(cellS*4, wallS), Vector3(ps.x+cellS/2, ps.y, ps.z), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS*4, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			create_wall(Vector2(cellS, cellS*4), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
+			create_wall(Vector2(cellS, cellS*4), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
+		shape.Z:
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y,ps.z+cellS), Vector3.FORWARD, wall)
+			#enter
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x+cellS/2, ps.y, ps.z), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			create_wall(Vector2(cellS, cellS*2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
+			create_wall(Vector2(cellS, cellS*2), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
+			
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x-cellS/2, ps.y, ps.z+cellS/2), Vector3.BACK, wall)
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x-cellS/2, ps.y, ps.z+cellS/2), Vector3.RIGHT, wall)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z+cellS), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS, cellS*2), Vector3(ps.x-cellS/2, ps.y+wallS/2, ps.z+cellS/2), Vector3.DOWN, floor)
+			create_wall(Vector2(cellS, cellS*2), Vector3(ps.x-cellS/2, ps.y, ps.z+cellS/2), Vector3.UP, floor)
+			#exit
+			create_wall(Vector2(cellS, wallS), Vector3(ps.z-cellS/2, ps.y,ps.z+cellS*1.5), Vector3.FORWARD, wall)
+		shape.L:
+			create_wall(Vector2(cellS, cellS*3), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
+			#enter
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x+cellS/2, ps.y, ps.z), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS*3, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			#exit
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y,ps.z+cellS*1.5), Vector3.FORWARD, wall)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x+cellS/2, ps.y, ps.z+cellS), Vector3.BACK, wall)
+			create_wall(Vector2(cellS, cellS), Vector3(ps.x+cellS/2, ps.y, ps.z+cellS), Vector3.UP, floor)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x+cellS, ps.y, ps.z+cellS), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS, cellS*3), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
+			create_wall(Vector2(cellS, cellS), Vector3(ps.x+cellS/2, ps.y+wallS/2, ps.z+cellS), Vector3.DOWN, floor)
+		shape.O:
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y,ps.z+cellS), Vector3.FORWARD, wall)
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x+cellS, ps.y, ps.z), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			create_wall(Vector2(cellS*2, cellS*2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
+			create_wall(Vector2(cellS*2, cellS*2), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
 func create_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String):
 	if sz==Vector2.ZERO:return
 	var sz3d = get_size_3d(sz, dir)
