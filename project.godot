@@ -15,6 +15,10 @@ run/main_scene="uid://bgs4eel51yoi5"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Global="*res://scenes/global.tscn"
+
 [gui]
 
 theme/custom="uid://dn7apbtvwsd0f"

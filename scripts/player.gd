@@ -26,6 +26,7 @@ var mergedVels = Vector3.ZERO
 
 func _ready() -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
 func _physics_process(delta: float) -> void:
 	var dir = Vector3.ZERO
 	if Input.is_action_pressed("w"): dir -= transform.basis.z
@@ -53,6 +54,7 @@ func _physics_process(delta: float) -> void:
 	offsetx = 0.0
 	offsety = 0.0
 	$UI/harm.value=harm
+
 func apply_vels(delta):
 	mergedVels = Vector3.ZERO
 	for i in range(len(vel) - 1, -1, -1):
@@ -60,18 +62,20 @@ func apply_vels(delta):
 		mergedVels += vel[i]
 		if vel[i].length() < 0.01:
 			vel.pop_at(i)
+
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
 	if event is InputEventMouseMotion:
-		offsetx = event.relative.x
-		offsety = event.relative.y
+		offsetx = event.relative.x * Global.mouse_sensitivity
+		offsety = event.relative.y * Global.mouse_sensitivity
 	if event.is_action_pressed("next"):
 		curWeapon = (curWeapon + 1) % weapon.size()
 		updateModel.emit(curWeapon)
 	elif event.is_action_pressed("prev"):
 		curWeapon = (curWeapon - 1 + weapon.size()) % weapon.size()
 		updateModel.emit(curWeapon)
+
 func shoot(type):
 	if !canFire: return
 	match type:
@@ -92,12 +96,15 @@ func shoot(type):
 			rail.global_transform = $cam/p.global_transform
 	$recharge.start(recharge[type])
 	canFire=false
+
 func _on_steps_timeout() -> void:
 	if is_on_floor() and velocity.length() > 0.1:
 		$steps.start(stepPer / max(velocity.length(), 5))
 		$aud.play()
+
 func pellet_offset(radius: float) -> Vector3:
 	var point = Vector2.ONE.rotated(randf() * 2 * PI) * (randf() * radius)
 	return Vector3(point.x, point.y, 0)
+
 func _on_recharge_timeout() -> void:
 	canFire=true
