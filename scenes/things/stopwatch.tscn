@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1xq1iegfbpcw"]
+
+[ext_resource type="Script" uid="uid://boe20bqjx03vx" path="res://scripts/stopwatch.gd" id="1_owuek"]
+[ext_resource type="FontFile" uid="uid://dgx83jpb15y05" path="res://assets/fonts/Segment7Standard.otf" id="2_5uvfn"]
+
+[node name="Stopwatch" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_owuek")
+
+[node name="timer" type="Timer" parent="."]
+
+[node name="time_label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("2_5uvfn")
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

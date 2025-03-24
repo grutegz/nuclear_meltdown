@@ -5,6 +5,18 @@ extends Node
 var esc_menu = preload("res://scenes/esc_menu.tscn")
 var esc_menu_instance = null 
 var esc = true
+
+var stopwatch_scene = preload("res://scenes/things/stopwatch.tscn")
+var stopwatch: Control
+
+func _ready() -> void:
+	stopwatch = stopwatch_scene.instantiate()
+	add_child(stopwatch)
+	
+	stopwatch.start()
+	# stopwatch.stop()
+	# stopwatch.reset()
+
 func _input(event) -> void:
 	if Input.is_action_just_pressed("esc") and !esc_menu_instance:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if esc else Input.MOUSE_MODE_VISIBLE)
