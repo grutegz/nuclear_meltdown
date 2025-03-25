@@ -103,11 +103,13 @@ func _input(event: InputEvent) -> void:
 		offsety = event.relative.y * Global.mouse_sensitivity
 	if event.is_action_pressed("next"):
 		curWeapon = (curWeapon + 1) % weapon.size()
-		updateModel.emit(curWeapon)
 	elif event.is_action_pressed("prev"):
 		curWeapon = (curWeapon - 1 + weapon.size()) % weapon.size()
-		updateModel.emit(curWeapon)
-
+	if Input.is_key_pressed(KEY_1): curWeapon=0
+	elif Input.is_key_pressed(KEY_2): curWeapon=1
+	elif Input.is_key_pressed(KEY_3): curWeapon=2
+	updateModel.emit(curWeapon)
+	
 func shoot(type):
 	if !canFire: return
 	match type:

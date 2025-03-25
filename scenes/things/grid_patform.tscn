@@ -15,7 +15,7 @@ texture_filter = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_mjngs"]
 material = SubResource("StandardMaterial3D_ynf2s")
-size = Vector3(2, 0.5, 2)
+size = Vector3(2, 0.501, 2)
 
 [node name="grid_patform" type="StaticBody3D"]
 

@@ -7,6 +7,8 @@ extends CharacterBody3D
 enum State { IDLE, FOCUS, DEAD }
 var curState = State.IDLE
 
+var sign = true
+
 var dead = false
 var target: Node3D = null
 var gravity = 10.0
@@ -42,6 +44,7 @@ func _process(delta: float) -> void:
 			frame.rotation.y = lerp_angle(frame.rotation.y, 0, turn_speed * delta)
 			if $model/Node/body.has_node("head"):
 				$model/Node/body/head.queue_free()
+			if sign: get_parent().get_parent().get_parent().get_parent().get_node("player").get_node("UI").get_node("sign").visible = true
 
 	_update_wheel_speed()
 

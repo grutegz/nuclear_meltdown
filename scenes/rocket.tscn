@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgmnesdypukp8"]
+[gd_scene load_steps=8 format=3 uid="uid://dgmnesdypukp8"]
 
 [ext_resource type="Script" uid="uid://xxoobiojh6wo" path="res://scripts/rocket.gd" id="1_3341w"]
+[ext_resource type="Shader" uid="uid://bdc2wwm027i6d" path="res://assets/shaders/explode_shape.gdshader" id="2_dkv7l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dkv7l"]
 size = Vector3(2.98794, 0.5, 0.5)
@@ -14,6 +15,20 @@ height = 1.5
 radial_segments = 6
 rings = 5
 is_hemisphere = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_agf72"]
+render_priority = 0
+shader = ExtResource("2_dkv7l")
+shader_parameter/color = Vector4(0.1, 0.5, 0.1, 1)
+shader_parameter/intensity = 0.292
+shader_parameter/speed = 3.335
+shader_parameter/alpha = 0.108
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y2y7n"]
+top_radius = 0.7
+bottom_radius = 0.3
+radial_segments = 8
+rings = 2
 
 [node name="rocket" type="Area3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
@@ -33,6 +48,11 @@ skeleton = NodePath("../col")
 wait_time = 10.0
 one_shot = true
 autostart = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -9.98475e-09, 0, 1.82842)
+material_override = SubResource("ShaderMaterial_agf72")
+mesh = SubResource("CylinderMesh_y2y7n")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

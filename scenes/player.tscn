@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4euxrvykbjjp"]
+[gd_scene load_steps=13 format=3 uid="uid://b4euxrvykbjjp"]
 
 [ext_resource type="Script" uid="uid://hjwp3lx31pak" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="AudioStream" uid="uid://cytdvthtxrsis" path="res://assets/sfx/step2.ogg" id="2_dqkch"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://xc46c36xbp5h" path="res://assets/sfx/shotgun1.ogg" id="5_fjrip"]
 [ext_resource type="AudioStream" uid="uid://ocnsurl830ym" path="res://assets/sfx/rocketlauncher1.ogg" id="6_smehm"]
 [ext_resource type="AudioStream" uid="uid://df4olg6plfnmh" path="res://assets/sfx/railgun1.ogg" id="8_ur7pv"]
+[ext_resource type="PackedScene" uid="uid://eywyyaveak7s" path="res://scenes/things/sign.tscn" id="10_y4r1p"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tuyoq"]
 playback_mode = 1
@@ -126,6 +127,14 @@ offset_right = 68.0
 offset_bottom = 11.0
 grow_vertical = 2
 text = "HARM"
+
+[node name="sign" parent="UI" instance=ExtResource("10_y4r1p")]
+visible = false
+layout_mode = 1
+offset_left = -160.0
+offset_top = 4.0
+offset_right = 25.0
+offset_bottom = 97.0
 
 [connection signal="timeout" from="steps" to="." method="_on_steps_timeout"]
 [connection signal="timeout" from="recharge" to="." method="_on_recharge_timeout"]
