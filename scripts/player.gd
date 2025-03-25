@@ -47,8 +47,8 @@ func _physics_process(delta: float) -> void:
 		vel.append(Vector3(0,jump_force,0))
 	move_and_slide()
 
-	$cam.rotate_x(-offsety * delta * sens)
-	rotate_y(-offsetx * delta * sens)
+	$cam.rotate_x(-offsety * delta)
+	rotate_y(-offsetx * delta)
 	$cam.rotation_degrees.x = clamp($cam.rotation_degrees.x, -90, 90)
 
 	offsetx = 0.0

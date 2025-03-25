@@ -1,14 +1,14 @@
 extends StaticBody3D
 
-@onready var door = preload("res://scenes/things/door1.tscn").instantiate()
 
 enum shape {I,Z,L,O}
+enum type { ROOM1,ROOM2,ROOM3,LAB }
 var cellS :int = 40
-var wallS :int = 20
+var wallS :int = 30
 
 
 func _ready():
-	create_room(Vector3(0,0,0),"floor2","bricks1",1)
+	create_room(Vector3(0,0,0),"0floor","bricks1",1,0)
 	#var maze = generate_maze(MAZE_SIZE)
 	#print_maze(maze)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2):
@@ -22,8 +22,9 @@ func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, d
 	create_wall(Vector2(sz.x-dps.x,dps.y),ps+door_ps/2-Vector3(0,door_ps.y,0)/2,dir,texture)
 	create_wall(Vector2(dps.x+4,sz.y-dps.y-4),ps+Vector3(0,door_sized_ps.y,0)/2,dir,texture)
 	create_wall(Vector2(sz.x-dps.x-4,sz.y),ps+door_sized_ps/2-Vector3(0,door_sized_ps.y,0)/2,dir,texture)
+	var door = preload("res://scenes/things/door1.tscn").instantiate()
 	add_child(door)
-	door.position = door_ps + dir*0.1
+	door.position = door_ps+ps*2
 
 
 func create_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String):
@@ -74,6 +75,54 @@ func create_collision_shape(verts: Array, ps: Vector3) -> CollisionShape3D:
 	col_shape.position = ps
 	return col_shape
 
+enum Pattern {CHECKERBOARD, NOISE, STRIPPED}
+
+func create_texture(tex1: String, tex2: String, sz: Vector2, ps: Vector3, pattern: Pattern = Pattern.CHECKERBOARD) -> ImageTexture:
+	var image1 = load("res://assets/textures/" + tex1 + ".png").get_image()
+	var image2 = load("res://assets/textures/" + tex2 + ".png").get_image()
+	image1.convert(Image.FORMAT_RGBA8)
+	image2.convert(Image.FORMAT_RGBA8)
+	
+	var texture_size = Vector2i(int(ceil(sz.x)) * 16, int(ceil(sz.y)) * 16)
+	var new_image = Image.create(texture_size.x, texture_size.y, false, Image.FORMAT_RGBA8)
+	
+	var tile_size = 32
+	var tiles_x = texture_size.x / tile_size
+	var tiles_y = texture_size.y / tile_size
+
+	var img1_size = image1.get_size()
+	var img2_size = image2.get_size()
+
+	var adjusted_ps = Vector2(
+		clamp(ps.x, 0, min(img1_size.x, img2_size.x) - tile_size),
+		clamp(ps.y, 0, min(img1_size.y, img2_size.y) - tile_size))
+	
+	var noise = FastNoiseLite.new()
+	noise.noise_type = FastNoiseLite.TYPE_SIMPLEX
+	noise.seed = 1
+	noise.fractal_octaves = 3
+	noise.frequency = 0.07
+	
+	for ty in tiles_y:
+		for tx in tiles_x:
+			var use_first: bool
+			
+			match pattern:
+				Pattern.CHECKERBOARD:
+					use_first = (tx + ty) % 2 == 0
+				Pattern.NOISE:
+					var noise_value = noise.get_noise_2d(tx+ ps.z, ty+ps.z)
+					use_first = noise_value > 0
+				Pattern.STRIPPED:
+					use_first = tx % 2 == 0
+				_:
+					use_first = (tx + ty) % 2 == 0
+			
+			var source_image = image1 if use_first else image2
+			var dst_pos = Vector2i(tx * tile_size, ty * tile_size)
+			new_image.blit_rect(source_image, Rect2i(adjusted_ps.x, adjusted_ps.y, tile_size, tile_size), dst_pos)
+	
+	return ImageTexture.create_from_image(new_image)
 func create_mesh_instance(verts: Array, sz: Vector2, dir: Vector3, texture: String, ps: Vector3) -> MeshInstance3D:
 	var mesh_inst = MeshInstance3D.new()
 	var surf_tool = SurfaceTool.new()
@@ -89,11 +138,14 @@ func create_mesh_instance(verts: Array, sz: Vector2, dir: Vector3, texture: Stri
 	var wall_mesh = surf_tool.commit()
 	
 	var material = StandardMaterial3D.new()
-	var texture_path = "res://assets/textures/" + texture + ".png"
-	
-	
-	material.albedo_texture = load(texture_path)
-	material.uv1_scale = Vector3(sz.x*0.5, sz.y*0.5, 0)
+	if texture[0]=="0":
+		var test_texture = create_texture(texture.substr(1)+"1", texture.substr(1)+"2", sz, ps,1)
+		material.albedo_texture = test_texture
+		material.uv1_scale = Vector3(1, 1, 1)
+	else:
+		var texture_path = "res://assets/textures/" + texture + ".png"
+		material.albedo_texture = load(texture_path)
+		material.uv1_scale = Vector3(sz.x*0.5, sz.y*0.5, 0)
 	material.texture_filter = material.TEXTURE_FILTER_NEAREST
 	
 	mesh_inst.mesh = wall_mesh
@@ -101,12 +153,6 @@ func create_mesh_instance(verts: Array, sz: Vector2, dir: Vector3, texture: Stri
 	mesh_inst.position = ps
 	
 	return mesh_inst
-func create_texture(tex1,tex2,sz:Vector2,ps:Vector3):
-	#var noise = FastNoiseLite.new()
-	
-	var mergedTexture 
-	return mergedTexture
-
 func get_uvs(dir: Vector3) -> Array:
 	match dir:
 		Vector3.UP, Vector3.DOWN:
@@ -127,15 +173,16 @@ func get_uvs(dir: Vector3) -> Array:
 		_:
 			push_error("Invalid direction")
 			return []
-func create_room(ps,floor, wall, shp):
+func create_room(ps,floor, wall, shp, tp):
 	match shp:
 		shape.I:
-			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y,ps.z+cellS*2), Vector3.FORWARD, wall)
+			create_door_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y,ps.z+cellS*2), Vector3.FORWARD, wall,Vector2(0,2))
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
 			create_wall(Vector2(cellS*4, wallS), Vector3(ps.x+cellS/2, ps.y, ps.z), Vector3.LEFT, wall)
 			create_wall(Vector2(cellS*4, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
 			create_wall(Vector2(cellS, cellS*4), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
 			create_wall(Vector2(cellS, cellS*4), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
+			room_platforms(shp)
 		shape.Z:
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y,ps.z+cellS), Vector3.FORWARD, wall)
 			#enter
@@ -152,6 +199,7 @@ func create_room(ps,floor, wall, shp):
 			create_wall(Vector2(cellS, cellS*2), Vector3(ps.x-cellS/2, ps.y, ps.z+cellS/2), Vector3.UP, floor)
 			#exit
 			create_wall(Vector2(cellS, wallS), Vector3(ps.z-cellS/2, ps.y,ps.z+cellS*1.5), Vector3.FORWARD, wall)
+			room_platforms(shp)
 		shape.L:
 			create_wall(Vector2(cellS, cellS*3), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
 			#enter
@@ -165,6 +213,7 @@ func create_room(ps,floor, wall, shp):
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x+cellS, ps.y, ps.z+cellS), Vector3.LEFT, wall)
 			create_wall(Vector2(cellS, cellS*3), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
 			create_wall(Vector2(cellS, cellS), Vector3(ps.x+cellS/2, ps.y+wallS/2, ps.z+cellS), Vector3.DOWN, floor)
+			room_platforms(shp)
 		shape.O:
 			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y,ps.z+cellS), Vector3.FORWARD, wall)
 			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
@@ -172,55 +221,59 @@ func create_room(ps,floor, wall, shp):
 			create_wall(Vector2(cellS*2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
 			create_wall(Vector2(cellS*2, cellS*2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
 			create_wall(Vector2(cellS*2, cellS*2), Vector3(ps.x, ps.y+wallS/2, ps.z), Vector3.DOWN, floor)
-
-# АЛГОРИТМЫ
-
-var MAZE_SIZE = 20
-
-const WALL = 1
-const PATH = 0
-
-func generate_maze(size):
-	var maze = []
+			room_platforms(shp)
+func room_platforms(shp):
 	
-	for i in range(size):
-		maze.append([])
-		for j in range(size):
-			maze[i].append(WALL)
-	
-	var start_x = randi() % size
-	var start_y = randi() % size
-	maze[start_x][start_y] = PATH
-	var cells = []
-	cells.append(Vector2(start_x, start_y))
-	while cells.size() > 0:
-		var index = randi() % cells.size()
-		var cell = cells[index]
-		var directions = [Vector2(1, 0), Vector2(-1, 0), Vector2(0, 1), Vector2(0, -1)]
-		directions.shuffle()
-		
-		var found = false
-		for dir in directions:
-			var new_x = cell.x + dir.x * 2
-			var new_y = cell.y + dir.y * 2
-			
-			if new_x >= 0 && new_x < size && new_y >= 0 && new_y < size:
-				if maze[new_x][new_y] == WALL:
-					maze[new_x][new_y] = PATH
-					maze[cell.x + dir.x][cell.y + dir.y] = PATH
-					cells.append(Vector2(new_x, new_y))
-					found = true
-					break
-		if !found:
-			cells.pop_at(index)
-	
-	return maze
-func print_maze(maze):
-	for row in maze:
-		var line = ""
-		for cell in row:
-			if cell == WALL:
-				line += "#"
-			else:
-				line += " "
-		print(line)	
+	match shp:
+		shape.I:
+			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
+			var platform2 = preload("res://scenes/things/platforms.tscn").instantiate()
+			platform1.maseX=cellS/4-4
+			platform1.maseY=cellS/2
+			platform2.maseX=cellS/4-4
+			platform2.maseY=cellS/2
+			add_child(platform1)
+			add_child(platform2)
+			platform1.position=Vector3(cellS/4,10,cellS/2)
+			platform1.scale=Vector3(2,2,2)
+			platform2.position=Vector3(cellS/4,20,cellS*1.5)
+			platform2.scale=Vector3(2,2,2)
+		shape.Z:
+			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
+			var platform2 = preload("res://scenes/things/platforms.tscn").instantiate()
+			platform1.maseX=cellS/4-4
+			platform1.maseY=cellS/3
+			platform2.maseX=cellS/4-4
+			platform2.maseY=cellS/3
+			add_child(platform1)
+			add_child(platform2)
+			platform1.position=Vector3(0,10,cellS/2)
+			platform1.scale=Vector3(2,2,2)
+			platform2.position=Vector3(-cellS/2-4,20,cellS+8)
+			platform2.scale=Vector3(2,2,2)
+		shape.L:
+			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
+			var platform2 = preload("res://scenes/things/platforms.tscn").instantiate()
+			platform1.maseX=cellS/4-4
+			platform1.maseY=cellS/2
+			platform2.maseX=cellS/2-4
+			platform2.maseY=cellS/4-4
+			add_child(platform1)
+			add_child(platform2)
+			platform1.position=Vector3(cellS/4,10,cellS/2)
+			platform1.scale=Vector3(2,2,2)
+			platform2.position=Vector3(cellS/4,20,cellS*1.5+20)
+			platform2.scale=Vector3(2,2,2)
+		shape.O:
+			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
+			var platform2 = preload("res://scenes/things/platforms.tscn").instantiate()
+			platform1.maseX=cellS/3
+			platform1.maseY=cellS/3
+			platform2.maseX=cellS/3
+			platform2.maseY=cellS/3
+			add_child(platform1)
+			add_child(platform2)
+			platform1.position=Vector3(0,10,cellS/2)
+			platform1.scale=Vector3(2,2,2)
+			platform2.position=Vector3(cellS-12,20,cellS/2)
+			platform2.scale=Vector3(2,2,2)

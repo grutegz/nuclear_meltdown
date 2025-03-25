@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://bcjcbl2inmxa8"]
+
+[ext_resource type="PackedScene" uid="uid://dc1h31prras86" path="res://assets/models/dispenser.gltf" id="1_4iovt"]
+[ext_resource type="Script" uid="uid://chvkh6ef6esbb" path="res://scenes/things/dispenser.gd" id="1_ka2q7"]
+[ext_resource type="PackedScene" uid="uid://ce60vtcc5wf8v" path="res://assets/models/terminal.gltf" id="2_ka2q7"]
+[ext_resource type="Texture2D" uid="uid://cqarb0qw1dpdr" path="res://assets/textures/screen1.png" id="2_uibey"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4iovt"]
+albedo_color = Color(0.592157, 0.615686, 0.74902, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ka2q7"]
+albedo_color = Color(0.592157, 0.615686, 0.74902, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uibey"]
+cull_mode = 2
+albedo_color = Color(0.54902, 0.52549, 0.498039, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ka2q7"]
+size = Vector3(1, 0.0942383, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4iovt"]
+size = Vector3(1, 2.5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uibey"]
+size = Vector3(1, 4, 1)
+
+[node name="dispenser" type="StaticBody3D"]
+script = ExtResource("1_ka2q7")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.981353, 0.192214, 0, -0.192214, 0.981353, 0.0008201, 1.97619, -0.0158846)
+size = Vector3(0.875061, 0.925735, 0.0917969)
+texture_albedo = ExtResource("2_uibey")
+upper_fade = 0.000746814
+lower_fade = 0.0024264
+distance_fade_begin = 43.0
+
+[node name="dispenser" parent="." instance=ExtResource("1_4iovt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.001, 0, -0.001)
+
+[node name="cuboid" parent="dispenser/Node" index="0"]
+material_override = SubResource("StandardMaterial3D_4iovt")
+
+[node name="cuboid2" parent="dispenser/Node" index="1"]
+material_override = SubResource("StandardMaterial3D_ka2q7")
+
+[node name="plane" parent="dispenser/Node" index="2"]
+material_override = SubResource("StandardMaterial3D_uibey")
+
+[node name="terminal" parent="." instance=ExtResource("2_ka2q7")]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.950029, 3.4743, 0)
+shape = SubResource("BoxShape3D_ka2q7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27386, 0)
+shape = SubResource("BoxShape3D_4iovt")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 0)
+shape = SubResource("BoxShape3D_uibey")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]
+
+[editable path="dispenser"]

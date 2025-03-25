@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rrlmb170ohc5"]
+
+[ext_resource type="Script" uid="uid://bd3kcam4c3neo" path="res://scenes/things/platforms.gd" id="1_t831y"]
+
+[node name="platforms" type="Node3D"]
+script = ExtResource("1_t831y")
