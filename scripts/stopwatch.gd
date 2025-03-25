@@ -4,7 +4,7 @@ var time_elapsed: float = 0.0
 var is_running: bool = false
 
 func _ready() -> void:
-	$timer.wait_time = 0.1  # Обновление каждые 0.1 сек для плавности
+	$timer.wait_time = 0.1
 	update_display(0.0)
 
 func start() -> void:

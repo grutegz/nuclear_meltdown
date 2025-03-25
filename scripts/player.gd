@@ -24,8 +24,21 @@ var vel = []
 const damp = 2.5
 var mergedVels = Vector3.ZERO
 
+var stopwatch_scene = preload("res://scenes/things/stopwatch.tscn")
+var stopwatch: Control
+
+var ui_terminal = preload("res://scenes/things/ui_terminal.tscn")
+var ui_terminal_instance
+
 func _ready() -> void:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	stopwatch = stopwatch_scene.instantiate()
+	stopwatch.scale = Vector2i(5,5)
+	$UI.add_child(stopwatch)
+	
+	stopwatch.start()
+	# stopwatch.stop()
+	# stopwatch.reset()
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _physics_process(delta: float) -> void:
 	var dir = Vector3.ZERO
@@ -63,11 +76,29 @@ func apply_vels(delta):
 		if vel[i].length() < 0.01:
 			vel.pop_at(i)
 
+func close_terminal() -> void:
+	if ui_terminal_instance:
+		ui_terminal_instance.queue_free()
+		ui_terminal_instance = null
+		
+	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
 	if Input.is_action_just_pressed("act"):
-		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term1"): $cam/ray.get_collider().get_node("aud").play() 
+		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term1"): 
+			ui_terminal_instance = ui_terminal.instantiate()
+			ui_terminal_instance.process_mode = Node.PROCESS_MODE_ALWAYS 
+			add_child(ui_terminal_instance) 
+			
+			# выставляем listener на сигнал close_requested с коллбэком на закрытие меню
+			ui_terminal_instance.connect("close_requested", close_terminal)
+			
+			get_tree().paused = true # паузим игру
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
+			$cam/ray.get_collider().get_node("aud").play() 
 	if event is InputEventMouseMotion:
 		offsetx = event.relative.x * Global.mouse_sensitivity
 		offsety = event.relative.y * Global.mouse_sensitivity
