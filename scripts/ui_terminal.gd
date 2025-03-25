@@ -1,22 +1,36 @@
 @tool
 extends Control
 
-var type = 2
+var type = 1
 var code = randi()%9000+1000
 signal close_requested
 
+# режим1
+var typing_speed = 0.03
+var lines = []
+var cur_line = 0
+var typing = false
+var player_locked = false
+var illustration_texture : Texture
+
+@onready var illustration = $ColorRect/illustration
 @onready var output = $ColorRect/screen
 @onready var input = $ColorRect/inp/inp
 
-
-#
 func _ready() -> void:
 	setup()
+	if type == 1:
+		load_lines("res://assets/texts/test.txt")
 
 func setup() -> void:
 	match type:
 		1:
-			pass
+			input.visible = false
+			output.visible = true
+			illustration.visible = true
+			output.text = ""
+			if !lines.is_empty():
+				start_typing()
 		2:
 			output.text="enter code:"
 			input.text=""
@@ -24,7 +38,64 @@ func setup() -> void:
 			output.text="cookie says: "+fortunes[randi()%len(fortunes)]
 		_:
 			output.text="i use arch btw"
-			
+
+func load_lines(path: String) -> void:
+	var file = FileAccess.open(path, FileAccess.READ)
+	while not file.eof_reached():
+		var line = file.get_line()
+		if line.strip_edges() != "":
+			lines.append(line)
+	file.close()
+
+func start_typing() -> void:
+	if cur_line >= lines.size():
+		queue_free()
+		emit_signal("close_requested")
+		return
+	
+	var line = lines[cur_line]
+	
+	if line.begins_with("#"):
+		print("kartinka")
+		handle_image_command(line)
+		return 
+	
+	typing = true
+	output.text = ""
+	
+	for char in line:
+		if !typing:
+			break
+		output.text += char
+		await get_tree().create_timer(typing_speed).timeout
+	
+	typing = false
+	cur_line += 1
+
+func handle_image_command(line: String) -> void:
+	print("otkrivayu kartinku...")
+	var parts = line.split(" ")
+	if parts.size() < 2:
+		push_error("Invalid image command: " + line)
+		return
+	
+	var texture_path = "res://assets/pictures/" + parts[1]
+	
+	if not FileAccess.file_exists(texture_path):
+		push_error("Image not found: ", texture_path)
+		return
+	
+	var texture = load(texture_path)
+	if not texture:
+		push_error("Failed to load texture: ", texture_path)
+		return
+	
+	illustration.texture = texture
+	cur_line += 1
+
+	await get_tree().create_timer(0.1).timeout
+	start_typing()
+
 var currentCode = ""
 func _input(event) -> void:
 	if Input.is_key_pressed(KEY_Q):
@@ -32,6 +103,18 @@ func _input(event) -> void:
 		get_viewport().set_input_as_handled()
 		process_input()
 		
+	if type == 1:
+		if event.is_action_pressed("ui_accept"):
+			if typing:
+				typing = false
+				output.text = lines[cur_line]
+			else:
+				#cur_line += 1
+				start_typing()
+		
+		if event.is_action_pressed("ui_cancel"):
+			queue_free()
+
 func process_input() -> void:
 	match type:
 		2:
