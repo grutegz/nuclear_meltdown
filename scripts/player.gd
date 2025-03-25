@@ -32,7 +32,6 @@ var ui_terminal_instance
 
 func _ready() -> void:
 	stopwatch = stopwatch_scene.instantiate()
-	stopwatch.scale = Vector2i(5,5)
 	$UI.add_child(stopwatch)
 	
 	stopwatch.start()

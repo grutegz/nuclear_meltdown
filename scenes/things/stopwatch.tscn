@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1xq1iegfbpcw"]
+[gd_scene load_steps=5 format=3 uid="uid://c1xq1iegfbpcw"]
 
 [ext_resource type="Script" uid="uid://boe20bqjx03vx" path="res://scripts/stopwatch.gd" id="1_owuek"]
+[ext_resource type="Shader" uid="uid://03eekqhmspen" path="res://assets/shaders/nearest.gdshader" id="2_3sx2s"]
 [ext_resource type="FontFile" uid="uid://dgx83jpb15y05" path="res://assets/fonts/Segment7Standard.otf" id="2_5uvfn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i6o3t"]
+shader = ExtResource("2_3sx2s")
 
 [node name="Stopwatch" type="Control"]
 layout_mode = 3
@@ -15,9 +19,12 @@ script = ExtResource("1_owuek")
 [node name="timer" type="Timer" parent="."]
 
 [node name="time_label" type="Label" parent="."]
+material = SubResource("ShaderMaterial_i6o3t")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 theme_override_fonts/font = ExtResource("2_5uvfn")
+theme_override_font_sizes/font_size = 64
+text = "12-34"
 
 [connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

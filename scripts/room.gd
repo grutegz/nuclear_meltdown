@@ -8,7 +8,7 @@ var wallS :int = 30
 
 
 func _ready():
-	create_room(Vector3(0,0,0),"0floor","bricks1",1,0)
+	create_room(Vector3(0,0,0),"0floor","bricks1",2,0)
 	#var maze = generate_maze(MAZE_SIZE)
 	#print_maze(maze)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2):

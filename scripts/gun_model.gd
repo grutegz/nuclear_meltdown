@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func _process(delta):
 	var window_size = get_window().size
-	$SubViewport.size = Vector2(window_size.x, window_size.y)
+	$SubViewport.size = Vector2(Global.resolution.x, Global.resolution.y)
 	match anim:
 		animation.idle:
 			calc_offset(delta)

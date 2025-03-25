@@ -24,4 +24,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266924, -0.401656, 0.39585
 environment = SubResource("Environment_sugp2")
 
 [node name="player" parent="." instance=ExtResource("3_jyhfs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1821, 5.37329, 5.20102)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1821, 14.5804, 6.4962)
