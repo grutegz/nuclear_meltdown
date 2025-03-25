@@ -7,23 +7,32 @@ const PATH = 0
 
 func _ready() -> void:
 	var arr = generate_maze()
+	var enemy_count = 0
+	var cable_count = 0
+	
 	for i in range(maseX):
 		for j in range(maseY):
 			if arr[i][j]:
 				var platform = preload("res://scenes/things/grid_patform.tscn").instantiate()
 				add_child(platform)
 				platform.position=Vector3(i*2+1,0,j*2+1)
-				if randi()%20==1:
+				
+				if cable_count < 4 or randi()%20==1:
 					var cable = preload("res://scenes/things/cable.tscn").instantiate()
 					add_child(cable)
 					cable.position=Vector3(i*2+1,10,j*2+1)
-				if randi()%30==1:
+					cable_count += 1
+				
+				if enemy_count < 1 or randi()%30==1:
 					var soldier = preload("res://scenes/soldier_sg.tscn").instantiate()
 					add_child(soldier)
 					soldier.position=Vector3(i*2+1,1,j*2+1)
 					soldier.scale=Vector3(0.5,0.5,0.5)
+					enemy_count += 1
 
 func generate_maze():
+	maseX=int(maseX)
+	maseY=int(maseY)
 	var maze = []
 	
 	for i in range(maseX):

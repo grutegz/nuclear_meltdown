@@ -6,6 +6,12 @@ var esc_menu = preload("res://scenes/esc_menu.tscn")
 var esc_menu_instance = null 
 var esc = true
 
+var room_count = 10 
+
+
+func _ready() -> void:
+	pass
+
 func _input(event) -> void:
 	if Input.is_action_just_pressed("esc") and !esc_menu_instance:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if esc else Input.MOUSE_MODE_VISIBLE)

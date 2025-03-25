@@ -52,7 +52,7 @@ grow_vertical = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 toggle_mode = true
-text = "Start game"
+text = "Start"
 
 [node name="settings" type="Button" parent="VBoxContainer"]
 layout_mode = 2
