@@ -76,6 +76,7 @@ func apply_vels(delta):
 			vel.pop_at(i)
 
 func close_terminal() -> void:
+	print("ya zakrilsya")
 	if ui_terminal_instance:
 		ui_terminal_instance.queue_free()
 		ui_terminal_instance = null
