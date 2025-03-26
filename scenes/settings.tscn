@@ -26,10 +26,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -47.5
-offset_top = -95.0
-offset_right = 47.5
-offset_bottom = -60.0
+offset_left = -130.0
+offset_top = -35.0
+offset_right = 130.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Apply and go back"
@@ -61,14 +60,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 33
 text = "Sound settings"
 
-[node name="master_sound" type="HSlider" parent="VBoxContainer/sound_settings"]
+[node name="master_sldr" type="HSlider" parent="VBoxContainer/sound_settings"]
 layout_mode = 2
+max_value = 1.0
+step = 0.01
 
-[node name="music_sound" type="HSlider" parent="VBoxContainer/sound_settings"]
+[node name="music_sldr" type="HSlider" parent="VBoxContainer/sound_settings"]
 layout_mode = 2
+max_value = 1.0
+step = 0.01
 
-[node name="sfx_sound" type="HSlider" parent="VBoxContainer/sound_settings"]
+[node name="sfx_sldr" type="HSlider" parent="VBoxContainer/sound_settings"]
 layout_mode = 2
+max_value = 1.0
+step = 0.01
 
 [node name="video_settings" type="VBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -100,5 +105,8 @@ layout_mode = 2
 layout_mode = 2
 
 [connection signal="pressed" from="apply_and_go_back" to="." method="_on_apply_and_go_back_pressed"]
+[connection signal="value_changed" from="VBoxContainer/sound_settings/master_sldr" to="." method="_on_master_sldr_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/sound_settings/music_sldr" to="." method="_on_music_sldr_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/sound_settings/sfx_sldr" to="." method="_on_sfx_sldr_value_changed"]
 [connection signal="pressed" from="VBoxContainer/video_settings/fullscreen" to="." method="_on_fullscreen_pressed"]
 [connection signal="value_changed" from="VBoxContainer/Gameplay/sensitivity_sldr" to="." method="_on_sensitivity_sldr_value_changed"]

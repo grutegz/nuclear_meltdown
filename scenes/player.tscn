@@ -35,22 +35,27 @@ script = ExtResource("1_3vyb7")
 
 [node name="rech" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_smehm")
+bus = &"SFX"
 
 [node name="aud" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_tuyoq")
+bus = &"SFX"
 
 [node name="sg" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_fjrip")
 pitch_scale = 1.2
+bus = &"SFX"
 
 [node name="rl" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("6_smehm")
 pitch_scale = 1.2
+bus = &"SFX"
 
 [node name="rg" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_ur7pv")
 volume_db = 3.556
 pitch_scale = 1.2
+bus = &"SFX"
 
 [node name="steps" type="Timer" parent="."]
 wait_time = 0.4
