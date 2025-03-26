@@ -1,8 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckipa7sdccxib"]
+[gd_scene load_steps=9 format=3 uid="uid://ckipa7sdccxib"]
 
 [ext_resource type="Script" uid="uid://booy6gvlm7d8h" path="res://scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="Shader" uid="uid://dhge30u33xhev" path="res://assets/shaders/poster.gdshader" id="2_con2f"]
+[ext_resource type="PackedScene" uid="uid://ce60vtcc5wf8v" path="res://assets/models/terminal.gltf" id="2_vjb58"]
+[ext_resource type="World3D" uid="uid://7nb82w2qbhgx" path="res://assets/model.tres" id="3_mhnvy"]
+[ext_resource type="Texture2D" uid="uid://c45us0geo60l2" path="res://assets/boosty.png" id="5_g3eks"]
+[ext_resource type="Texture2D" uid="uid://rbhtnabkhfqk" path="res://assets/github.png" id="6_v86rl"]
+[ext_resource type="AudioStream" uid="uid://cq7rm4mk14fr3" path="res://assets/sfx/loop2.ogg" id="8_13sgg"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4h3mk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4ytvr"]
+shader = ExtResource("2_con2f")
+shader_parameter/color_count = 4
+shader_parameter/posterization_levels = 4.0
+shader_parameter/color1 = Color(1, 0, 0, 1)
+shader_parameter/color2 = Color(0, 1, 0, 1)
+shader_parameter/color3 = Color(0, 0, 1, 1)
+shader_parameter/color4 = Color(1, 1, 0, 1)
+shader_parameter/blend_amount = 0.6
+shader_parameter/edge_smoothness = 5.0
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -20,19 +35,48 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_4h3mk")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_4ytvr")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -512.0
+offset_top = -512.0
+offset_right = 512.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+world_3d = ExtResource("3_mhnvy")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1024, 1024)
+render_target_update_mode = 4
+
+[node name="model" parent="SubViewportContainer/SubViewport" instance=ExtResource("2_vjb58")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.33745, -2.40205)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+projection = 1
+size = 3.97653
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
+offset_left = -344.0
+offset_top = 88.0
+offset_right = 344.0
+offset_bottom = 152.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 40
-text = "NUCLEAR_MELTDOWN"
+text = "NUCLEAR MELTDOWN"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -63,6 +107,61 @@ text = "Settings"
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Exit"
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -44.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "autors"
+
+[node name="bst" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -87.0
+offset_right = -5.0
+offset_bottom = -47.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("5_g3eks")
+stretch_mode = 0
+
+[node name="gthb" type="TextureButton" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -91.0
+offset_top = -87.0
+offset_right = -51.0
+offset_bottom = -47.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("6_v86rl")
+stretch_mode = 0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_13sgg")
+volume_db = -4.0
+autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/start_game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/settings" to="." method="_on_settings_pressed"]

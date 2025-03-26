@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvf5212du6emk"
-path="res://.godot/imported/steamuserimages-a.akamaihd.jpg-aac51831f3a2c9870c6a520326b7d6c9.ctex"
+uid="uid://rbhtnabkhfqk"
+path="res://.godot/imported/github.png-2380bbe348a8d7734dc68efed7ee1536.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pictures/steamuserimages-a.akamaihd.jpg"
-dest_files=["res://.godot/imported/steamuserimages-a.akamaihd.jpg-aac51831f3a2c9870c6a520326b7d6c9.ctex"]
+source_file="res://assets/github.png"
+dest_files=["res://.godot/imported/github.png-2380bbe348a8d7734dc68efed7ee1536.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

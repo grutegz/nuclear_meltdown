@@ -130,7 +130,7 @@ func shoot(type):
 			$sg.play()
 		weapon.RG:
 			var rail = preload("res://scenes/rail.tscn").instantiate()
-			add_sibling(rail)
+			add_child(rail)
 			rail.global_transform = $cam/p.global_transform
 			$rg.play()
 			

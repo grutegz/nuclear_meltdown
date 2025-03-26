@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dq7vv1tnj7nmj"
-path="res://.godot/imported/8742989.png-32b3e3f303a6b79e27382b1aa011a919.ctex"
+uid="uid://c45us0geo60l2"
+path="res://.godot/imported/boosty.png-b266dd620d5288828ff137d2b48e09c1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/pictures/8742989.png"
-dest_files=["res://.godot/imported/8742989.png-32b3e3f303a6b79e27382b1aa011a919.ctex"]
+source_file="res://assets/boosty.png"
+dest_files=["res://.godot/imported/boosty.png-b266dd620d5288828ff137d2b48e09c1.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=3
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -1,7 +1,7 @@
 extends StaticBody3D
 
 enum shape {I,Z,L,O,s}
-enum type { ROOM1,ROOM2,ROOM3,LAB }
+enum type { ROOM1,ROOM2,ROOM3,LAB,ERR,OFFICE }
 var curType = 0
 
 var cellS :int = 40
@@ -13,18 +13,18 @@ var nextDoor = Vector2(2,0)
 var nextPos = Vector3()
 
 func _ready():
-	create_room(prevPos,"1floor","bricks1",curType,0)
+	create_room(prevPos,"1floor","1floor",curType,0)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2, d):
 	var door_ps = get_size_3d(dps, dir)
 	var door_sized_ps = door_ps
 	match dir:
-		Vector3.DOWN, Vector3.UP: return
+		Vector3.DOWN, Vector3.UP,Vector3.RIGHT, Vector3.LEFT: return
 		Vector3.FORWARD, Vector3.BACK: door_sized_ps+=Vector3(4, 4, 0)
-		Vector3.RIGHT, Vector3.LEFT: door_sized_ps+=Vector3(4, 4, 0)
-	#create_wall(Vector2(dps.x,dps.y+4),ps,dir,texture)
+
+	create_wall(Vector2(dps.x,dps.y+4),ps,dir,texture)
 	create_wall(Vector2(sz.x-dps.x,dps.y),ps+door_ps/2-Vector3(0,door_ps.y,0)/2,dir,texture)
 	create_wall(Vector2(dps.x+4,sz.y-dps.y-4),ps+Vector3(0,door_sized_ps.y,0)/2,dir,texture)
-	create_wall(Vector2(sz.x-dps.x-4,sz.y),ps+door_sized_ps/2-Vector3(0,door_sized_ps.y,0)/2,dir,texture)
+	create_wall(Vector2(sz.x-dps.x-4,sz.y),ps+door_sized_ps/2-Vector3.UP*2,dir,texture)
 	if d:
 		var door = preload("res://scenes/things/door1.tscn").instantiate()
 		add_child(door)
@@ -314,6 +314,6 @@ func room_platforms(shp):
 			platform2.position=Vector3(cellS-12,20,cellS/2.0)+ prevPos*2
 			platform2.scale=Vector3(2,2,2)
 func get_random_door_position(wall_size: Vector2) -> Vector2:
-	var door_x = randi_range(8, int(wall_size.x) - 4)
-	var door_y = randi_range(0, int(wall_size.y) - 4)
+	var door_x = randi()*2%int(wall_size.x-8)+4
+	var door_y = randi()*2%int(wall_size.y-8)+4
 	return Vector2(door_x, door_y)
