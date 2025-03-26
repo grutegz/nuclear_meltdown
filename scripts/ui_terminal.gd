@@ -1,6 +1,8 @@
 extends Control
 
-var type = 2
+var type = 1
+const texts = ["res://assets/texts/tutor.txt"]
+var text = 0
 var code = randi()%9000+1000
 signal close_requested
 
@@ -19,7 +21,7 @@ var illustration_texture : Texture
 func _ready() -> void:
 	setup()
 	if type == 1:
-		load_lines("res://assets/texts/welcome.txt")
+		load_lines(texts[text])
 
 func setup() -> void:
 	match type:
@@ -35,6 +37,7 @@ func setup() -> void:
 			input.text=""
 		3:
 			output.text="cookie says: "+fortunes[randi()%len(fortunes)]
+			illustration.texture = load("res://assets/pictures/cookie.png")
 		_:
 			output.text="i use arch btw"
 

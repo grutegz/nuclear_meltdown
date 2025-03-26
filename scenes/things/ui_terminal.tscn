@@ -34,13 +34,14 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="illustration" type="TextureRect" parent="ColorRect"]
+texture_filter = 1
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-offset_bottom = -452.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -161.0
+offset_bottom = 163.0
+grow_horizontal = 0
 expand_mode = 1
 
 [node name="screen" type="Label" parent="ColorRect"]
@@ -48,7 +49,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 29.0
-offset_right = -32.0
+offset_right = -159.0
 offset_bottom = 291.0
 grow_horizontal = 2
 autowrap_mode = 3
