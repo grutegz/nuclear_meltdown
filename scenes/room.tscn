@@ -1,18 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://dg7h8b1rfiwwd"]
+[gd_scene load_steps=2 format=3 uid="uid://dg7h8b1rfiwwd"]
 
 [ext_resource type="Script" uid="uid://btohrlhmsb7lt" path="res://scripts/room.gd" id="1_36trf"]
-[ext_resource type="PackedScene" uid="uid://jtway4lvnwlr" path="res://scenes/things/terminal.tscn" id="3_85yof"]
-[ext_resource type="PackedScene" uid="uid://bcjcbl2inmxa8" path="res://scenes/things/dispenser.tscn" id="4_14vil"]
-[ext_resource type="PackedScene" uid="uid://cp8ktrvupbabs" path="res://scenes/sentry_rg.tscn" id="4_jxe34"]
 
 [node name="room" type="StaticBody3D"]
 script = ExtResource("1_36trf")
-
-[node name="TERMINAL" parent="." instance=ExtResource("3_85yof")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.468554, 0, 6)
-
-[node name="dispenser" parent="." instance=ExtResource("4_14vil")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.466908, 0, 5)
-
-[node name="SENTRY_RG" parent="." instance=ExtResource("4_jxe34")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 12.3232, 0, 3.37887)

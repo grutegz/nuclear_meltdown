@@ -8,8 +8,6 @@ size = Vector3(1, 2.48096, 1)
 
 [node name="TERMINAL" type="StaticBody3D"]
 
-[node name="term1" type="Node" parent="."]
-
 [node name="aud" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("1_wt3xp")
 
@@ -18,5 +16,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.23724, 0)
 shape = SubResource("BoxShape3D_wt3xp")
 
 [node name="model" parent="." instance=ExtResource("1_j45pe")]
+
+[node name="term" type="Node" parent="."]
 
 [editable path="model"]

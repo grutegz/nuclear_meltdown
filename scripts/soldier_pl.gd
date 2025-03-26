@@ -4,6 +4,9 @@ extends CharacterBody3D
 @onready var left = $model/Node/left/cuboid2
 @onready var right = $model/Node/right/cuboid4
 
+@onready var l =$model/Node/left/cuboid2/p
+@onready var r = $model/Node/right/cuboid4/p
+
 enum State { IDLE, FOCUS }
 var curState = State.IDLE
 

@@ -2,8 +2,8 @@ extends StaticBody3D
 
 var open = false
 
-const OPEN_R = Vector3(5, 2, 0)
-const OPEN_L = Vector3(-1, 2, 0)
+const OPEN_R = Vector3(4.99, 2, 0)
+const OPEN_L = Vector3(-0.99, 2, 0)
 const SPEED = 5.0
 
 @onready var door_r: Node3D = $colr
@@ -14,6 +14,8 @@ var closed_l: Vector3
 func _ready() -> void:
 	closed_r = door_r.position
 	closed_l = door_l.position
+	
+	#$TERMINAL.type=2
 
 func _process(delta: float) -> void:
 	var target_r = OPEN_R if open else closed_r

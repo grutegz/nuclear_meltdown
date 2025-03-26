@@ -22,8 +22,12 @@ func _process(delta):
 	
 
 func calc_offset(delta):
-	gun.global_rotation.y = deg_to_rad(player.velocity.dot(player.transform.basis.x)) * delta * 7
-	gun.global_rotation.x = deg_to_rad(-player.velocity.dot(player.transform.basis.z)) * delta * 15
+	var rotation_speed_y = deg_to_rad(player.velocity.dot(player.transform.basis.x)) * delta * 7
+	var rotation_speed_x = deg_to_rad(-player.velocity.dot(player.transform.basis.z)) * delta * 15
+	var t = delta * 10
+
+	gun.global_rotation.y = gun.global_rotation.y + smoothstep(0.0, 1.0, t) * (rotation_speed_y - gun.global_rotation.y)
+	gun.global_rotation.x = gun.global_rotation.x + smoothstep(0.0, 1.0, t) * (rotation_speed_x - gun.global_rotation.x)
 	speed = player.velocity.length()
 	if speed > 0.1 and player.is_on_floor():
 		time_elapsed += delta * speed 

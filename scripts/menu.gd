@@ -16,3 +16,6 @@ func _on_settings_pressed() -> void:
 
 func _on_exit_pressed() -> void:
 	Global.save_and_quit()
+
+func _process(delta: float) -> void:
+	$SubViewportContainer/SubViewport/model.rotate_y(delta)

@@ -1,7 +1,8 @@
-@tool
 extends Control
 
-var type = 1
+var type = 2
+const texts = ["res://assets/texts/tutor.txt"]
+var text = 0
 var code = randi()%9000+1000
 signal close_requested
 
@@ -20,7 +21,7 @@ var illustration_texture : Texture
 func _ready() -> void:
 	setup()
 	if type == 1:
-		load_lines("res://assets/texts/test.txt")
+		load_lines(texts[text])
 
 func setup() -> void:
 	match type:
@@ -36,6 +37,7 @@ func setup() -> void:
 			input.text=""
 		3:
 			output.text="cookie says: "+fortunes[randi()%len(fortunes)]
+			illustration.texture = load("res://assets/pictures/cookie.png")
 		_:
 			output.text="i use arch btw"
 
@@ -56,7 +58,6 @@ func start_typing() -> void:
 	var line = lines[cur_line]
 	
 	if line.begins_with("#"):
-		print("kartinka")
 		handle_image_command(line)
 		return 
 	
@@ -73,7 +74,6 @@ func start_typing() -> void:
 	cur_line += 1
 
 func handle_image_command(line: String) -> void:
-	print("otkrivayu kartinku...")
 	var parts = line.split(" ")
 	if parts.size() < 2:
 		push_error("Invalid image command: " + line)
@@ -101,21 +101,6 @@ func _input(event) -> void:
 	if Input.is_key_pressed(KEY_Q):
 		emit_signal("close_requested")
 		get_viewport().set_input_as_handled()
-		process_input()
-		
-	if type == 1:
-		if event.is_action_pressed("ui_accept"):
-			if typing:
-				typing = false
-				output.text = lines[cur_line]
-			else:
-				#cur_line += 1
-				start_typing()
-		
-		if event.is_action_pressed("ui_cancel"):
-			queue_free()
-
-func process_input() -> void:
 	match type:
 		2:
 			if Input.is_key_pressed(KEY_0): currentCode+="0"
@@ -130,6 +115,18 @@ func process_input() -> void:
 			elif Input.is_key_pressed(KEY_9): currentCode+="9"
 			if Input.is_key_pressed(KEY_BACKSPACE):currentCode=currentCode.substr(0,len(currentCode)-1)
 			input.text=currentCode
+		
+	if type == 1:
+		if event.is_action_pressed("ui_accept"):
+			if typing:
+				typing = false
+				output.text = lines[cur_line]
+			else:
+				#cur_line += 1
+				start_typing()
+		
+		if event.is_action_pressed("ui_cancel"):
+			queue_free()
 
 var fortunes = [
 	"A pleasant surprise is waiting for you.",

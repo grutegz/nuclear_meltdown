@@ -5,6 +5,8 @@ var maseY = 0
 const WALL = 1
 const PATH = 0
 
+var type = 0
+
 func _ready() -> void:
 	var arr = generate_maze()
 	var enemy_count = 0
@@ -26,8 +28,9 @@ func _ready() -> void:
 				if enemy_count < 1 or randi()%30==1:
 					var soldier = preload("res://scenes/soldier_sg.tscn").instantiate()
 					add_child(soldier)
-					soldier.position=Vector3(i*2+1,1,j*2+1)
+					soldier.position=Vector3(i*2+1,-1,j*2+1)
 					soldier.scale=Vector3(0.5,0.5,0.5)
+					soldier.global_rotation = Vector3.ZERO
 					enemy_count += 1
 
 func generate_maze():

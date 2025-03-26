@@ -1,27 +1,42 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgs4eel51yoi5"]
+[gd_scene load_steps=7 format=3 uid="uid://bgs4eel51yoi5"]
 
 [ext_resource type="Script" uid="uid://fc4vkik4k7je" path="res://scripts/main.gd" id="1_o5qli"]
+[ext_resource type="Shader" uid="uid://hk0mbab5kux2" path="res://assets/shaders/stars.gdshader" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b4euxrvykbjjp" path="res://scenes/player.tscn" id="3_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://dg7h8b1rfiwwd" path="res://scenes/room.tscn" id="3_tbgi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
+shader = ExtResource("2_sugp2")
+shader_parameter/vertical_sections = 26
+shader_parameter/star_size = 0.02
+shader_parameter/star_falloff = 8.0
+shader_parameter/margin = 0.1
+
+[sub_resource type="Sky" id="Sky_tbgi4"]
+sky_material = SubResource("ShaderMaterial_jyhfs")
 
 [sub_resource type="Environment" id="Environment_sugp2"]
-background_mode = 1
+background_mode = 2
 background_color = Color(0.766011, 0.803025, 0.990918, 1)
-ambient_light_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 0.59
+sky = SubResource("Sky_tbgi4")
+ambient_light_source = 2
+ambient_light_color = Color(0.643822, 0.548865, 1, 1)
 ambient_light_energy = 0.65
-fog_enabled = true
+reflected_light_source = 1
 fog_light_color = Color(0.120375, 0.0226431, 0.207511, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0435
+volumetric_fog_albedo = Color(0.15853, 8.85606e-06, 0.671294, 1)
+volumetric_fog_emission = Color(0.0689863, 1.24899e-05, 0.308943, 1)
+volumetric_fog_detail_spread = 5.4075
 
 [node name="main" type="Node"]
 script = ExtResource("1_o5qli")
 
 [node name="level" type="Node3D" parent="."]
 
-[node name="room" parent="level" instance=ExtResource("3_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.266924, -0.401656, 0.395855)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="level"]
 environment = SubResource("Environment_sugp2")
 
 [node name="player" parent="." instance=ExtResource("3_jyhfs")]
-transform = Transform3D(-0.982493, 0, 0.186301, 0, 1, 0, -0.186301, 0, -0.982493, 3.5808, 1.3016, 1.52729)
+transform = Transform3D(-0.982493, 0, 0.186301, 0, 1, 0, -0.186301, 0, -0.982493, 0.945182, 1.302, 0.867432)

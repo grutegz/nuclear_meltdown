@@ -77,8 +77,13 @@ shape = SubResource("CapsuleShape3D_sl5o7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21492, 0)
 pixel_size = 0.06
 billboard = 2
+double_sided = false
 texture_filter = 0
 texture = ExtResource("3_tutx7")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="model/Node/body/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.58992, 0)
+light_color = Color(1, 0.227451, 0.811765, 1)
 
 [node name="SG" parent="model/Node/body/hand" index="3" instance=ExtResource("3_sl5o7")]
 transform = Transform3D(-3.09086e-08, -0.707107, -0.707107, -3.09086e-08, 0.707107, -0.707107, 1, 0, -4.37114e-08, -1.00264, -0.268079, 0.375469)
@@ -126,6 +131,7 @@ mesh = SubResource("CylinderMesh_tutx7")
 
 [node name="sg" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_k2xu4")
+volume_db = -8.915
 
 [connection signal="timeout" from="rech" to="." method="_on_rech_timeout"]
 [connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]

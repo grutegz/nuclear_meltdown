@@ -88,7 +88,7 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
 	if Input.is_action_just_pressed("act"):
-		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term1"): 
+		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term"): 
 			ui_terminal_instance = ui_terminal.instantiate()
 			ui_terminal_instance.process_mode = Node.PROCESS_MODE_ALWAYS 
 			add_child(ui_terminal_instance) 
@@ -130,7 +130,7 @@ func shoot(type):
 			$sg.play()
 		weapon.RG:
 			var rail = preload("res://scenes/rail.tscn").instantiate()
-			add_sibling(rail)
+			add_child(rail)
 			rail.global_transform = $cam/p.global_transform
 			$rg.play()
 			

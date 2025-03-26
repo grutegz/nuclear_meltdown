@@ -1,21 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://cp8ktrvupbabs"]
+[gd_scene load_steps=10 format=3 uid="uid://cp8ktrvupbabs"]
 
 [ext_resource type="Script" uid="uid://pksig6isuey3" path="res://scripts/sentry_rg.gd" id="1_hrggu"]
 [ext_resource type="PackedScene" uid="uid://cpd2rgwmv7vyk" path="res://assets/models/SENTRY_RG.gltf" id="1_o3gc8"]
 [ext_resource type="Texture2D" uid="uid://clsic8ca12r6u" path="res://assets/head2.png" id="3_ghowm"]
+[ext_resource type="PackedScene" uid="uid://7417g4dadt4v" path="res://scenes/things/soldier_dies.tscn" id="4_xbei3"]
+[ext_resource type="AudioStream" uid="uid://df4olg6plfnmh" path="res://assets/sfx/railgun1.ogg" id="5_xbei3"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_dbqvv"]
 height = 1.53772
 radius = 0.729004
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xbei3"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0.631373, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_wacje"]
+size = Vector3(0.05, 0.05, 50)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hrggu"]
 radius = 50.0
 
 [node name="SENTRY_RG" type="CharacterBody3D"]
 script = ExtResource("1_hrggu")
-
-[node name="aud" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(0.843391, -0.5373, -8.74228e-08, -0.5373, -0.843391, -8.21415e-16, -7.37316e-08, 4.69722e-08, -1, -0.125, 1.3125, 0)
 
 [node name="col" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00739825, 0.806636, -0.00983214)
@@ -34,6 +40,15 @@ billboard = 2
 texture_filter = 0
 texture = ExtResource("3_ghowm")
 
+[node name="p" type="Node3D" parent="model/Node/bone/cuboid" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="laser" type="MeshInstance3D" parent="model/Node/bone/cuboid" index="1"]
+transform = Transform3D(-4.37114e-08, -1, 0, -4.37114e-08, 1.91069e-15, 1, -1, 4.37114e-08, -4.37114e-08, 0, 26, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_xbei3")
+mesh = SubResource("PrismMesh_wacje")
+
 [node name="vis" type="Area3D" parent="."]
 
 [node name="col" type="CollisionShape3D" parent="vis"]
@@ -41,7 +56,16 @@ shape = SubResource("SphereShape3D_hrggu")
 
 [node name="harm" type="Node" parent="."]
 
+[node name="soldierDies" parent="." instance=ExtResource("4_xbei3")]
+
+[node name="rg" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_xbei3")
+
+[node name="rech" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="body_entered" from="vis" to="." method="_on_vis_body_entered"]
 [connection signal="body_exited" from="vis" to="." method="_on_vis_body_exited"]
+[connection signal="timeout" from="rech" to="." method="_on_rech_timeout"]
 
 [editable path="model"]

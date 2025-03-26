@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1owve1rijsg5"]
+
+[ext_resource type="PackedScene" uid="uid://bsv6dign1e608" path="res://assets/models/superComputer.gltf" id="1_tof4j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_426nj"]
+size = Vector3(3, 5, 2)
+
+[node name="superComputer" type="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 0, 1.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0.5)
+shape = SubResource("BoxShape3D_426nj")
+
+[node name="blockbench_export" parent="." instance=ExtResource("1_tof4j")]
