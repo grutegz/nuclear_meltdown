@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://byxwg2h2a0j1m"]
+[gd_scene load_steps=12 format=3 uid="uid://byxwg2h2a0j1m"]
 
 [ext_resource type="Script" uid="uid://v8w7d5c8bcpv" path="res://scenes/things/door_1.gd" id="1_r0b7v"]
 [ext_resource type="Texture2D" uid="uid://bv66qocrhkjji" path="res://assets/textures/door1.png" id="1_u028w"]
 [ext_resource type="PackedScene" uid="uid://70b8isrnqujy" path="res://scenes/things/grid_patform.tscn" id="3_trfqo"]
+[ext_resource type="PackedScene" uid="uid://jtway4lvnwlr" path="res://scenes/things/terminal.tscn" id="4_ttgrg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r0b7v"]
 size = Vector3(2, 4, 0.3)
@@ -40,7 +41,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 2, 0)
 shape = SubResource("BoxShape3D_r0b7v")
 
 [node name="left" type="MeshInstance3D" parent="coll"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0.1)
 material_override = SubResource("StandardMaterial3D_trfqo")
 mesh = SubResource("PlaneMesh_ttgrg")
 skeleton = NodePath("../..")
@@ -56,6 +57,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3, 2, 
 shape = SubResource("BoxShape3D_p23hu")
 
 [node name="right" type="MeshInstance3D" parent="colr"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 material_override = SubResource("StandardMaterial3D_vry2p")
 mesh = SubResource("PlaneMesh_v7wun")
 skeleton = NodePath("../../coll/left")
@@ -77,6 +79,9 @@ one_shot = true
 
 [node name="grid_patform" parent="." instance=ExtResource("3_trfqo")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 2, -0.5, 0)
+
+[node name="TERMINAL" parent="." instance=ExtResource("4_ttgrg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -0.6)
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

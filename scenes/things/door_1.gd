@@ -14,6 +14,8 @@ var closed_l: Vector3
 func _ready() -> void:
 	closed_r = door_r.position
 	closed_l = door_l.position
+	
+	#$TERMINAL.type=2
 
 func _process(delta: float) -> void:
 	var target_r = OPEN_R if open else closed_r

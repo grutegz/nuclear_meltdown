@@ -2,16 +2,18 @@ extends StaticBody3D
 
 enum shape {I,Z,L,O,s}
 enum type { ROOM1,ROOM2,ROOM3,LAB }
+var curType = 0
+
 var cellS :int = 40
 var wallS :int = 30
 
 var prevDoor = Vector2()
-# не знаю как лучше задать
-var currentDoor = Vector2()
+var prevPos =  Vector3()
+var nextDoor = Vector2()
 var nextPos = Vector3()
 
 func _ready():
-	create_room(Vector3(0,0,0),"0floor","bricks1",1,0)
+	create_room(prevPos,"0floor","bricks1",curType,0)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2, d):
 	var door_ps = get_size_3d(dps, dir)
 	var door_sized_ps = door_ps
@@ -27,6 +29,10 @@ func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, d
 		var door = preload("res://scenes/things/door1.tscn").instantiate()
 		add_child(door)
 		door.position = door_ps+ps*2
+		if curType!=4:
+					var fan = preload("res://scenes/things/fan.tscn").instantiate()
+					fan.position=Vector3(door_ps.x+2,0,door_ps.z-8)+ps*2
+					add_child(fan)
 
 
 func create_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String):
@@ -176,12 +182,14 @@ func get_uvs(dir: Vector3) -> Array:
 			push_error("Invalid direction")
 			return []
 func create_room(ps, floor, wall, shp, tp):
+	nextDoor = get_random_door_position(Vector2(cellS, wallS))
 	match shp:
 		shape.I:
 			#exit
-			create_door_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z + cellS * 2), Vector3.FORWARD, wall, Vector2(0, 2), true)
+			nextPos=Vector3(ps.x, ps.y, ps.z + cellS * 2)
+			create_door_wall(Vector2(cellS, wallS), nextPos, Vector3.FORWARD, wall,nextDoor,true)
 			#enter
-			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_door_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall,prevDoor,false)
 			create_wall(Vector2(cellS * 4, wallS), Vector3(ps.x + cellS / 2.0, ps.y, ps.z), Vector3.LEFT, wall)
 			create_wall(Vector2(cellS * 4, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
 			create_wall(Vector2(cellS, cellS * 4), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
@@ -190,7 +198,7 @@ func create_room(ps, floor, wall, shp, tp):
 		shape.Z:
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z + cellS), Vector3.FORWARD, wall)
 			#enter
-			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_door_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall, prevDoor, false)
 			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x + cellS / 2.0, ps.y, ps.z), Vector3.LEFT, wall)
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
 			create_wall(Vector2(cellS, cellS * 2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
@@ -202,16 +210,20 @@ func create_room(ps, floor, wall, shp, tp):
 			create_wall(Vector2(cellS, cellS * 2), Vector3(ps.x - cellS / 2.0, ps.y + wallS / 2.0, ps.z + cellS / 2.0), Vector3.DOWN, floor)
 			create_wall(Vector2(cellS, cellS * 2), Vector3(ps.x - cellS / 2.0, ps.y, ps.z + cellS / 2.0), Vector3.UP, floor)
 			#exit
-			create_wall(Vector2(cellS, wallS), Vector3(ps.z - cellS / 2.0, ps.y, ps.z + cellS * 1.5), Vector3.FORWARD, wall)
+			nextPos=Vector3(ps.x - cellS / 2.0, ps.y, ps.z + cellS * 1.5)
+			create_door_wall(Vector2(cellS, wallS), nextPos, Vector3.FORWARD, wall, nextDoor,true)
 			room_platforms(shp)
 		shape.L:
 			create_wall(Vector2(cellS, cellS * 3), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
 			#enter
-			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_door_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall,prevDoor,false)
 			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x + cellS / 2.0, ps.y, ps.z), Vector3.LEFT, wall)
 			create_wall(Vector2(cellS * 3, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x, ps.y, ps.z + cellS * 1.5), Vector3.FORWARD, wall)
 			#exit
-			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z + cellS * 1.5), Vector3.FORWARD, wall)
+			nextPos= Vector3(ps.x+cellS*0.5, ps.y, ps.z + cellS * 1.5)
+			create_door_wall(Vector2(cellS, wallS), nextPos, Vector3.FORWARD, wall,nextDoor,true)
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x + cellS / 2.0, ps.y, ps.z + cellS), Vector3.BACK, wall)
 			create_wall(Vector2(cellS, cellS), Vector3(ps.x + cellS / 2.0, ps.y, ps.z + cellS), Vector3.UP, floor)
 			create_wall(Vector2(cellS, wallS), Vector3(ps.x + cellS, ps.y, ps.z + cellS), Vector3.LEFT, wall)
@@ -220,15 +232,18 @@ func create_room(ps, floor, wall, shp, tp):
 			room_platforms(shp)
 		shape.O:
 			#exit
-			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z + cellS), Vector3.FORWARD, wall)
+			nextPos=Vector3(ps.x, ps.y, ps.z + cellS)
+			create_door_wall(Vector2(cellS, wallS), nextPos, Vector3.FORWARD, wall,nextDoor,true)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x+cellS*0.5, ps.y, ps.z + cellS), Vector3.FORWARD, wall)
 			#enter
-			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_door_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall,prevDoor,false)
 			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x + cellS, ps.y, ps.z), Vector3.LEFT, wall)
 			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
 			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
 			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y + wallS / 2.0, ps.z), Vector3.DOWN, floor)
 			room_platforms(shp)
 		shape.s:
+			nextPos=Vector3(ps.x, ps.y, ps.z + 4)
 			create_door_wall(Vector2(8, 8), Vector3(ps.x, ps.y, ps.z + 4), Vector3.FORWARD, wall, Vector2(2,0),true)
 			create_wall(Vector2(8, 8), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
 			create_wall(Vector2(8, 8), Vector3(ps.x + 4, ps.y, ps.z), Vector3.LEFT, wall)
@@ -246,9 +261,9 @@ func room_platforms(shp):
 			platform2.maseY=cellS/2.0
 			add_child(platform1)
 			add_child(platform2)
-			platform1.position=Vector3(cellS/4.0,10,cellS/2.0)
+			platform1.position=Vector3(cellS/4.0,10,cellS/2.0)+ prevPos*2
 			platform1.scale=Vector3(2,2,2)
-			platform2.position=Vector3(cellS/4.0,20,cellS*1.5)
+			platform2.position=Vector3(cellS/4.0,20,cellS*1.5)+ prevPos*2
 			platform2.scale=Vector3(2,2,2)
 		shape.Z:
 			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
@@ -259,9 +274,9 @@ func room_platforms(shp):
 			platform2.maseY=cellS/3.0
 			add_child(platform1)
 			add_child(platform2)
-			platform1.position=Vector3(0,10,cellS/2.0)
+			platform1.position=Vector3(0,10,cellS/2.0)+ prevPos*2
 			platform1.scale=Vector3(2,2,2)
-			platform2.position=Vector3(-cellS/2.0-4,20,cellS+8)
+			platform2.position=Vector3(-cellS/2.0-4,20,cellS+8)+ prevPos*2
 			platform2.scale=Vector3(2,2,2)
 		shape.L:
 			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
@@ -272,9 +287,9 @@ func room_platforms(shp):
 			platform2.maseY=cellS/4.0-4
 			add_child(platform1)
 			add_child(platform2)
-			platform1.position=Vector3(cellS/4.0,10,cellS/2.0)
+			platform1.position=Vector3(cellS/4.0,10,cellS/2.0)+ prevPos*2
 			platform1.scale=Vector3(2,2,2)
-			platform2.position=Vector3(cellS/4.0,20,cellS*1.5+20)
+			platform2.position=Vector3(cellS/4.0,20,cellS*1.5+20)+ prevPos*2
 			platform2.scale=Vector3(2,2,2)
 		shape.O:
 			var platform1 = preload("res://scenes/things/platforms.tscn").instantiate()
@@ -285,7 +300,11 @@ func room_platforms(shp):
 			platform2.maseY=cellS/3.0
 			add_child(platform1)
 			add_child(platform2)
-			platform1.position=Vector3(0,10,cellS/2.0)
+			platform1.position=Vector3(0,10,cellS/2.0)+ prevPos*2
 			platform1.scale=Vector3(2,2,2)
-			platform2.position=Vector3(cellS-12,20,cellS/2.0)
+			platform2.position=Vector3(cellS-12,20,cellS/2.0)+ prevPos*2
 			platform2.scale=Vector3(2,2,2)
+func get_random_door_position(wall_size: Vector2) -> Vector2:
+	var door_x = randi_range(8, int(wall_size.x) - 4)
+	var door_y = randi_range(0, int(wall_size.y) - 4)
+	return Vector2(door_x, door_y)
