@@ -1,8 +1,8 @@
 extends Control
 
-var type = 2
-const texts = ["res://assets/texts/tutor.txt"]
-var text = 0
+var type = 1
+const texts = ["res://assets/texts/tutor.txt", "res://assets/texts/last.txt"]
+var text = 1
 var code = randi()%9000+1000
 signal close_requested
 

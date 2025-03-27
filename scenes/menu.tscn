@@ -161,6 +161,7 @@ stretch_mode = 0
 stream = ExtResource("8_13sgg")
 volume_db = -4.0
 autoplay = true
+bus = &"SFX"
 parameters/looping = true
 
 [connection signal="pressed" from="VBoxContainer/start_game" to="." method="_on_start_game_pressed"]

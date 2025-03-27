@@ -3,10 +3,8 @@ shader_type sky;
 uniform int vertical_sections = 21;
 uniform float star_size = 0.02;
 uniform float star_falloff = 4.;
-uniform float margin = 0.05; // How far the star is from the edge of it's section. Avoids artifacts at the edge of sections.
-
+uniform float margin = 0.05;
 vec2 get_partition(vec2 sky_coords) {
-	// Separate the sphere into sections of roughly equal width and height.
 	float y = sky_coords.y * 2. - 1.;
 	float section_y = ceil(abs(y) * float(vertical_sections)) / float(vertical_sections);
 	float horizontal_sections = max(4., ceil(float(vertical_sections) * 4. * cos(section_y * PI / 2.)));
@@ -33,8 +31,3 @@ void sky() {
 	COLOR = vec3(star_brightness(SKY_COORDS));
 }
 
-
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}

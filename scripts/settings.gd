@@ -52,7 +52,7 @@ const window_resolution_dict: Dictionary = {
 const VOLUME_CURVE = {
 	"min_db": -40.0,
 	"max_db": 0.0,
-	"curve_exponent": 3.0  # Увеличим экспоненту для лучшей кривой
+	"curve_exponent": 3.0 
 }
 
 func _db_to_linear(db: float) -> float:
@@ -60,16 +60,16 @@ func _db_to_linear(db: float) -> float:
 
 func _linear_to_custom_volume(linear: float) -> float:
 	var normalized = clamp(linear, 0.0, 1.0)
-	print("Normalized: ", normalized)  # Добавим отладочный вывод
+	print("Normalized: ", normalized)
 	
 	var curved = pow(normalized, 1.0/VOLUME_CURVE["curve_exponent"])
-	print("Curved: ", curved)  # Проверим промежуточное значение
+	print("Curved: ", curved)
 	
 	var db_range = VOLUME_CURVE["max_db"] - VOLUME_CURVE["min_db"]
-	print("DB Range: ", db_range)  # Должно быть 40.0
+	print("DB Range: ", db_range)
 	
 	var result = VOLUME_CURVE["min_db"] + curved * db_range
-	print("Result: ", result)  # Финальное значение dB
+	print("Result: ", result)
 	
 	return result
 
@@ -90,7 +90,6 @@ func _on_music_sldr_value_changed(value: float):
 	Local.music_volume = value
 
 func _on_sfx_sldr_value_changed(value: float):
-	print("\n--- SFX Value Changed: ", value, " ---")
 	var db = _linear_to_custom_volume(value)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), db)
 	Local.sfx_volume = value
