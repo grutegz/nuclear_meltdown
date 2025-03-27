@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgs4eel51yoi5"]
+[gd_scene load_steps=8 format=3 uid="uid://bgs4eel51yoi5"]
 
 [ext_resource type="Script" uid="uid://fc4vkik4k7je" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Shader" uid="uid://hk0mbab5kux2" path="res://assets/shaders/stars.gdshader" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b4euxrvykbjjp" path="res://scenes/player.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://dlb31jeltodiw" path="res://scenes/lab.tscn" id="4_jyhfs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
 shader = ExtResource("2_sugp2")
@@ -39,4 +40,7 @@ script = ExtResource("1_o5qli")
 environment = SubResource("Environment_sugp2")
 
 [node name="player" parent="." instance=ExtResource("3_jyhfs")]
-transform = Transform3D(-0.982493, 0, 0.186301, 0, 1, 0, -0.186301, 0, -0.982493, 0.945182, 1.302, 0.867432)
+transform = Transform3D(-0.982493, 0, 0.186301, 0, 1, 0, -0.186301, 0, -0.982493, -4.10996, 5.19749, -19.1401)
+
+[node name="LAB" parent="." instance=ExtResource("4_jyhfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08732, -5.85463, 0)

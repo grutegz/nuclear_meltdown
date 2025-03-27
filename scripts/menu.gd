@@ -19,3 +19,9 @@ func _on_exit_pressed() -> void:
 
 func _process(delta: float) -> void:
 	$SubViewportContainer/SubViewport/model.rotate_y(delta)
+
+
+func _on_gthb_pressed() -> void:
+	OS.shell_open("https://github.com/grutegz/nuclear_meltdown")
+func _on_bst_pressed() -> void:
+	OS.shell_open("https://boosty.to/grutegz")

@@ -167,3 +167,5 @@ parameters/looping = true
 [connection signal="pressed" from="VBoxContainer/start_game" to="." method="_on_start_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="bst" to="." method="_on_bst_pressed"]
+[connection signal="pressed" from="gthb" to="." method="_on_gthb_pressed"]
