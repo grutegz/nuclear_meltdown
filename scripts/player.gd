@@ -33,7 +33,6 @@ var ui_terminal_instance
 
 @onready var camera = $cam
 func update_fov(new_fov: float) -> void:
-	print("CALLLLLLLLLLLLED")
 	camera.fov = new_fov
 var code = randi()%9000+1000
 

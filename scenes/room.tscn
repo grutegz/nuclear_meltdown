@@ -75,6 +75,3 @@ transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0, 40
 
 [node name="4" type="Node3D" parent="3"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 0, 80)
-
-[connection signal="body_entered" from="fan" to="fan" method="_on_body_entered"]
-[connection signal="body_exited" from="fan" to="fan" method="_on_body_exited"]
