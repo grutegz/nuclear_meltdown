@@ -13,7 +13,7 @@ var resolution = Vector2i(1280, 720)
 var mouse_sensitivity = 1.0
 var field_of_vision = 0.7
 
-func _ready() -> void:
+func _ready() -> void:	
 	var err = config_file.load(CONFIG_PATH)
 	if err == OK:
 		print("Config loaded successfully!!")
