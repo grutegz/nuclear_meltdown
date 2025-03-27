@@ -25,6 +25,7 @@ size = Vector3(1, 2.5, 1)
 size = Vector3(1, 4, 1)
 
 [node name="dispenser" type="StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 0, -0.5)
 script = ExtResource("1_ka2q7")
 
 [node name="Decal" type="Decal" parent="."]

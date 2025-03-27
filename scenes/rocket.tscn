@@ -4,7 +4,7 @@
 [ext_resource type="Shader" uid="uid://bdc2wwm027i6d" path="res://assets/shaders/explode_shape.gdshader" id="2_dkv7l"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_dkv7l"]
-size = Vector3(2.98794, 0.5, 0.5)
+size = Vector3(1.50032, 0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3341w"]
 albedo_color = Color(0.25098, 0.780392, 0.494118, 1)
@@ -32,10 +32,11 @@ rings = 2
 
 [node name="rocket" type="Area3D"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+collision_layer = 3
 script = ExtResource("1_3341w")
 
 [node name="col" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4.20806e-08, 0, 0.461284)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7.45936e-08, 0, -0.282527)
 shape = SubResource("BoxShape3D_dkv7l")
 
 [node name="model" type="MeshInstance3D" parent="."]

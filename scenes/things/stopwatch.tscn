@@ -17,6 +17,7 @@ grow_vertical = 2
 script = ExtResource("1_owuek")
 
 [node name="timer" type="Timer" parent="."]
+wait_time = 60.0
 
 [node name="time_label" type="Label" parent="."]
 material = SubResource("ShaderMaterial_i6o3t")

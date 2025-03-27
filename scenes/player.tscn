@@ -134,12 +134,46 @@ grow_vertical = 2
 text = "HARM"
 
 [node name="sign" parent="UI" instance=ExtResource("10_y4r1p")]
-visible = false
 layout_mode = 1
 offset_left = -160.0
 offset_top = 4.0
 offset_right = 25.0
 offset_bottom = 97.0
+
+[node name="dead" type="Control" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UI/dead"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/dead/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -12.0
+offset_right = 20.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU'RE DEAD!
+YOUR GAME IS OVER
+
+PRESS esc"
 
 [connection signal="timeout" from="steps" to="." method="_on_steps_timeout"]
 [connection signal="timeout" from="recharge" to="." method="_on_recharge_timeout"]

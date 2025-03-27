@@ -1,8 +1,8 @@
 extends Control
 
-var type = 1
+var type = 3
 const texts = ["res://assets/texts/tutor.txt", "res://assets/texts/last.txt"]
-var text = 1
+var text = 0
 var code = randi()%9000+1000
 signal close2_requested
 
@@ -13,6 +13,7 @@ var cur_line = 0
 var typing = false
 var player_locked = false
 var illustration_texture : Texture
+var term_node=null
 
 @onready var illustration = $ColorRect/illustration
 @onready var output = $ColorRect/screen
@@ -33,13 +34,15 @@ func setup() -> void:
 			if !lines.is_empty():
 				start_typing()
 		2:
-			output.text="enter code:"
+			output.text="Welcome to the 1.4*10**7 power point! to disable enter the code:"
+			illustration.texture = load("res://assets/pictures/key.png")
 			input.text=""
 		3:
+			output.text="H E L L O   T H E R E \n you can configure some settings of the lab! \n type 1 for high emissions \n (gravity and time will decrease)"
+			illustration.texture = load("res://assets/pictures/settings.png")
+		_:
 			output.text="cookie says: "+fortunes[randi()%len(fortunes)]
 			illustration.texture = load("res://assets/pictures/cookie.png")
-		_:
-			output.text="i use arch btw"
 
 func load_lines(path: String) -> void:
 	var file = FileAccess.open(path, FileAccess.READ)
@@ -118,14 +121,30 @@ func _input(event) -> void:
 			elif Input.is_key_pressed(KEY_9): currentCode+="9"
 			if Input.is_key_pressed(KEY_BACKSPACE):currentCode=currentCode.substr(0,len(currentCode)-1)
 			input.text=currentCode
-		
-	if type == 1:
-		if event.is_action_pressed("ui_accept"):
-			if typing:
-				typing = false
-				output.text = lines[cur_line]
-			else:
-				start_typing()
+
+			if event.is_action_pressed("ui_accept"):
+				if currentCode==str(get_parent().code):
+					if term_node: term_node.get_parent().get_node("Area3D").monitoring=true
+					get_parent().code = randi()%9000+1000
+					get_parent().get_node("UI/sign").visible = false
+					emit_signal("close_requested")
+					get_viewport().set_input_as_handled()
+				else:
+					output.text="WRONG! try again"
+					currentCode=""
+				
+		1:
+			if event.is_action_pressed("ui_accept"):
+				if typing:
+					typing = false
+					output.text = lines[cur_line]
+				else:
+					#cur_line += 1
+					start_typing()
+			
+			if event.is_action_pressed("ui_cancel"):
+				queue_free()
+		3: if Input.is_key_pressed(KEY_1): pass
 
 var fortunes = [
 	"A pleasant surprise is waiting for you.",

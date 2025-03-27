@@ -30,16 +30,19 @@ var stopwatch: Control
 var ui_terminal = preload("res://scenes/things/ui_terminal.tscn")
 var ui_terminal_instance
 
+
 @onready var camera = $cam
 func update_fov(new_fov: float) -> void:
 	print("CALLLLLLLLLLLLED")
 	camera.fov = new_fov
+var code = randi()%9000+1000
 
 func _ready() -> void:
 	add_to_group("camera")
 	update_fov(Global.field_of_vision)
 	stopwatch = stopwatch_scene.instantiate()
 	$UI.add_child(stopwatch)
+	$UI/sign.get_node("Label").text=str(code)
 	stopwatch.start()
 	# stopwatch.stop()
 	# stopwatch.reset()
@@ -72,6 +75,7 @@ func _physics_process(delta: float) -> void:
 	offsetx = 0.0
 	offsety = 0.0
 	$UI/harm.value=harm
+	$UI/sign.get_node("Label").text=str(code)
 
 func apply_vels(delta):
 	mergedVels = Vector3.ZERO
@@ -93,17 +97,24 @@ func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("shoot"):
 		shoot(curWeapon)
 	if Input.is_action_just_pressed("act"):
-		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term"): 
+		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("term"):
 			ui_terminal_instance = ui_terminal.instantiate()
-			ui_terminal_instance.process_mode = Node.PROCESS_MODE_ALWAYS 
+			ui_terminal_instance.process_mode = Node.PROCESS_MODE_ALWAYS
+			if $cam/ray.get_collider().has_node("2"):
+				ui_terminal_instance.term_node = $cam/ray.get_collider()
+				ui_terminal_instance.type = 2
+			if $cam/ray.get_collider().has_node("3"):
+				ui_terminal_instance.type = 3
+				ui_terminal_instance.term_node = $cam/ray.get_collider()
+			if $cam/ray.get_collider().has_node("1"):
+				ui_terminal_instance.type=1
 			add_child(ui_terminal_instance) 
-			
-			# выставляем listener на сигнал close_requested с коллбэком на закрытие меню
+
 			ui_terminal_instance.connect("close2_requested", close_terminal)
 			
 			get_tree().paused = true # паузим игру
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
-			$cam/ray.get_collider().get_node("aud").play() 
+			$cam/ray.get_collider().get_node("aud").play()
 	if event is InputEventMouseMotion:
 		offsetx = event.relative.x * Global.mouse_sensitivity
 		offsety = event.relative.y * Global.mouse_sensitivity
@@ -138,7 +149,6 @@ func shoot(type):
 			add_child(rail)
 			rail.global_transform = $cam/p.global_transform
 			$rg.play()
-			
 	$recharge.start(recharge[type])
 	canFire=false
 

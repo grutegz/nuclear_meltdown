@@ -1,8 +1,13 @@
 extends StaticBody3D
 
 enum shape {I,Z,L,O,s}
-enum type { ROOM1,ROOM2,ROOM3,LAB,ERR,OFFICE }
-var curType = 0
+enum type {ROOM1,ROOM2,ROOM3,LAB,ERR}
+var base_thgs = [preload("res://scenes/things/dispenser.tscn")]
+var room = [preload("res://scenes/things/barrel.tscn")]
+var lab = [preload("res://scenes/things/super_computer.tscn"),preload("res://scenes/things/terminal.tscn")]
+
+var curShape = 3
+var curType = 3
 
 var cellS :int = 40
 var wallS :int = 30
@@ -13,7 +18,25 @@ var nextDoor = Vector2(2,0)
 var nextPos = Vector3()
 
 func _ready():
-	create_room(prevPos,"1floor","1floor",curType,0)
+	match curType:
+		1:create_room(prevPos,"1floor", "1floor",curShape)
+		2:create_room(prevPos,"1floor", "1floor",curShape)
+		3:create_room(prevPos,"1floor", "1floor",curShape)
+		3:create_room(prevPos,"0concrete","0concrete",curShape)
+		4:create_room(prevPos,"err","err",curShape)
+		_:create_room(prevPos,"0floor","1bricks",curShape)
+	if get_node(str(curShape)):
+		get_node(str(curShape)).global_position = prevPos
+		var dispenser = base_thgs[0].instantiate()
+		get_node(str(curShape)).add_child(dispenser)
+		for i in range(len(get_node(str(curShape)).get_children())):
+			match curType:
+				0,1,2:
+					var new_n = room[randi()%len(room)].instantiate()
+					get_node(str(curShape)).get_child(i).add_child(new_n)
+				3:
+					var new_n = lab[randi()%len(room)].instantiate()
+					get_node(str(curShape)).get_child(i).add_child(new_n)
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2, d):
 	var door_ps = get_size_3d(dps, dir)
 	var door_sized_ps = door_ps
@@ -29,7 +52,7 @@ func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, d
 		var door = preload("res://scenes/things/door1.tscn").instantiate()
 		add_child(door)
 		door.position = door_ps+ps*2
-		if curType!=4:
+		if curShape!=4:
 			var fan = preload("res://scenes/things/fan.tscn").instantiate()
 			fan.position=Vector3(door_ps.x+2,0,door_ps.z-8)+ps*2
 			add_child(fan)
@@ -186,7 +209,7 @@ func get_uvs(dir: Vector3) -> Array:
 		_:
 			push_error("Invalid direction")
 			return []
-func create_room(ps, floor, wall, shp, tp):
+func create_room(ps, floor, wall, shp):
 	
 	match shp:
 		shape.I:
@@ -254,11 +277,17 @@ func create_room(ps, floor, wall, shp, tp):
 		shape.s:
 			nextPos=Vector3(ps.x, ps.y, ps.z + 4)
 			create_door_wall(Vector2(8, 8), Vector3(ps.x, ps.y, ps.z + 4), Vector3.FORWARD, wall, Vector2(2,0),true)
-			create_wall(Vector2(8, 8), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+
 			create_wall(Vector2(8, 8), Vector3(ps.x + 4, ps.y, ps.z), Vector3.LEFT, wall)
 			create_wall(Vector2(8, 8), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
 			create_wall(Vector2(8, 8), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
 			create_wall(Vector2(8, 8), Vector3(ps.x, ps.y + 4, ps.z), Vector3.DOWN, floor)
+			var term = preload("res://scenes/things/terminal.tscn").instantiate()
+			var node = Node.new()
+			node.name="1"
+			term.add_child(node)
+			add_child(term)
+			term.position=Vector3(0.5,0,7.5)
 func room_platforms(shp):
 	match shp:
 		shape.I:

@@ -26,7 +26,7 @@ func _ready() -> void:
 					cable_count += 1
 				
 				if enemy_count < 1 or randi()%30==1:
-					var soldier = preload("res://scenes/sentry_rg.tscn").instantiate()
+					var soldier = preload("res://scenes/soldier_pl.tscn").instantiate()
 					add_child(soldier)
 					soldier.position=Vector3(i*2+1,-1,j*2+1)
 					soldier.scale=Vector3(0.5,0.5,0.5)
