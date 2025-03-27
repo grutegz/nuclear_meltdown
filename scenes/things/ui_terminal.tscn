@@ -36,16 +36,6 @@ color = Color(0, 0, 0, 1)
 [node name="illustration" type="TextureRect" parent="ColorRect"]
 texture_filter = 1
 layout_mode = 1
-<<<<<<< HEAD
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -256.0
-offset_top = -176.0
-offset_right = 44.0
-offset_bottom = 193.0
-grow_horizontal = 2
-=======
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -53,7 +43,6 @@ offset_left = -161.0
 offset_bottom = 163.0
 grow_horizontal = 0
 expand_mode = 1
->>>>>>> c3d6a794e4b3058f76ef1b092b7aa07c0f5a66d6
 
 [node name="screen" type="Label" parent="ColorRect"]
 layout_mode = 1
