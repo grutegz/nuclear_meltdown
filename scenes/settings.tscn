@@ -19,20 +19,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="apply_and_go_back" type="Button" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -130.0
-offset_top = -35.0
-offset_right = 130.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Apply and go back"
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -104,9 +90,14 @@ layout_mode = 2
 [node name="fov_sldr" type="HSlider" parent="VBoxContainer/Gameplay"]
 layout_mode = 2
 
-[connection signal="pressed" from="apply_and_go_back" to="." method="_on_apply_and_go_back_pressed"]
+[node name="apply_and_go_back" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Apply and go back"
+
 [connection signal="value_changed" from="VBoxContainer/sound_settings/master_sldr" to="." method="_on_master_sldr_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/sound_settings/music_sldr" to="." method="_on_music_sldr_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/sound_settings/sfx_sldr" to="." method="_on_sfx_sldr_value_changed"]
 [connection signal="pressed" from="VBoxContainer/video_settings/fullscreen" to="." method="_on_fullscreen_pressed"]
 [connection signal="value_changed" from="VBoxContainer/Gameplay/sensitivity_sldr" to="." method="_on_sensitivity_sldr_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Gameplay/fov_sldr" to="." method="_on_fov_sldr_value_changed"]
+[connection signal="pressed" from="VBoxContainer/apply_and_go_back" to="." method="_on_apply_and_go_back_pressed"]

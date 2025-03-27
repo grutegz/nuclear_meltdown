@@ -30,9 +30,16 @@ var stopwatch: Control
 var ui_terminal = preload("res://scenes/things/ui_terminal.tscn")
 var ui_terminal_instance
 
+
+@onready var camera = $cam
+func update_fov(new_fov: float) -> void:
+	print("CALLLLLLLLLLLLED")
+	camera.fov = new_fov
 var code = randi()%9000+1000
 
 func _ready() -> void:
+	add_to_group("camera")
+	update_fov(Global.field_of_vision)
 	stopwatch = stopwatch_scene.instantiate()
 	$UI.add_child(stopwatch)
 	$UI/sign.get_node("Label").text=str(code)
@@ -102,7 +109,9 @@ func _input(event: InputEvent) -> void:
 			if $cam/ray.get_collider().has_node("1"):
 				ui_terminal_instance.type=1
 			add_child(ui_terminal_instance) 
-			ui_terminal_instance.connect("close_requested", close_terminal)
+
+			ui_terminal_instance.connect("close2_requested", close_terminal)
+			
 			get_tree().paused = true # паузим игру
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 			$cam/ray.get_collider().get_node("aud").play()
