@@ -11,9 +11,9 @@ var fullscreen = false
 var resolution = Vector2i(1280, 720)
 
 var mouse_sensitivity = 1.0
-var field_of_vision = 0.7
+var field_of_vision = 90
 
-func _ready() -> void:	
+func _ready() -> void:
 	var err = config_file.load(CONFIG_PATH)
 	if err == OK:
 		print("Config loaded successfully!!")
@@ -25,7 +25,7 @@ func _ready() -> void:
 		resolution = config_file.get_value("video", "resolution", Vector2i(1280, 720))
 		
 		mouse_sensitivity = config_file.get_value("gameplay", "mouse_sensitivity", 1.0)
-		field_of_vision = config_file.get_value("gameplay", "field_of_vision", 0.7)
+		field_of_vision = config_file.get_value("gameplay", "field_of_vision", 90)
 		print("Mouse sensitivity", mouse_sensitivity)
 	else:
 		print("Config not found, falling back to the default values")

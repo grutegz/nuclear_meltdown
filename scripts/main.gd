@@ -19,12 +19,18 @@ func _ready() -> void:
 			room.prevPos = prev_room.nextPos
 		add_child(room)
 		prev_room = room
+
 func _input(event) -> void:
+	if Input.is_action_just_pressed("esc"):
+		print("ESC DETECTED")
+		print(esc_menu_instance, "!!!")
 	if Input.is_action_just_pressed("esc") and !esc_menu_instance:
+		print("ESC x222")
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED if esc else Input.MOUSE_MODE_VISIBLE)
 		open_esc_menu()
 
 func open_esc_menu() -> void:
+	print("SPAWNED ESC")
 	# спавним сцену и даём ей право слушать нажатия клавиш
 	esc_menu_instance = esc_menu.instantiate()
 	esc_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS 

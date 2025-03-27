@@ -4,7 +4,7 @@ var type = 1
 const texts = ["res://assets/texts/tutor.txt", "res://assets/texts/last.txt"]
 var text = 1
 var code = randi()%9000+1000
-signal close_requested
+signal close2_requested
 
 # режим1
 var typing_speed = 0.03
@@ -52,7 +52,7 @@ func load_lines(path: String) -> void:
 func start_typing() -> void:
 	if cur_line >= lines.size():
 		queue_free()
-		emit_signal("close_requested")
+		emit_signal("close2_requested")
 		return
 	
 	var line = lines[cur_line]
@@ -98,8 +98,11 @@ func handle_image_command(line: String) -> void:
 
 var currentCode = ""
 func _input(event) -> void:
+	var main = get_parent().get_parent() #!!!!! если сцену вызовет не player программа ляжет моментально
+	if Input.is_action_just_pressed("esc") and !get_parent().get_parent().esc_menu_instance:
+		main.open_esc_menu()
 	if Input.is_key_pressed(KEY_Q):
-		emit_signal("close_requested")
+		emit_signal("close2_requested")
 		get_viewport().set_input_as_handled()
 	match type:
 		2:
@@ -122,11 +125,7 @@ func _input(event) -> void:
 				typing = false
 				output.text = lines[cur_line]
 			else:
-				#cur_line += 1
 				start_typing()
-		
-		if event.is_action_pressed("ui_cancel"):
-			queue_free()
 
 var fortunes = [
 	"A pleasant surprise is waiting for you.",

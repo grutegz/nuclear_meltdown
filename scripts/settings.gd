@@ -7,10 +7,10 @@ var Local = {
 	"resolution": Vector2i(1920, 1080),
 	"fullscreen": false,
 	"mouse_sensitivity": 1.0,
-	"field_of_vision": 75.0,
-	"master_volume": 0.7,
-	"music_volume": 0.7,
-	"sfx_volume": 0.7
+	"field_of_vision": 90,
+	"master_volume": 1.0,
+	"music_volume": 1.0,
+	"sfx_volume": 1.0
 }
 
 @onready var screen_resolution_btn = $VBoxContainer/video_settings/screen_resolution as OptionButton
@@ -130,9 +130,10 @@ func _on_apply_and_go_back_pressed() -> void:
 	Global.sfx_volume = Local.sfx_volume
 	Global.music_volume = Local.music_volume
 	Global.mouse_sensitivity = Local.mouse_sensitivity
+	Global.field_of_vision = Local.field_of_vision
 	apply_video_settings()
-	apply_gameplay_settings()
 	apply_audio_settings()
+	apply_gameplay_settings()
 	queue_free()
 
 func apply_video_settings() -> void:
@@ -151,7 +152,8 @@ func apply_audio_settings() -> void:
 	pass
 
 func apply_gameplay_settings() -> void:
-	pass
+	get_tree().call_group("camera", "update_fov", Global.field_of_vision)
+	print("changed camera fov to", Global.field_of_vision)
 
 func _on_fullscreen_pressed() -> void:
 	Global.fullscreen = not Global.fullscreen
@@ -160,3 +162,7 @@ func _on_sensitivity_sldr_value_changed(value: float) -> void:
 	var real_sensitivity = pow(10, value - 1.0)
 	Local.mouse_sensitivity = clamp(real_sensitivity, 0.1, 10.0)
 	print("set globan MS to", real_sensitivity)
+
+func _on_fov_sldr_value_changed(value: float) -> void:
+	print("works")
+	Local.field_of_vision = value;

@@ -30,10 +30,16 @@ var stopwatch: Control
 var ui_terminal = preload("res://scenes/things/ui_terminal.tscn")
 var ui_terminal_instance
 
+@onready var camera = $cam
+func update_fov(new_fov: float) -> void:
+	print("CALLLLLLLLLLLLED")
+	camera.fov = new_fov
+
 func _ready() -> void:
+	add_to_group("camera")
+	update_fov(Global.field_of_vision)
 	stopwatch = stopwatch_scene.instantiate()
 	$UI.add_child(stopwatch)
-	
 	stopwatch.start()
 	# stopwatch.stop()
 	# stopwatch.reset()
@@ -76,7 +82,6 @@ func apply_vels(delta):
 			vel.pop_at(i)
 
 func close_terminal() -> void:
-	print("ya zakrilsya")
 	if ui_terminal_instance:
 		ui_terminal_instance.queue_free()
 		ui_terminal_instance = null
@@ -94,7 +99,7 @@ func _input(event: InputEvent) -> void:
 			add_child(ui_terminal_instance) 
 			
 			# выставляем listener на сигнал close_requested с коллбэком на закрытие меню
-			ui_terminal_instance.connect("close_requested", close_terminal)
+			ui_terminal_instance.connect("close2_requested", close_terminal)
 			
 			get_tree().paused = true # паузим игру
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
