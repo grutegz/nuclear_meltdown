@@ -30,4 +30,3 @@ float star_brightness(vec2 sky_coords) {
 void sky() {
 	COLOR = vec3(star_brightness(SKY_COORDS));
 }
-

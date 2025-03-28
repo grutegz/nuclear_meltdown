@@ -1,6 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://dlb31jeltodiw"]
+[gd_scene load_steps=9 format=3 uid="uid://dlb31jeltodiw"]
 
 [ext_resource type="PackedScene" uid="uid://bjq50jt64jriw" path="res://scenes/fields.tscn" id="1_bb6uc"]
+[ext_resource type="Texture2D" uid="uid://dcvxatkl306ss" path="res://assets/textures/floor2.png" id="1_f680m"]
+[ext_resource type="PackedScene" uid="uid://jtway4lvnwlr" path="res://scenes/things/terminal.tscn" id="2_hem3r"]
+[ext_resource type="PackedScene" uid="uid://bcjcbl2inmxa8" path="res://scenes/things/dispenser.tscn" id="3_q4uld"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f680m"]
+albedo_color = Color(0.432518, 0.460715, 0.587888, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gipex"]
+albedo_texture = ExtResource("1_f680m")
+uv1_scale = Vector3(5, 5, 5)
+texture_filter = 0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_cbcd7"]
 top_radius = 5.0
@@ -24,11 +35,13 @@ size = Vector3(50, 8, 160)
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 37.9892, 0)
 size = Vector3(160, 68, 10)
+material = SubResource("StandardMaterial3D_f680m")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 9.9, 0)
 operation = 2
-size = Vector3(8.2, 8.2, 20)
+size = Vector3(8.2, 8.2, 10)
+material = SubResource("StandardMaterial3D_gipex")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 67.0411, 55)
@@ -67,7 +80,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 24, -7)
 size = Vector3(5, 40, 5)
 
 [node name="start" parent="." instance=ExtResource("1_bb6uc")]
-transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -484, 0, 190)
+transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -484, -3, 190)
+height_scale = 10.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -86,3 +100,13 @@ shape = SubResource("BoxShape3D_bb6uc")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1.91069e-15, -1, 4.37114e-08, -4.37114e-08, -4.37114e-08, -1, 1, 0, -4.37114e-08, 8.18931, 72.2154, -133.544)
 shape = SubResource("BoxShape3D_bb6uc")
+
+[node name="dispenser" parent="." instance=ExtResource("3_q4uld")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 6.5, 4, -5.5)
+
+[node name="TERMINAL" parent="." instance=ExtResource("2_hem3r")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 7.5, 4, -5.5)
+
+[node name="1" type="Node" parent="TERMINAL"]
+
+[node name="2" type="Node" parent="TERMINAL/1"]

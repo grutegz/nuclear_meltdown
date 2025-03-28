@@ -46,7 +46,7 @@ func _ready() -> void:
 	stopwatch = stopwatch_scene.instantiate()
 	$UI.add_child(stopwatch)
 	$UI/sign.get_node("Label").text=str(code)
-	stopwatch.start()
+	#stopwatch.start()
 	# stopwatch.stop()
 	# stopwatch.reset()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -116,6 +116,8 @@ func _input(event: InputEvent) -> void:
 					ui_terminal_instance.text=1
 				if $cam/ray.get_collider().get_node("1").has_node("0"):
 					ui_terminal_instance.text=0
+				if $cam/ray.get_collider().get_node("1").has_node("2"):
+					ui_terminal_instance.text=2
 			add_child(ui_terminal_instance) 
 
 			ui_terminal_instance.connect("close2_requested", close_terminal)

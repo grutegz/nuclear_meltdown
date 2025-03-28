@@ -292,15 +292,13 @@ func create_room(ps, floor, wall, shp):
 		shape.LAST:
 			nextDoor = get_random_door_position(Vector2(cellS, wallS))
 			#exit
-			nextPos=Vector3(ps.x, ps.y, ps.z + cellS)
-			create_wall(Vector2(cellS, wallS), nextPos, Vector3.FORWARD, wall)
-			create_wall(Vector2(cellS, wallS), Vector3(ps.x+cellS*0.5, ps.y, ps.z + cellS), Vector3.FORWARD, wall)
+			create_wall(Vector2(cellS*0.5, wallS), Vector3(ps.x, ps.y, ps.z + cellS*0.25), Vector3.FORWARD, wall)
 			#enter
-			create_door_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall,prevDoor,false)
-			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x + cellS, ps.y, ps.z), Vector3.LEFT, wall)
-			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
-			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
-			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y + wallS / 2.0, ps.z), Vector3.DOWN, floor)
+			create_door_wall(Vector2(cellS *0.5, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall,prevDoor,false)
+			create_wall(Vector2(cellS *0.5, wallS), Vector3(ps.x + cellS*0.25, ps.y, ps.z), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS *0.5, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			create_wall(Vector2(cellS *0.5, cellS *0.5), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
+			create_wall(Vector2(cellS *0.5, cellS *0.5), Vector3(ps.x, ps.y + wallS / 2.0, ps.z), Vector3.DOWN, floor)
 			var button = preload("res://scenes/things/button.tscn").instantiate()
 			button.position=ps*2+Vector3(10,0,10)
 			add_child(button)

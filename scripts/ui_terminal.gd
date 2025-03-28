@@ -1,7 +1,7 @@
 extends Control
 
 var type = 4
-const texts = ["res://assets/texts/tutor.txt", "res://assets/texts/last.txt"]
+const texts = ["res://assets/texts/tutor.txt", "res://assets/texts/last.txt", "res://assets/texts/welcome.txt"]
 var text = 0
 var code = randi()%9000+1000
 signal close2_requested
@@ -20,7 +20,6 @@ var watch
 @onready var output = $ColorRect/screen
 @onready var input = $ColorRect/inp/inp
 func _ready() -> void:
-	if not get_parent().get_node("stopwatch"): print(098098)
 	setup()
 	if type == 1:
 		load_lines(texts[text])
@@ -134,6 +133,7 @@ func _input(event) -> void:
 					queue_free()
 					get_viewport().set_input_as_handled()
 					watch.update_time()
+					watch.start()
 				else:
 					output.text="WRONG! try again"
 					currentCode=""

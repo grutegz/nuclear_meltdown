@@ -6,14 +6,17 @@ var esc_menu = preload("res://scenes/esc_menu.tscn")
 var esc_menu_instance = null 
 var esc = true
 
-var room_count = 3
+var room_count = 7
 
 func _ready() -> void:
 	var prev_room = null
 	for i in range(room_count):
 		var room = preload("res://scenes/room.tscn").instantiate()
 		if i==0: room.curShape=4
-		else:room.curShape = randi() % 3 + 1
+		else:
+			
+			room.curShape = randi() % 3 + 1
+			room.curType = randi() % 4+1
 		if prev_room:
 			room.prevDoor = prev_room.nextDoor
 			room.prevPos = prev_room.nextPos

@@ -3,7 +3,7 @@ extends StaticBody3D
 
 @export var cell_size: float = 10.0
 @export var grid_size: int = 100
-@export var height_scale: float = 10.0
+@export var height_scale: float = 5.0
 
 var noise = FastNoiseLite.new()
 

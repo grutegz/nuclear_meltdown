@@ -1,15 +1,5 @@
-Sup, cc-588!
-
-We've got a situation brewing at your arrival point. Accidents popping up – could be drones, could be something else.
-Scrap your mission to deliver those volatile materials, and get to the bottom of this mess.
-Your shuttle's packing a couple of weapons, just in case. They run on the same materials
-you came here to pick up. Find the code for each generator and shut 'em down before
-everything goes boom!
-
-Good luck.
-
----
-сап, кк-588!
+# settings.png
+сап, кк-588
 
 На точке твоего прибытия начались случатся аварии. То-ли от дронов, то-ли от чего то еще.
 Прерви свою миссию по доставке взрывоопасных материалов, и разберись в чем там дело.
