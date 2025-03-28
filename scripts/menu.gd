@@ -2,9 +2,10 @@ extends Control
 
 var esc = true
 
+
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), true) 
 
 func _on_start_game_pressed() -> void:
 	if Global.first_time:

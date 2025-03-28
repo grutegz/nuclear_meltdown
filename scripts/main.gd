@@ -10,6 +10,13 @@ var room_count = 6
 
 var music_player = preload("res://scenes/things/music.tscn")
 var music_player_instance = music_player.instantiate()
+var music_bus = AudioServer.get_bus_index("Music")
+
+const VOLUME_CURVE = {
+	"min_db": -40.0,
+	"max_db": 0.0,
+	"curve_exponent": 3.0 
+}
 
 func _ready() -> void:
 	add_child(music_player_instance)
@@ -35,6 +42,21 @@ func _ready() -> void:
 	room.curShape=5
 	add_child(room)
 
+func _linear_to_custom_volume(linear: float) -> float:
+	var normalized = clamp(linear, 0.0, 1.0)
+	print("Normalized: ", normalized)
+	
+	var curved = pow(normalized, 1.0/VOLUME_CURVE["curve_exponent"])
+	print("Curved: ", curved)
+	
+	var db_range = VOLUME_CURVE["max_db"] - VOLUME_CURVE["min_db"]
+	print("DB Range: ", db_range)
+	
+	var result = VOLUME_CURVE["min_db"] + curved * db_range
+	print("Result: ", result)
+	
+	return result
+
 func _input(event) -> void:
 	if Input.is_action_just_pressed("esc"):
 		print("ESC DETECTED")
@@ -48,6 +70,9 @@ func open_esc_menu() -> void:
 	esc_menu_instance = esc_menu.instantiate()
 	esc_menu_instance.process_mode = Node.PROCESS_MODE_ALWAYS 
 	add_child(esc_menu_instance) 
+	var terminal = get_node("player/ui_terminal")
+	if not terminal:
+		AudioServer.set_bus_volume_db(music_bus, -15.0) 
 	
 	# выставляем listener на сигнал close_requested с коллбэком на закрытие меню
 	esc_menu_instance.connect("close_requested", close_esc_menu)
@@ -60,7 +85,11 @@ func close_esc_menu() -> void:
 		esc_menu_instance.queue_free()
 		esc_menu_instance = null
 		
+	if get_node("player").get_node("ui_terminal"):
+		get_node("player").get_node("ui_terminal").set_process_input(true)
+	
 	var terminal = get_node("player/ui_terminal")
 	if not terminal:
 		get_tree().paused = false
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), _linear_to_custom_volume(Global.music_volume)) 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

@@ -5,7 +5,6 @@ var rotation_magnitude := 0.1
 
 var time_passed := 0.0
 
-
 func _process(delta: float) -> void:
 	time_passed += delta * rotation_speed
 	
