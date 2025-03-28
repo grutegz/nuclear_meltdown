@@ -48,5 +48,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08732, -5.85463, 0)
 
 [node name="final" parent="." instance=ExtResource("5_tbgi4")]
 transform = Transform3D(0.135231, 0, 0.990814, 0, 1, 0, -0.990814, 0, 0.135231, -596.44, 0, 961.901)
-visible = true
 current = false
