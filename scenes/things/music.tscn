@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://7enm31l1k0sg"]
+
+[ext_resource type="AudioStream" uid="uid://dmi4lqiuv2h64" path="res://assets/sfx/meltdown.ogg" id="1_f60mh"]
+[ext_resource type="Script" uid="uid://dk2r4b8xejih1" path="res://scenes/things/music.gd" id="1_hbkys"]
+
+[node name="music" type="AudioStreamPlayer"]
+stream = ExtResource("1_f60mh")
+volume_db = -10.0
+bus = &"Music"
+parameters/looping = true
+script = ExtResource("1_hbkys")

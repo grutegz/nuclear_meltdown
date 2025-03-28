@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgs4eel51yoi5"]
+[gd_scene load_steps=9 format=3 uid="uid://bgs4eel51yoi5"]
 
 [ext_resource type="Script" uid="uid://fc4vkik4k7je" path="res://scripts/main.gd" id="1_o5qli"]
 [ext_resource type="Shader" uid="uid://hk0mbab5kux2" path="res://assets/shaders/stars.gdshader" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b4euxrvykbjjp" path="res://scenes/player.tscn" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlb31jeltodiw" path="res://scenes/lab.tscn" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bq40yclnxq1kj" path="res://scenes/things/final.tscn" id="5_tbgi4"]
-[ext_resource type="AudioStream" uid="uid://dmi4lqiuv2h64" path="res://assets/sfx/meltdown.ogg" id="6_tefeu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jyhfs"]
 shader = ExtResource("2_sugp2")
@@ -50,7 +49,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.08732, -5.85463, 0)
 [node name="final" parent="." instance=ExtResource("5_tbgi4")]
 transform = Transform3D(0.135231, 0, 0.990814, 0, 1, 0, -0.990814, 0, 0.135231, -596.44, 0, 961.901)
 current = false
-
-[node name="music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_tefeu")
-bus = &"Music"

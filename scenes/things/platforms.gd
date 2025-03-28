@@ -7,39 +7,80 @@ const PATH = 0
 
 var type = 0
 
+const SOLDIER_PL = 0
+const SOLDIER_SG = 1
+const SENTRY_RG = 2
+
 var soldier_pl = preload("res://scenes/soldier_pl.tscn")
-var soldier_sg = preload("res://scenes/soldier_pl.tscn")
+var soldier_sg = preload("res://scenes/soldier_sg.tscn")
 var sentry_rg = preload("res://scenes/sentry_rg.tscn")
 
 func _ready() -> void:
 	var arr = generate_maze()
 	var enemy_count = 0
+	var sentry_count = 0
 	var cable_count = 0
+	var platforms_with_enemies = 0
 	
 	for i in range(maseX):
 		for j in range(maseY):
 			if arr[i][j]:
 				var platform = preload("res://scenes/things/grid_patform.tscn").instantiate()
 				add_child(platform)
-				platform.position=Vector3(i*2+1,0,j*2+1)
+				platform.position = Vector3(i*2+1, 0, j*2+1)
 				
-				if cable_count < 4 or randi()%20==1:
+				if cable_count < 4 or randi() % 20 == 1:
 					var cable = preload("res://scenes/things/cable.tscn").instantiate()
 					add_child(cable)
-					cable.position=Vector3(i*2+1,10,j*2+1)
+					cable.position = Vector3(i*2+1, 10, j*2+1)
 					cable_count += 1
-				
-				if enemy_count < 1 or randi()%30==1:
-					var soldier = preload("res://scenes/soldier_pl.tscn").instantiate()
-					add_child(soldier)
-					soldier.position=Vector3(i*2+1,-1,j*2+1)
-					soldier.scale=Vector3(0.5,0.5,0.5)
-					soldier.global_rotation = Vector3.ZERO
-					enemy_count += 1
+	for i in range(maseX):
+		for j in range(maseY):
+			if arr[i][j] and platforms_with_enemies < 6:
+				if randf() < 0.5:
+					var enemy_type = get_random_enemy_type()
+					
+					if enemy_type == SENTRY_RG:
+						if sentry_count < enemy_count / 3 or enemy_count == 0:
+							var sentry = sentry_rg.instantiate()
+							add_child(sentry)
+							sentry.position = Vector3(i*2+1, -1, j*2+1)
+							sentry.scale = Vector3(0.5, 0.5, 0.5)
+							sentry.global_rotation = Vector3.ZERO
+							sentry_count += 1
+							enemy_count += 1
+							platforms_with_enemies += 1
+					else:
+						var soldier
+						if enemy_type == SOLDIER_PL:
+							soldier = soldier_pl.instantiate()
+						else:
+							soldier = soldier_sg.instantiate()
+							
+						add_child(soldier)
+						soldier.position = Vector3(i*2+1, 0, j*2+1)
+						soldier.scale = Vector3(0.5, 0.5, 0.5)
+						soldier.global_rotation = Vector3.ZERO
+						enemy_count += 1
+						platforms_with_enemies += 1
+
+func get_random_enemy_type():
+	match type:
+		0:  # Все кроме SOLDIER_SG
+			var options = [SOLDIER_PL, SENTRY_RG]
+			return options[randi() % options.size()]
+		1:  # Все кроме SOLDIER_PL
+			var options = [SOLDIER_SG, SENTRY_RG]
+			return options[randi() % options.size()]
+		2:  # Все кроме SENTRY_RG
+			var options = [SOLDIER_PL, SOLDIER_SG]
+			return options[randi() % options.size()]
+		_:  # Случайный выбор из всех типов
+			return randi() % 3
 
 func generate_maze():
-	maseX=int(maseX)
-	maseY=int(maseY)
+	maseX = int(maseX)
+	maseY = int(maseY)
 	var maze = []
 	
 	for i in range(maseX):

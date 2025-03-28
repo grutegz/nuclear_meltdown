@@ -1,5 +1,10 @@
 extends CharacterBody3D
 
+
+var sign = false
+
+
+
 enum State { IDLE, FOCUS, DEAD }
 var curState = State.IDLE
 

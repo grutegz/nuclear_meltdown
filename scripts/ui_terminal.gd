@@ -127,7 +127,7 @@ func _input(event) -> void:
 					if term_node: term_node.get_parent().get_node("Area3D").monitoring=true
 					get_parent().code = randi()%9000+1000
 					get_parent().get_node("UI/sign").visible = false
-					emit_signal("close_requested")
+					queue_free()
 					get_viewport().set_input_as_handled()
 				else:
 					output.text="WRONG! try again"

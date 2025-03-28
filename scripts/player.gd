@@ -36,7 +36,11 @@ func update_fov(new_fov: float) -> void:
 	camera.fov = new_fov
 var code = randi()%9000+1000
 
+var music = preload("res://scenes/things/music.tscn").instantiate()
+
 func _ready() -> void:
+	#get_node("/root/Global").add_child(music)
+	
 	add_to_group("camera")
 	update_fov(Global.field_of_vision)
 	stopwatch = stopwatch_scene.instantiate()
@@ -107,6 +111,10 @@ func _input(event: InputEvent) -> void:
 				ui_terminal_instance.term_node = $cam/ray.get_collider()
 			if $cam/ray.get_collider().has_node("1"):
 				ui_terminal_instance.type=1
+				if $cam/ray.get_collider().get_node("1").has_node("1"):
+					ui_terminal_instance.text=1
+				if $cam/ray.get_collider().get_node("1").has_node("0"):
+					ui_terminal_instance.text=0
 			add_child(ui_terminal_instance) 
 
 			ui_terminal_instance.connect("close2_requested", close_terminal)

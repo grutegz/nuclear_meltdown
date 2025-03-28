@@ -25,3 +25,13 @@ func _on_gthb_pressed() -> void:
 	OS.shell_open("https://github.com/grutegz/nuclear_meltdown")
 func _on_bst_pressed() -> void:
 	OS.shell_open("https://boosty.to/grutegz")
+
+
+func _on_button_pressed() -> void:
+	open_html_in_browser("AUTORS.htm")
+func open_html_in_browser(file_path: String):
+	var absolute_path = ProjectSettings.globalize_path(file_path)
+	if FileAccess.file_exists(absolute_path):
+		OS.shell_open(absolute_path)
+	else:
+		print("Файл не найден: ", absolute_path)

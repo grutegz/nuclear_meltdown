@@ -1,5 +1,10 @@
 extends CharacterBody3D
 
+
+var sign = false
+
+
+
 @onready var left_gun = $model/Node/left/cuboid2
 @onready var right_gun = $model/Node/right/cuboid4
 @onready var left_point = $model/Node/left/cuboid2/p

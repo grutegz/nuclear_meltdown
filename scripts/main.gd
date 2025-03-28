@@ -19,6 +19,12 @@ func _ready() -> void:
 			room.prevPos = prev_room.nextPos
 		add_child(room)
 		prev_room = room
+	var room = preload("res://scenes/room.tscn").instantiate()
+	if prev_room:
+		room.prevDoor = prev_room.nextDoor
+		room.prevPos = prev_room.nextPos
+	room.curShape=5
+	add_child(room)
 
 func _input(event) -> void:
 	if Input.is_action_just_pressed("esc"):

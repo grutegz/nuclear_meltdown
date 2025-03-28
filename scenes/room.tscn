@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dg7h8b1rfiwwd"]
+[gd_scene load_steps=3 format=3 uid="uid://dg7h8b1rfiwwd"]
 
 [ext_resource type="Script" uid="uid://btohrlhmsb7lt" path="res://scripts/room.gd" id="1_36trf"]
+[ext_resource type="PackedScene" uid="uid://bcjcbl2inmxa8" path="res://scenes/things/dispenser.tscn" id="2_ffxv4"]
 
 [node name="room" type="StaticBody3D"]
 script = ExtResource("1_36trf")
@@ -75,3 +76,9 @@ transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 0, 0, 40
 
 [node name="4" type="Node3D" parent="3"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 36, 0, 80)
+
+[node name="dispenser" parent="." instance=ExtResource("2_ffxv4")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 26.5, 0, 0.5)
+
+[connection signal="body_entered" from="fan" to="fan" method="_on_body_entered"]
+[connection signal="body_exited" from="fan" to="fan" method="_on_body_exited"]
