@@ -7,6 +7,10 @@ const PATH = 0
 
 var type = 0
 
+var soldier_pl = preload("res://scenes/soldier_pl.tscn")
+var soldier_sg = preload("res://scenes/soldier_pl.tscn")
+var sentry_rg = preload("res://scenes/sentry_rg.tscn")
+
 func _ready() -> void:
 	var arr = generate_maze()
 	var enemy_count = 0

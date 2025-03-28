@@ -1,6 +1,6 @@
 extends StaticBody3D
 
-enum shape {I,Z,L,O,s}
+enum shape {I,Z,L,O,s,TUTOR,LAST}
 enum type {ROOM1,ROOM2,ROOM3,LAB,ERR}
 var base_thgs = [preload("res://scenes/things/dispenser.tscn")]
 var room = [preload("res://scenes/things/barrel.tscn")]
@@ -25,18 +25,7 @@ func _ready():
 		3:create_room(prevPos,"0concrete","0concrete",curShape)
 		4:create_room(prevPos,"err","err",curShape)
 		_:create_room(prevPos,"0floor","1bricks",curShape)
-	if get_node(str(curShape)):
-		get_node(str(curShape)).global_position = prevPos
-		var dispenser = base_thgs[0].instantiate()
-		get_node(str(curShape)).add_child(dispenser)
-		for i in range(len(get_node(str(curShape)).get_children())):
-			match curType:
-				0,1,2:
-					var new_n = room[randi()%len(room)].instantiate()
-					get_node(str(curShape)).get_child(i).add_child(new_n)
-				3:
-					var new_n = lab[randi()%len(room)].instantiate()
-					get_node(str(curShape)).get_child(i).add_child(new_n)
+
 func create_door_wall(sz: Vector2, ps: Vector3, dir: Vector3, texture: String, dps:Vector2, d):
 	var door_ps = get_size_3d(dps, dir)
 	var door_sized_ps = door_ps
@@ -288,6 +277,32 @@ func create_room(ps, floor, wall, shp):
 			term.add_child(node)
 			add_child(term)
 			term.position=Vector3(0.5,0,7.5)
+		shape.TUTOR:
+			nextDoor = get_random_door_position(Vector2(cellS, wallS))
+			#exit
+			nextPos=Vector3(ps.x, ps.y, ps.z + cellS)
+			create_door_wall(Vector2(cellS, wallS), nextPos, Vector3.FORWARD, wall,nextDoor,true)
+			create_wall(Vector2(cellS, wallS), Vector3(ps.x+cellS*0.5, ps.y, ps.z + cellS), Vector3.FORWARD, wall)
+			#enter
+			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.BACK, wall)
+			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x + cellS, ps.y, ps.z), Vector3.LEFT, wall)
+			create_wall(Vector2(cellS * 2, wallS), Vector3(ps.x, ps.y, ps.z), Vector3.RIGHT, wall)
+			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y, ps.z), Vector3.UP, floor)
+			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y + wallS / 2.0, ps.z), Vector3.DOWN, floor)
+		shape.LAST:
+			pass
+	if get_node(str(curShape)):
+		get_node(str(curShape)).global_position = ps
+		var dispenser = base_thgs[0].instantiate()
+		get_node(str(curShape)).add_child(dispenser)
+		for i in range(len(get_node(str(curShape)).get_children())):
+			match curType:
+				0,1,2:
+					var new_n = room[randi()%len(room)].instantiate()
+					get_node(str(curShape)).get_child(i).add_child(new_n)
+				3:
+					var new_n = lab[randi()%len(room)].instantiate()
+					get_node(str(curShape)).get_child(i).add_child(new_n)
 func room_platforms(shp):
 	match shp:
 		shape.I:
@@ -342,6 +357,7 @@ func room_platforms(shp):
 			platform1.scale=Vector3(2,2,2)
 			platform2.position=Vector3(cellS-12,20,cellS/2.0)+ prevPos*2
 			platform2.scale=Vector3(2,2,2)
+	
 func get_random_door_position(wall_size: Vector2) -> Vector2:
 	var door_x = randi()*2%int(wall_size.x-8)+4
 	var door_y = randi()*2%int(wall_size.y-8)+4

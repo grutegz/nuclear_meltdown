@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://76edeiuf2vpn"]
-
-[ext_resource type="Texture2D" uid="uid://cw24h1h78e55w" path="res://assets/textures/grid.png" id="1_c0132"]
+[gd_scene load_steps=4 format=3 uid="uid://76edeiuf2vpn"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_75125"]
 height = 8.0
@@ -8,7 +6,7 @@ radius = 3.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bd41s"]
 transparency = 1
-albedo_texture = ExtResource("1_c0132")
+albedo_color = Color(0.364706, 0.364706, 0.517647, 1)
 uv1_scale = Vector3(5, 5, 5)
 texture_filter = 0
 
@@ -22,6 +20,7 @@ rings = 1
 cap_bottom = false
 
 [node name="barrel" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
 
 [node name="col" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_75125")

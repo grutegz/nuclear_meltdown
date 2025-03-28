@@ -133,6 +133,7 @@ func shoot(type):
 			var rocket = preload("res://scenes/rocket.tscn").instantiate()
 			add_sibling(rocket)
 			rocket.global_transform = $cam/p.global_transform
+			rocket.player=true
 			$rl.play()
 		weapon.SG:
 			#vel.append(transform.basis.z*10)

@@ -141,9 +141,6 @@ func _input(event) -> void:
 				else:
 					#cur_line += 1
 					start_typing()
-			
-			if event.is_action_pressed("ui_cancel"):
-				queue_free()
 		3: if Input.is_key_pressed(KEY_1): pass
 
 var fortunes = [

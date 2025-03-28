@@ -1,9 +1,7 @@
-@tool
 extends Camera3D
-# Параметры плавного вращения
-var rotation_speed := 0.5  # Скорость вращения
-var rotation_offset := Vector3(0.5, 1.0, 0.3)  # Разные коэффициенты для осей
-var rotation_magnitude := 0.1  # Амплитуда вращения
+var rotation_speed := 0.5
+var rotation_offset := Vector3(0.5, 1.0, 0.3)
+var rotation_magnitude := 0.1
 
 var time_passed := 0.0
 
