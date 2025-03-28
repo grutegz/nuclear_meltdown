@@ -1,0 +1,52 @@
+[gd_scene load_steps=2 format=3 uid="uid://m4odukagfsjx"]
+
+[ext_resource type="Script" uid="uid://cf1k7p5m6lmdf" path="res://scripts/final_ui.gd" id="1_otu23"]
+
+[node name="FINAL_UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_otu23")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "спасибо за игру!"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="restart" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "заново"
+
+[node name="quit" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "выйти"
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/quit" to="." method="_on_quit_pressed"]

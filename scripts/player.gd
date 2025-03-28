@@ -49,7 +49,6 @@ const VOLUME_CURVE = {
 }
 
 func _ready() -> void:
-	# Добавляем смерть не к игроку, а к корневой ноде
 	DEATH_instance = DEATH.instantiate()
 	get_tree().root.add_child(DEATH_instance) 
 	DEATH_instance.hide()
@@ -148,7 +147,13 @@ func _input(event: InputEvent) -> void:
 			get_tree().paused = true # паузим игру
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 			$cam/ray.get_collider().get_node("aud").play()
-	if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("button"): pass
+		if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("button"): #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			get_parent().get_node("final").current = true
+			$UI.visible = false
+			$".."/final.visible = true
+			$".."/final/FINAL_UI.visible = true
+			
 	if event is InputEventMouseMotion:
 		offsetx = event.relative.x * Global.mouse_sensitivity
 		offsety = event.relative.y * Global.mouse_sensitivity

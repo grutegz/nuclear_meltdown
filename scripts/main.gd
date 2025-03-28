@@ -19,6 +19,7 @@ const VOLUME_CURVE = {
 }
 
 func _ready() -> void:
+	get_node("final").hide()
 	add_child(music_player_instance)
 	music_player_instance.play()
 	
