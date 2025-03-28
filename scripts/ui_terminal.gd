@@ -16,6 +16,8 @@ var illustration_texture : Texture
 var term_node=null
 var watch
 
+var first_time = true
+
 @onready var illustration = $ColorRect/illustration
 @onready var output = $ColorRect/screen
 @onready var input = $ColorRect/inp/inp
@@ -104,6 +106,8 @@ func _input(event) -> void:
 	var main = get_parent().get_parent() #!!!!! если сцену вызовет не player программа ляжет моментально
 	if Input.is_action_just_pressed("esc") and !get_parent().get_parent().esc_menu_instance:
 		main.open_esc_menu()
+		set_process_input(false)
+
 	if Input.is_key_pressed(KEY_Q):
 		emit_signal("close2_requested")
 		get_viewport().set_input_as_handled()
@@ -140,6 +144,9 @@ func _input(event) -> void:
 					currentCode=""
 				
 		1:
+			if first_time:
+				start_typing()
+				first_time = false
 			if event.is_action_pressed("ui_accept"):
 				if typing:
 					typing = false
