@@ -81,12 +81,9 @@ func _ready() -> void:
 
 func _on_master_sldr_value_changed(value: float):
 	var db = _linear_to_custom_volume(value)
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), db)
 	Local.master_volume = value
 
 func _on_music_sldr_value_changed(value: float):
-	var db = _linear_to_custom_volume(value)
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), db) 
 	Local.music_volume = value
 
 func _on_sfx_sldr_value_changed(value: float):
@@ -149,7 +146,9 @@ func apply_video_settings() -> void:
 	get_tree().root.content_scale_size = Global.resolution
 
 func apply_audio_settings() -> void:
-	pass
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), _linear_to_custom_volume(Global.master_volume))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), _linear_to_custom_volume(Global.music_volume)) 
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), _linear_to_custom_volume(Global.sfx_volume)) 
 
 func apply_gameplay_settings() -> void:
 	get_tree().call_group("camera", "update_fov", Global.field_of_vision)
@@ -164,5 +163,4 @@ func _on_sensitivity_sldr_value_changed(value: float) -> void:
 	print("set globan MS to", real_sensitivity)
 
 func _on_fov_sldr_value_changed(value: float) -> void:
-	print("works")
 	Local.field_of_vision = value;
