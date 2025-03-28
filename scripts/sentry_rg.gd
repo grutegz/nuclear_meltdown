@@ -47,6 +47,9 @@ func die():
 	dead = true
 	head.get_node("head").queue_free()
 	$soldierDies.play()
+	if sign: 
+		sign=false
+		get_parent().get_parent().get_parent().get_node("player").get_node("UI").get_node("sign").visible=true
 
 func rotate_towards_target(delta: float) -> void:
 	if not target: return

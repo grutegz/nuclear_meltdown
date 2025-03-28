@@ -28,14 +28,14 @@ var vel = []
 const damp = 2.0
 var mergedVels = Vector3.ZERO
 
-var next_shot_left = true  # Для поочередной стрельбы
+var next_shot_left = true
 var can_shoot = false
 var shoot_timer : Timer
 
 func _ready():
 	shoot_timer = Timer.new()
 	add_child(shoot_timer)
-	shoot_timer.wait_time = 1.0  # Set initial wait time
+	shoot_timer.wait_time = 1.0
 	shoot_timer.one_shot = false
 	shoot_timer.timeout.connect(_on_shoot_timer_timeout)
 
@@ -53,12 +53,13 @@ func _process(delta: float) -> void:
 		State.DEAD:
 			left_gun.rotation.z = lerp_angle(left_gun.rotation.z, -90, turn_speed * delta)
 			right_gun.rotation.z = lerp_angle(right_gun.rotation.z, 90, turn_speed * delta)
+			if sign: 
+				sign=false
+				get_parent().get_parent().get_parent().get_node("player").get_node("UI").get_node("sign").visible=true
 
 	_update_wheel_speed()
 
 func _physics_process(delta: float) -> void:
-	if dead:
-		return
 
 	apply_vels(delta)
 	var dir = Vector3.ZERO
