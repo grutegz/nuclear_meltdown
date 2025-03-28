@@ -147,8 +147,8 @@ func apply_video_settings() -> void:
 
 func apply_audio_settings() -> void:
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), _linear_to_custom_volume(Global.master_volume))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), _linear_to_custom_volume(Global.music_volume)) 
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), _linear_to_custom_volume(Global.sfx_volume)) 
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), _linear_to_custom_volume(Global.sfx_volume)) 
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), _linear_to_custom_volume(Global.music_volume)) 
 
 func apply_gameplay_settings() -> void:
 	get_tree().call_group("camera", "update_fov", Global.field_of_vision)
