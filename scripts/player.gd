@@ -184,3 +184,9 @@ func pellet_offset(radius: float) -> Vector3:
 func _on_recharge_timeout() -> void:
 	canFire=true
 	$rech.play()
+
+func on_timer_zero() -> void:
+		$exp.play()
+		get_tree().paused = true
+		add_child(DEATH_instance)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 

@@ -177,6 +177,7 @@ PRESS esc"
 
 [node name="exp" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("11_d2wvv")
+bus = &"SFX"
 
 [connection signal="timeout" from="steps" to="." method="_on_steps_timeout"]
 [connection signal="timeout" from="recharge" to="." method="_on_recharge_timeout"]

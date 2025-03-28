@@ -36,7 +36,7 @@ func _on_timer_timeout() -> void:
 		if time_remaining <= 0:
 			time_remaining = 0
 			stop()
-			on_timer_zero()
+			get_parent().get_parent().on_timer_zero()
 
 func update_display(time: float) -> void:
 	var minutes = int(time / 60)
@@ -51,6 +51,3 @@ func update_time() -> void:
 		time_remaining = min(time_remaining + additional_time, MAX_TIME)
 	
 	update_display(time_remaining)
-
-func on_timer_zero() -> void:
-	print("Таймер достиг нуля!")
