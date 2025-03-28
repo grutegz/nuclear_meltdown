@@ -1,6 +1,6 @@
 extends Control
 
-var type = 3
+var type = 4
 const texts = ["res://assets/texts/tutor.txt", "res://assets/texts/last.txt"]
 var text = 0
 var code = randi()%9000+1000
@@ -14,12 +14,13 @@ var typing = false
 var player_locked = false
 var illustration_texture : Texture
 var term_node=null
+var watch
 
 @onready var illustration = $ColorRect/illustration
 @onready var output = $ColorRect/screen
 @onready var input = $ColorRect/inp/inp
-
 func _ready() -> void:
+	if not get_parent().get_node("stopwatch"): print(098098)
 	setup()
 	if type == 1:
 		load_lines(texts[text])
@@ -127,8 +128,9 @@ func _input(event) -> void:
 					if term_node: term_node.get_parent().get_node("Area3D").monitoring=true
 					get_parent().code = randi()%9000+1000
 					get_parent().get_node("UI/sign").visible = false
-					queue_free()
+					emit_signal("close_requested")
 					get_viewport().set_input_as_handled()
+					watch.update_time()
 				else:
 					output.text="WRONG! try again"
 					currentCode=""

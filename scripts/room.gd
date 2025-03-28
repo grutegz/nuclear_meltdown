@@ -1,4 +1,3 @@
-@tool
 extends StaticBody3D
 
 enum shape {I,Z,L,O,s,LAST}
@@ -6,7 +5,7 @@ enum type {ROOM1,ROOM2,ROOM3,LAB,ERR}
 var room = [preload("res://scenes/things/barrel.tscn"),preload("res://scenes/things/dispenser.tscn")]
 var lab = [preload("res://scenes/things/super_computer.tscn"),preload("res://scenes/things/terminal.tscn"),preload("res://scenes/things/dispenser.tscn")]
 
-var curShape = 3
+var curShape = 9
 var curType = 1
 
 var cellS :int = 40
@@ -19,15 +18,14 @@ var nextPos = Vector3()
 
 func _ready():
 	match curType:
+		0:create_room(prevPos,"1floor", "1bricks",curShape)
 		1:create_room(prevPos,"1floor", "1bricks",curShape)
 		2:create_room(prevPos,"1floor", "1bricks",curShape)
-		3:create_room(prevPos,"1floor", "1bricks",curShape)
-		3:create_room(prevPos,"0concrete","0concrete",curShape)
+		3:create_room(prevPos,"1concreteFl","0concrete",curShape)
 		4:create_room(prevPos,"err","err",curShape)
-		_:create_room(prevPos,"0floor","1bricks",curShape)
 
 	if get_node(str(curShape)):
-		get_node(str(curShape)).position = nextPos
+		get_node(str(curShape)).position = prevPos*2
 		for i in range(len(get_node(str(curShape)).get_children())):
 			match curType:
 				0,1,2:
@@ -291,7 +289,6 @@ func create_room(ps, floor, wall, shp):
 			term.get_node("1").add_child(node2)
 			add_child(term)
 			term.position=Vector3(0.5,0,7.4)
-			create_wall(Vector2(cellS * 2, cellS * 2), Vector3(ps.x, ps.y + wallS / 2.0, ps.z), Vector3.DOWN, floor)
 		shape.LAST:
 			nextDoor = get_random_door_position(Vector2(cellS, wallS))
 			#exit

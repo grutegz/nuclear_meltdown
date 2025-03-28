@@ -106,6 +106,7 @@ func _input(event: InputEvent) -> void:
 			if $cam/ray.get_collider().has_node("2"):
 				ui_terminal_instance.term_node = $cam/ray.get_collider()
 				ui_terminal_instance.type = 2
+				ui_terminal_instance.watch = stopwatch
 			if $cam/ray.get_collider().has_node("3"):
 				ui_terminal_instance.type = 3
 				ui_terminal_instance.term_node = $cam/ray.get_collider()
