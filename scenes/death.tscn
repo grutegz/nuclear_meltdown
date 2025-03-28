@@ -1,0 +1,42 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf3ykraenrjmn"]
+
+[ext_resource type="Script" uid="uid://dunrbhu2py68j" path="res://scripts/death.gd" id="1_0hhgj"]
+
+[node name="DEATH" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0hhgj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -29.0
+offset_right = 66.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="message" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "ur dead lol"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="restart" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "restart"
+
+[node name="go_back" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "go back"

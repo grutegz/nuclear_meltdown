@@ -6,7 +6,6 @@
 [node name="music" type="AudioStreamPlayer"]
 stream = ExtResource("1_f60mh")
 volume_db = -10.0
-autoplay = true
 bus = &"Music"
 parameters/looping = true
 script = ExtResource("1_hbkys")
