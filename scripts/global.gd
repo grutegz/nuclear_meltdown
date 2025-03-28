@@ -83,18 +83,18 @@ func apply_video_settings() -> void:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-		DisplayServer.window_set_size(Global.resolution)
+		DisplayServer.window_set_size(resolution)
 		var screen_size = DisplayServer.screen_get_size()
-		var window_size = Global.resolution
+		var window_size = resolution
 		DisplayServer.window_set_position((screen_size - window_size) / 2)
 	
-	get_tree().root.content_scale_size = Global.resolution
+	get_tree().root.content_scale_size = resolution
 
 func apply_audio_settings() -> void:
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), _linear_to_custom_volume(Global.master_volume))
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), _linear_to_custom_volume(Global.fx_volume)) 
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), _linear_to_custom_volume(Global.music_volume)) 
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), _linear_to_custom_volume(master_volume))
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), _linear_to_custom_volume(sfx_volume)) 
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), _linear_to_custom_volume(music_volume)) 
 
 func apply_gameplay_settings() -> void:
-	get_tree().call_group("camera", "update_fov", Global.field_of_vision)
-	print("changed camera fov to", Global.field_of_vision)
+	get_tree().call_group("camera", "update_fov", field_of_vision)
+	print("changed camera fov to", field_of_vision)
