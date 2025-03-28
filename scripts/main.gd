@@ -6,7 +6,7 @@ var esc_menu = preload("res://scenes/esc_menu.tscn")
 var esc_menu_instance = null 
 var esc = true
 
-var room_count = 7
+var room_count = 1
 
 var music_player = preload("res://scenes/things/music.tscn")
 var music_player_instance = music_player.instantiate()

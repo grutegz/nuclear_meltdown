@@ -127,12 +127,13 @@ func _input(event: InputEvent) -> void:
 				if $cam/ray.get_collider().get_node("1").has_node("2"):
 					ui_terminal_instance.text=2
 			add_child(ui_terminal_instance) 
-
+	
 			ui_terminal_instance.connect("close2_requested", close_terminal)
 			
 			get_tree().paused = true # паузим игру
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
 			$cam/ray.get_collider().get_node("aud").play()
+	if $cam/ray.get_collider() and $cam/ray.get_collider().has_node("button"): pass
 	if event is InputEventMouseMotion:
 		offsetx = event.relative.x * Global.mouse_sensitivity
 		offsety = event.relative.y * Global.mouse_sensitivity

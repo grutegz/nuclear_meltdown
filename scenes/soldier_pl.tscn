@@ -166,6 +166,7 @@ shape = SubResource("SphereShape3D_irqk4")
 
 [node name="rl" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("7_gsty4")
+bus = &"SFX"
 
 [node name="rech" type="Timer" parent="."]
 

@@ -3,7 +3,7 @@ extends StaticBody3D
 var target
 
 func _process(delta: float) -> void:
-	if target: target.harm+=delta
+	if target: target.harm+=delta*2
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.has_node("harm"): target = body

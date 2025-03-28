@@ -132,6 +132,7 @@ mesh = SubResource("CylinderMesh_tutx7")
 [node name="sg" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("8_k2xu4")
 volume_db = -8.915
+bus = &"SFX"
 
 [connection signal="timeout" from="rech" to="." method="_on_rech_timeout"]
 [connection signal="body_entered" from="dist" to="." method="_on_dist_body_entered"]
