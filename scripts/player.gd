@@ -92,7 +92,7 @@ func close_terminal() -> void:
 	if ui_terminal_instance:
 		ui_terminal_instance.queue_free()
 		ui_terminal_instance = null
-		
+	
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
