@@ -40,8 +40,19 @@ var code = randi()%9000+1000
 
 var music = preload("res://scenes/things/music.tscn").instantiate()
 
+var music_bus = AudioServer.get_bus_index("Music")
+
+const VOLUME_CURVE = {
+	"min_db": -40.0,
+	"max_db": 0.0,
+	"curve_exponent": 3.0 
+}
+
 func _ready() -> void:
-	#get_node("/root/Global").add_child(music)
+	# Добавляем смерть не к игроку, а к корневой ноде
+	DEATH_instance = DEATH.instantiate()
+	get_tree().root.add_child(DEATH_instance) 
+	DEATH_instance.hide()
 	
 	add_to_group("camera")
 	update_fov(Global.field_of_vision)
@@ -83,9 +94,11 @@ func _physics_process(delta: float) -> void:
 	$UI/sign.get_node("Label").text=str(code)
 	
 	if harm <= 0:
+		if not DEATH_instance.is_inside_tree():
+			get_tree().root.add_child(DEATH_instance)
+		DEATH_instance.show()
 		get_tree().paused = true
-		add_child(DEATH_instance)
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 
 func apply_vels(delta):
@@ -102,6 +115,7 @@ func close_terminal() -> void:
 		ui_terminal_instance = null
 	
 	get_tree().paused = false
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), get_parent()._linear_to_custom_volume(Global.music_volume)) 
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 func _input(event: InputEvent) -> void:
@@ -126,6 +140,7 @@ func _input(event: InputEvent) -> void:
 					ui_terminal_instance.text=0
 				if $cam/ray.get_collider().get_node("1").has_node("2"):
 					ui_terminal_instance.text=2
+			AudioServer.set_bus_volume_db(music_bus, -15.0) 
 			add_child(ui_terminal_instance) 
 
 			ui_terminal_instance.connect("close2_requested", close_terminal)
