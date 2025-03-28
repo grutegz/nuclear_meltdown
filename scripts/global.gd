@@ -3,6 +3,8 @@ extends Node
 var config_file = ConfigFile.new()
 const CONFIG_PATH = "user://config.cfg"
 
+var first_time = true
+
 var master_volume = 1.0
 var music_volume = 1.0
 var sfx_volume = 1.0

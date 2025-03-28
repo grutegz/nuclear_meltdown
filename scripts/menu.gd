@@ -4,8 +4,12 @@ var esc = true
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	AudioServer.set_bus_mute(AudioServer.get_bus_index("Music"), true) 
 
 func _on_start_game_pressed() -> void:
+	if Global.first_time:
+		pass
+	Global.first_time = false
 	var scene_tree = get_tree()
 	scene_tree.change_scene_to_file("res://scenes/main.tscn")
 

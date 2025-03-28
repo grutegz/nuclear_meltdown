@@ -8,7 +8,13 @@ var esc = true
 
 var room_count = 3
 
+var music_player = preload("res://scenes/things/music.tscn")
+var music_player_instance = music_player.instantiate()
+
 func _ready() -> void:
+	add_child(music_player_instance)
+	music_player_instance.play()
+	
 	var prev_room = null
 	for i in range(room_count):
 		var room = preload("res://scenes/room.tscn").instantiate()

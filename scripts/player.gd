@@ -27,9 +27,11 @@ var mergedVels = Vector3.ZERO
 var stopwatch_scene = preload("res://scenes/things/stopwatch.tscn")
 var stopwatch: Control
 
+var DEATH = preload("res://scenes/death.tscn")
+var DEATH_instance = DEATH.instantiate()
+
 var ui_terminal = preload("res://scenes/things/ui_terminal.tscn")
 var ui_terminal_instance
-
 
 @onready var camera = $cam
 func update_fov(new_fov: float) -> void:
@@ -79,6 +81,12 @@ func _physics_process(delta: float) -> void:
 	offsety = 0.0
 	$UI/harm.value=harm
 	$UI/sign.get_node("Label").text=str(code)
+	
+	if harm <= 0:
+		get_tree().paused = true
+		add_child(DEATH_instance)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE) 
+		
 
 func apply_vels(delta):
 	mergedVels = Vector3.ZERO
