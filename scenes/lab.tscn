@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dlb31jeltodiw"]
+[gd_scene load_steps=11 format=3 uid="uid://dlb31jeltodiw"]
 
 [ext_resource type="PackedScene" uid="uid://bjq50jt64jriw" path="res://scenes/fields.tscn" id="1_bb6uc"]
 [ext_resource type="Texture2D" uid="uid://dcvxatkl306ss" path="res://assets/textures/floor2.png" id="1_f680m"]
+[ext_resource type="Material" uid="uid://du6dm25iowvm7" path="res://scenes/things/lab1.tres" id="1_q4uld"]
 [ext_resource type="PackedScene" uid="uid://jtway4lvnwlr" path="res://scenes/things/terminal.tscn" id="2_hem3r"]
 [ext_resource type="PackedScene" uid="uid://bcjcbl2inmxa8" path="res://scenes/things/dispenser.tscn" id="3_q4uld"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f680m"]
-albedo_color = Color(0.432518, 0.460715, 0.587888, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_064jp"]
+albedo_color = Color(0.602401, 0.429699, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gipex"]
 albedo_texture = ExtResource("1_f680m")
@@ -20,6 +21,9 @@ height = 80.0
 radial_segments = 8
 rings = 2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4kvtl"]
+albedo_color = Color(0.473088, 0.336919, 0.795699, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_bb6uc"]
 size = Vector3(300, 220, 1)
 
@@ -31,11 +35,12 @@ use_collision = true
 [node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 28, 0, -5)
 size = Vector3(50, 8, 160)
+material = SubResource("StandardMaterial3D_064jp")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 37.9892, 0)
 size = Vector3(160, 68, 10)
-material = SubResource("StandardMaterial3D_f680m")
+material = ExtResource("1_q4uld")
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 9.9, 0)
@@ -46,6 +51,7 @@ material = SubResource("StandardMaterial3D_gipex")
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28, 67.0411, 55)
 size = Vector3(160, 10, 100)
+material = ExtResource("1_q4uld")
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 95.9552, 112, 81.9943)
@@ -71,13 +77,25 @@ mesh = SubResource("CylinderMesh_cbcd7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 65.9552, 112, 61.9943)
 mesh = SubResource("CylinderMesh_cbcd7")
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104, 24, -7)
-size = Vector3(5, 40, 5)
-
 [node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 24, -7)
-size = Vector3(5, 40, 5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48, 40.5, -7)
+size = Vector3(5, 73, 5)
+material = SubResource("StandardMaterial3D_4kvtl")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 47.5, -7)
+size = Vector3(5, 87, 5)
+material = SubResource("StandardMaterial3D_4kvtl")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 48, -7)
+size = Vector3(5, 88, 5)
+material = SubResource("StandardMaterial3D_4kvtl")
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 104.7, 41.5, -7)
+size = Vector3(5, 75, 5)
+material = SubResource("StandardMaterial3D_4kvtl")
 
 [node name="start" parent="." instance=ExtResource("1_bb6uc")]
 transform = Transform3D(1, 0, 0, 0, -1, -8.74228e-08, 0, 8.74228e-08, -1, -484, -3, 190)
