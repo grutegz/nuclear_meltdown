@@ -33,7 +33,8 @@ func _on_bst_pressed() -> void:
 
 
 func _on_button_pressed() -> void:
-	open_html_in_browser("AUTORS.htm")
+	#open_html_in_browser("AUTORS.htm")
+	pass
 func open_html_in_browser(file_path: String):
 	var absolute_path = ProjectSettings.globalize_path(file_path)
 	if FileAccess.file_exists(absolute_path):

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="NUCLEAR_MELTDOWN"
-run/main_scene="uid://bgs4eel51yoi5"
+run/main_scene="uid://ckipa7sdccxib"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
